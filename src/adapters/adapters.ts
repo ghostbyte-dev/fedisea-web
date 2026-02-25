@@ -1,4 +1,4 @@
-import type { Instance, Stats } from "@/lib/types";
+import type { Instance, SoftwareDistributionItem, Stats } from "@/lib/types";
 
 export const mapInstance = (data: any): Instance => {
   return ({
@@ -16,4 +16,8 @@ export const mapInstance = (data: any): Instance => {
 
 export const mapStats = (data: any): Stats => {
   return ({ totalInstances: data.totalInstances, totalAccounts: data.totalUsers })
+}
+
+export const mapSoftwareDistributionItem = (data: any): SoftwareDistributionItem => {
+  return ({ software: data.software, count: data.count, percentage: data.percentage })
 }

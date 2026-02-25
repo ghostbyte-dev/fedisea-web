@@ -27,3 +27,9 @@ export type Stats = {
   totalInstances: number,
   totalAccounts: number
 }
+
+export type SoftwareDistributionItem = {
+  software: string,
+  count: number,
+  percentage: number
+}

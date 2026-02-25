@@ -1,5 +1,6 @@
 "use client";
 
+import SoftwareDistributionSection from "@/components/SoftwareDistributionSection";
 import { useInstance } from "@/hooks/instance/useInstance";
 import { useStats } from "@/hooks/stats/useStats";
 
@@ -16,6 +17,8 @@ export default function Home() {
           <p>Total Accounts: {stats.totalAccounts}</p>
         </div>
       )}
+
+      <SoftwareDistributionSection />
     </div>
   );
 }
