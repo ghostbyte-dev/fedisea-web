@@ -33,7 +33,7 @@ const SoftwareDistributionSection = () => {
   return (
     <section className="bg-[#e9f7f9] py-20 flex flex-col justify-center">
       <div className="container max-w-3xl flex flex-col items-center">
-        <h2>What powers the Fediverse 🐙</h2>
+        <h2 className="mb-3">What powers the Fediverse 🐙</h2>
         <p>Software distribution across all known instances</p>
 
         <div className="mt-10 w-full space-y-6">
@@ -91,7 +91,7 @@ const SoftwareDistributionSection = () => {
         </div>
 
         <div className="mt-12 w-full">
-          <div className="w-full rounded-full bg-[#e4eef1] h-5 flex overflow-hidden">
+          <div className="w-full rounded-full bg-[#e4eef1] h-4 flex overflow-hidden">
             {data?.map((item, index) => (
               <div
                 key={`bar-${item.software}`}

@@ -1,7 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-light: #f2ede4;
+  --color-primary: #1eabb8;
+  --color-secondary: #e9b57f;
+  --color-tertiary: #ecab9a;
+
+  --color-muted: #e4eef1;
+  --color-card: #fbfdfd;
+  --color-border: #d9e4e8;
+  --color-light: #f4f9fb;
   --color-light-secondary: #ada79c;
 }
 
@@ -9,11 +16,11 @@
 
   html,
   body {
-    @apply text-neutral-600 font-light bg-light
+    @apply text-neutral-600 font-medium bg-light
   }
 
   h1, h2, h3 {
-    @apply text-neutral-800 font-extrabold
+    @apply text-neutral-800 font-black
   }
 
   h2 {
