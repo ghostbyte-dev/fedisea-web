@@ -11,7 +11,6 @@ const getInstanceByDomain = async (domain: string): Promise<Instance> => {
   if (!apiUrl) {
     throw new Error("Could not get api url");
   }
-  console.log(`${apiUrl}/v1/instances/${domain}`)
   return fetchSingleAndMap(
     `${apiUrl}/v1/instances/${domain}`,
     mapInstance,

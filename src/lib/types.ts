@@ -13,4 +13,17 @@ export type PaginatedResponse<T> = {
 
 export type Instance = {
   domain: string;
+  software: string;
+  version: string;
+  openRegistration: boolean;
+  totalUsers: number;
+  activeUsersMonth: number;
+  activeUsersHalfyear: number;
+  localPosts: number;
+  localComments: number;
 };
+
+export type Stats = {
+  totalInstances: number,
+  totalAccounts: number
+}
