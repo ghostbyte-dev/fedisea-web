@@ -5,7 +5,7 @@ import { useInstances } from "@/hooks/instance/useInstances";
 
 const TopServersSection = () => {
   // We request 6 instances
-  const { data, error, isLoading } = useInstances(6);
+  const { data, error, isLoading } = useInstances(30);
 
   return (
     <section className="bg-[#e9f7f9] py-20 flex flex-col justify-center">
@@ -23,16 +23,27 @@ const TopServersSection = () => {
               <Link
                 href={`/servers/${instance.domain}`}
                 key={instance.domain}
-                className="bg-white p-6 rounded-xl shadow-sm border border-cyan-100 flex flex-col items-center"
+                className="bg-white rounded-xl shadow-sm border border-cyan-100 flex flex-col items-center"
               >
-                <span className="font-bold text-cyan-900">
-                  {instance.domain}
-                </span>
-                <span className="text-sm text-gray-500">
-                  {instance.software}
-                </span>
-                <div className="mt-2 text-xs font-mono bg-cyan-50 px-2 py-1 rounded">
-                  {instance.totalUsers?.toLocaleString()} users
+                <div className="w-full max-h-54 mb-4 overflow-hidden rounded-lg bg-gray-100 flex-shrink-0">
+                  {/** biome-ignore lint/performance/noImgElement: nur test */}
+                  <img
+                    src={instance.thumbnail || 'https://placehold.co/600x400'}
+                    alt={`${instance.domain} icon`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+
+                  <span className="font-bold text-cyan-900">
+                    {instance.domain}
+                  </span>
+                  <span className="text-sm text-gray-500">
+                    {instance.software}
+                  </span>
+                  <div className="mt-2 text-xs font-mono bg-cyan-50 px-2 py-1 rounded">
+                    {instance.totalUsers?.toLocaleString()} users
+                  </div>
                 </div>
               </Link>
             ))}

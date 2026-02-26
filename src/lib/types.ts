@@ -26,6 +26,10 @@ export type Instance = {
   activeUsersHalfyear: number;
   localPosts: number;
   localComments: number;
+  title?: string;
+  description?: string;
+  source_url?: string;
+  thumbnail?: string;
 };
 
 export type Stats = {

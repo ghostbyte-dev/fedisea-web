@@ -10,7 +10,11 @@ export const mapInstance = (data: any): Instance => {
     activeUsersMonth: data.activeUsersMonth,
     activeUsersHalfyear: data.activeUsersHalfyear,
     localPosts: data.localPosts,
-    localComments: data.localComments
+    localComments: data.localComments,
+    title: data.title,
+    description: data.description,
+    source_url: data.source_url,
+    thumbnail: data.thumbnail
   })
 };
 
