@@ -1,8 +1,6 @@
 "use client";
 
 import SoftwareDistributionSection from "@/components/homepage/SoftwareDistributionSection";
-import TopServersSection from "@/components/homepage/TopServersSection";
-import { useInstance } from "@/hooks/instance/useInstance";
 import { useStats } from "@/hooks/stats/useStats";
 
 export default function Home() {
@@ -19,7 +17,6 @@ export default function Home() {
       )}
 
       <SoftwareDistributionSection />
-      <TopServersSection />
     </div>
   );
 }

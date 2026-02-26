@@ -6,10 +6,15 @@ export type PageMetadata = {
   totalPages: number;
 };
 
-export type PaginatedResponse<T> = {
-  content: T[];
-  page: PageMetadata;
-};
+export interface PaginatedResponse<T> {
+  data: T[];
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  size: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+}
 
 export type Instance = {
   domain: string;
