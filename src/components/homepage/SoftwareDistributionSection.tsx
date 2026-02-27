@@ -2,6 +2,7 @@
 
 import { useSoftwareDistribution } from "@/hooks/stats/useSoftwareDistribution";
 import { useStats } from "@/hooks/stats/useStats";
+import SoftwareLogo from "../SoftwareLogo";
 
 const COLORS = [
   "#1eabb8",
@@ -14,7 +15,7 @@ const COLORS = [
 ];
 
 const SoftwareDistributionSection = () => {
-  const { data } = useSoftwareDistribution(6);
+  const { data } = useSoftwareDistribution(30);
   const { data: totalStats } = useStats();
 
   const otherData = (() => {
@@ -39,9 +40,10 @@ const SoftwareDistributionSection = () => {
         <div className="mt-10 w-full space-y-6">
           {data?.map((item, index) => (
             <div key={item.software}>
-              <div className="w-full flex justify-between mb-1">
-                <div>
-                  <span className="font-bold">{item.software}</span>
+              <div className="w-full flex justify-between mb-2">
+                <div className="flex items-center">
+                  <SoftwareLogo name={item.software} size={16} />
+                  <span className="font-bold ml-2">{item.software}</span>
                   <span className="ml-2 text-sm text-gray-500">
                     {item.count}
                   </span>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useInstances } from "@/hooks/instance/useInstances";
+import SoftwareLogo from "../SoftwareLogo";
 
 const TopServersSection = () => {
   // We request 6 instances
@@ -23,7 +24,7 @@ const TopServersSection = () => {
               <Link
                 href={`/servers/${instance.domain}`}
                 key={instance.domain}
-                className="bg-white rounded-xl shadow-sm border border-cyan-100 flex flex-col items-center"
+                className="bg-white rounded-xl shadow-sm border border-cyan-100 flex flex-col"
               >
                 <div className="w-full max-h-54 mb-4 overflow-hidden rounded-lg bg-gray-100 flex-shrink-0">
                   {/** biome-ignore lint/performance/noImgElement: nur test */}
@@ -34,12 +35,13 @@ const TopServersSection = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <span className="font-bold text-cyan-900">
-                    {instance.domain}
-                  </span>
-                  <span className="text-sm text-gray-500">
-                    {instance.software}
-                  </span>
+                  <div className="flex items-center space-x-2">
+                    <SoftwareLogo name={instance.software} size={18} />
+                    <span className="font-bold text-cyan-900">
+                      {instance.domain}
+                    </span>
+                  </div>
+
                   <div className="mt-2 text-xs font-mono bg-cyan-50 px-2 py-1 rounded">
                     {instance.totalUsers?.toLocaleString()} users
                   </div>
