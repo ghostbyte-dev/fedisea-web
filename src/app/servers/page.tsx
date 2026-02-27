@@ -8,6 +8,10 @@ export default function Home() {
   const [inputValue, setInputValue] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
+  const [software, setSoftware] = useState("");
+
+  const softwares = ["", "mastodon", "lemmy", "misskey", "pixelfed", "pleroma"];
+
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(inputValue);
@@ -16,7 +20,11 @@ export default function Home() {
     return () => clearTimeout(handler);
   }, [inputValue]);
 
-  const { data, error, isLoading } = useInstances(30, debouncedSearch);
+  const { data, error, isLoading } = useInstances(
+    30,
+    debouncedSearch,
+    software,
+  );
 
   return (
     <div className="my-container">
@@ -28,20 +36,31 @@ export default function Home() {
         </p>
       </section>
 
-      <div className="mb-8 w-full max-w-md">
+      <div className="flex flex-col md:flex-row gap-4 mb-8 w-full max-w-2xl">
+        {/* Search Input */}
         <input
           type="text"
-          placeholder="Search for a server..."
+          placeholder="Search..."
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl border border-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-300 shadow-sm"
+          className="flex-1 px-4 py-3 rounded-xl border border-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-300 shadow-sm"
         />
-        {/* Loading indicator for the debounce period */}
-        {inputValue !== debouncedSearch && (
-          <p className="text-xs text-cyan-600 mt-2 ml-2 animate-pulse">
-            Loading
-          </p>
-        )}
+
+        {/* Software Filter Dropdown */}
+        <select
+          value={software}
+          onChange={(e) => setSoftware(e.target.value)}
+          className="px-4 py-3 rounded-xl border border-cyan-100 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-300 capitalize"
+        >
+          <option value="">All Software</option>
+          {softwares
+            .filter((s) => s !== "")
+            .map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+        </select>
       </div>
 
       <section className="my-20 flex flex-col justify-center">

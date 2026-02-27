@@ -7,6 +7,7 @@ const getInstances = async (
   page: number = 0,
   size: number = 10,
   search: string = "",
+  software: string = "",
   sortBy: string = "activeUsersMonth",
   direction: string = "desc"
 ): Promise<PaginatedResponse<Instance>> => {
@@ -18,6 +19,7 @@ const getInstances = async (
   url.searchParams.append("page", page.toString());
   url.searchParams.append("size", size.toString());
   url.searchParams.append("search", search);
+  url.searchParams.append("software", software);
   url.searchParams.append("sortBy", sortBy);
   url.searchParams.append("direction", direction);
 
