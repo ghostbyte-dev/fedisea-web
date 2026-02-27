@@ -29,7 +29,7 @@ const endpoints = [
         params: [
           { name: "page", type: "integer", desc: "Page number (default: 1)" },
           {
-            name: "per_page",
+            name: "size",
             type: "integer",
             desc: "Results per page (default: 20, max: 100)",
           },
@@ -37,6 +37,11 @@ const endpoints = [
             name: "software",
             type: "string",
             desc: "Filter by software (e.g. mastodon, lemmy)",
+          },
+          {
+            name: "search",
+            type: "string",
+            desc: "Search for instance name",
           },
           {
             name: "sort",
@@ -98,28 +103,6 @@ const endpoints = [
   "last_crawled": "2025-02-25T10:30:00Z"
 }`,
       },
-      {
-        method: "GET",
-        path: "/v1/instances/:domain/peers",
-        description:
-          "List all known peers (connected instances) of a specific instance.",
-        params: [
-          {
-            name: "domain",
-            type: "string",
-            desc: "The instance domain (path parameter)",
-          },
-        ],
-        response: `{
-  "domain": "mastodon.social",
-  "peers": [
-    "fosstodon.org",
-    "infosec.exchange",
-    "hachyderm.io"
-  ],
-  "total": 48291
-}`,
-      },
     ],
   },
   {
@@ -148,46 +131,6 @@ const endpoints = [
     ],
   },
   {
-    category: "Search",
-    icon: Search,
-    color: "text-accent",
-    bg: "bg-accent/10",
-    items: [
-      {
-        method: "GET",
-        path: "/v1/search",
-        description:
-          "Full-text search across instance names, descriptions, and rules.",
-        params: [
-          { name: "q", type: "string", desc: "Search query (required)" },
-          {
-            name: "type",
-            type: "string",
-            desc: "Filter by: instance, software (default: all)",
-          },
-          {
-            name: "limit",
-            type: "integer",
-            desc: "Max results (default: 20, max: 50)",
-          },
-        ],
-        response: `{
-  "results": [
-    {
-      "type": "instance",
-      "domain": "fosstodon.org",
-      "software": "mastodon",
-      "description": "A Mastodon instance for open source enthusiasts",
-      "score": 0.94
-    }
-  ],
-  "total": 142,
-  "query": "open source"
-}`,
-      },
-    ],
-  },
-  {
     category: "Stats",
     icon: BarChart3,
     color: "text-primary",
@@ -205,37 +148,6 @@ const endpoints = [
   "active_instances": 28401,
   "software_count": 94,
   "last_updated": "2025-02-25T10:30:00Z"
-}`,
-      },
-    ],
-  },
-  {
-    category: "Moderation",
-    icon: Shield,
-    color: "text-coral",
-    bg: "bg-coral/10",
-    items: [
-      {
-        method: "GET",
-        path: "/v1/instances/:domain/blocks",
-        description: "Get the public blocklist for an instance (if available).",
-        params: [
-          {
-            name: "domain",
-            type: "string",
-            desc: "The instance domain (path parameter)",
-          },
-        ],
-        response: `{
-  "domain": "mastodon.social",
-  "blocks": [
-    {
-      "domain": "spam.example.com",
-      "severity": "suspend",
-      "comment": "Spam and harassment"
-    }
-  ],
-  "total": 847
 }`,
       },
     ],
@@ -279,7 +191,7 @@ export default function Docs() {
 
   return (
     <div className="">
-      <div className="my-container mt-20 flex flex-col items-start">
+      <div className="my-container mt-20 mb-20 flex flex-col items-start">
         <div className="max-w-2xl">
           <h1 className="text-5xl">API Reference 🐠</h1>
           <p>

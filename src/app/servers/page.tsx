@@ -10,7 +10,15 @@ export default function Home() {
 
   const [software, setSoftware] = useState("");
 
-  const softwares = ["", "mastodon", "lemmy", "misskey", "pixelfed", "pleroma"];
+  const softwares = [
+    "",
+    "mastodon",
+    "lemmy",
+    "misskey",
+    "pixelfed",
+    "pleroma",
+    "loops",
+  ];
 
   useEffect(() => {
     const handler = setTimeout(() => {
