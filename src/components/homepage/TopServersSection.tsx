@@ -9,7 +9,7 @@ const TopServersSection = () => {
 
   return (
     <section className="bg-[#e9f7f9] py-20 flex flex-col justify-center">
-      <div className="container flex flex-col items-center">
+      <div className="my-container flex flex-col items-center">
         <h2 className="mb-3">Top Servers 🐙</h2>
         <p>Servers with the most users across the Fediverse</p>
 
@@ -28,13 +28,12 @@ const TopServersSection = () => {
                 <div className="w-full max-h-54 mb-4 overflow-hidden rounded-lg bg-gray-100 flex-shrink-0">
                   {/** biome-ignore lint/performance/noImgElement: nur test */}
                   <img
-                    src={instance.thumbnail || 'https://placehold.co/600x400'}
+                    src={instance.thumbnail || "https://placehold.co/600x400"}
                     alt={`${instance.domain} icon`}
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="p-6">
-
                   <span className="font-bold text-cyan-900">
                     {instance.domain}
                   </span>

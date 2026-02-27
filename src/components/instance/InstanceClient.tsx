@@ -7,7 +7,7 @@ export default function InstanceClient({ slug }: { slug: string }) {
 
   return (
     <main>
-      <div className="container pt-32 md:pt-48">
+      <div className="my-container pt-32 md:pt-48">
         {instance && (
           <div>
             {instance.software} (Slug: {slug})

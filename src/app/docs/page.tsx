@@ -279,7 +279,7 @@ export default function Docs() {
 
   return (
     <div className="">
-      <div className="container mt-20 flex flex-col items-start">
+      <div className="my-container mt-20 flex flex-col items-start">
         <div className="max-w-2xl">
           <h1 className="text-5xl">API Reference 🐠</h1>
           <p>
@@ -317,10 +317,7 @@ export default function Docs() {
               color: "text-coral",
             },
           ].map((item) => (
-            <div
-              key={item.label}
-              className="flex items-center gap-3 p-4 bg-card border-2 border-border rounded-xl"
-            >
+            <div key={item.label} className="flex items-center gap-3 card">
               <div className="p-2 bg-muted rounded-lg">
                 <item.icon className={`w-4 h-4 ${item.color}`} />
               </div>
