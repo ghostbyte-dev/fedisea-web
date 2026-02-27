@@ -3,7 +3,7 @@
 @theme {
   --color-primary: #1eabb8;
   --color-primary-dark: #1f5c7a;
-  --color-secondary: #e9b57f;
+  --color-secondary: #e88c30;
   --color-tertiary: #ecab9a;
 
   --color-muted: #e4eef1;
@@ -24,6 +24,10 @@
     @apply text-neutral-800 font-black
   }
 
+  h1 {
+    @apply text-5xl
+  }
+
   h2 {
     @apply text-4xl
   }
@@ -33,7 +37,7 @@
   }
 
   .my-container {
-    @apply px-5 md:px-6 max-w-5xl mx-auto
+    @apply px-5 md:px-6 w-full max-w-5xl mx-auto
   }
 }
 

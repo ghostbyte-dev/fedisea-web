@@ -88,7 +88,7 @@ export default function Crawler() {
     <div className="">
       <div className="my-container mt-20 flex flex-col items-start">
         <div className="max-w-2xl">
-          <h1 className="text-5xl">
+          <h1>
             <p>How we map</p>
             <p>
               the <span className="text-primary">Fediverse</span>

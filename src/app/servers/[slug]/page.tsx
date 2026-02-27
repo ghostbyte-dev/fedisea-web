@@ -1,8 +1,4 @@
-"use client";
-
-import { use } from "react";
 import InstanceClient from "@/components/instance/InstanceClient";
-import { useInstance } from "@/hooks/instance/useInstance";
 
 type Params = {
   params: Promise<{
