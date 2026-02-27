@@ -2,20 +2,11 @@
 
 import { useSoftwareDistribution } from "@/hooks/stats/useSoftwareDistribution";
 import { useStats } from "@/hooks/stats/useStats";
+import { getColor } from "@/lib/colors";
 import SoftwareLogo from "../SoftwareLogo";
 
-const COLORS = [
-  "#1eabb8",
-  "#4f46e5",
-  "#0ea5e9",
-  "#8b5cf6",
-  "#ec4899",
-  "#f59e0b",
-  "#94a3b8",
-];
-
 const SoftwareDistributionSection = () => {
-  const { data } = useSoftwareDistribution(30);
+  const { data } = useSoftwareDistribution(10);
   const { data: totalStats } = useStats();
 
   const otherData = (() => {
@@ -48,7 +39,7 @@ const SoftwareDistributionSection = () => {
                     {item.count}
                   </span>
                 </div>
-                <span className="font-bold" style={{ color: COLORS[index] }}>
+                <span className="font-bold" style={{ color: getColor(index) }}>
                   {item.percentage}%
                 </span>
               </div>
@@ -58,7 +49,7 @@ const SoftwareDistributionSection = () => {
                   className="absolute top-0 bottom-0 left-0 rounded-full transition-all duration-700"
                   style={{
                     width: `${item.percentage}%`,
-                    backgroundColor: COLORS[index],
+                    backgroundColor: getColor(index),
                   }}
                 />
               </div>
@@ -74,7 +65,7 @@ const SoftwareDistributionSection = () => {
                     {otherData.count}
                   </span>
                 </div>
-                <span className="font-bold" style={{ color: COLORS[6] }}>
+                <span className="font-bold" style={{ color: "#7ea2aa" }}>
                   {otherData.percentage}%
                 </span>
               </div>
@@ -84,7 +75,7 @@ const SoftwareDistributionSection = () => {
                   className="absolute top-0 bottom-0 left-0 rounded-full transition-all duration-700"
                   style={{
                     width: `${otherData.percentage}%`,
-                    backgroundColor: COLORS[6],
+                    backgroundColor: "#7ea2aa",
                   }}
                 />
               </div>
@@ -100,7 +91,7 @@ const SoftwareDistributionSection = () => {
                 className="h-full transition-all duration-1000 ease-in-out"
                 style={{
                   width: `${item.percentage}%`,
-                  backgroundColor: COLORS[index],
+                  backgroundColor: getColor(index),
                 }}
                 title={`${item.software}: ${item.percentage}%`}
               />
@@ -111,7 +102,7 @@ const SoftwareDistributionSection = () => {
                 className="h-full transition-all duration-1000 ease-in-out"
                 style={{
                   width: `${otherData.percentage}%`,
-                  backgroundColor: COLORS[6],
+                  backgroundColor: "#7ea2aa",
                 }}
                 title={`Other: ${otherData.percentage}%`}
               />
