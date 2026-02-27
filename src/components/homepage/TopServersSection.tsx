@@ -1,11 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useInstances } from "@/hooks/instance/useInstances";
-import SoftwareLogo from "../SoftwareLogo";
+import ServerCard from "../ServerCard";
 
 const TopServersSection = () => {
-  // We request 6 instances
   const { data, error, isLoading } = useInstances(30);
 
   return (
@@ -21,32 +19,7 @@ const TopServersSection = () => {
           {data?.pages
             .flatMap((page) => page.data)
             .map((instance) => (
-              <Link
-                href={`/servers/${instance.domain}`}
-                key={instance.domain}
-                className="bg-white rounded-xl shadow-sm border border-cyan-100 flex flex-col"
-              >
-                <div className="w-full max-h-54 mb-4 overflow-hidden rounded-lg bg-gray-100 flex-shrink-0">
-                  {/** biome-ignore lint/performance/noImgElement: nur test */}
-                  <img
-                    src={instance.thumbnail || "https://placehold.co/600x400"}
-                    alt={`${instance.domain} icon`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center space-x-2">
-                    <SoftwareLogo name={instance.software} size={18} />
-                    <span className="font-bold text-cyan-900">
-                      {instance.domain}
-                    </span>
-                  </div>
-
-                  <div className="mt-2 text-xs font-mono bg-cyan-50 px-2 py-1 rounded">
-                    {instance.totalUsers?.toLocaleString()} users
-                  </div>
-                </div>
-              </Link>
+              <ServerCard key={instance.domain} instance={instance} />
             ))}
         </div>
       </div>
