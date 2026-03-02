@@ -17,7 +17,7 @@ const getSoftwareDistribution = async (limit?: number): Promise<SoftwareDistribu
     throw new Error("Could not get api url");
   }
 
-  const url = new URL(`${apiUrl}/v1/stats/software`);
+  const url = new URL(`${apiUrl}/v1/software/distribution`);
   if (limit) {
     url.searchParams.append("limit", limit.toString());
   }
