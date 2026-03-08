@@ -114,6 +114,34 @@ export const endpoints = [
   ]
 }`,
       },
+      {
+        method: "GET",
+        path: "/v1/software/:slug/versions",
+        description:
+          "List all detected Fediverse software platforms and their instance counts.",
+        params: [{
+          name: "slug",
+          type: "string",
+          desc: "The software slug",
+        },
+        { name: "page", type: "integer", desc: "Page number (default: 1)" },
+        {
+          name: "size",
+          type: "integer",
+          desc: "Results per page (default: 20, max: 100)",
+        },
+        ],
+        response: `{
+  "data": [
+    { "name": "mastodon", "instances": 16842, "percentage": 51.3 },
+    { "name": "lemmy", "instances": 3291, "percentage": 10.0 },
+    { "name": "misskey", "instances": 2847, "percentage": 8.7 },
+    { "name": "pleroma", "instances": 2103, "percentage": 6.4 },
+    { "name": "peertube", "instances": 1456, "percentage": 4.4 },
+    { "name": "pixelfed", "instances": 891, "percentage": 2.7 }
+  ]
+}`,
+      },
     ],
   },
   {

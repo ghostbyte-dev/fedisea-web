@@ -1,5 +1,5 @@
-import { mapSoftware } from "@/adapters/adapters";
-import type { PaginatedResponse, Software } from "@/lib/types";
+import { mapSoftware, mapSoftwareVersion } from "@/adapters/adapters";
+import type { PaginatedResponse, Software, SoftwareVersion } from "@/lib/types";
 import { fetchPagedAndMap, fetchSingleAndMap } from "./fetch.service";
 
 
@@ -37,8 +37,24 @@ const getSoftwareByIdentifier = async (identifier: string): Promise<Software> =>
   );
 };
 
+const getSoftwareVersions = async (
+  software: string,
+  page: number,
+  size: number,
+): Promise<PaginatedResponse<SoftwareVersion>> => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (!apiUrl) throw new Error("Could not get api url");
+
+  const url = new URL(`${apiUrl}/v1/software/${software}/versions`);
+
+  url.searchParams.append("page", page.toString());
+  url.searchParams.append("size", size.toString());
+
+  return fetchPagedAndMap(url.toString(), mapSoftwareVersion);
+};
 
 export const SoftwareService = {
   getSoftwares,
-  getSoftwareByIdentifier
+  getSoftwareByIdentifier,
+  getSoftwareVersions
 };

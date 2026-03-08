@@ -45,6 +45,12 @@ export type Software = {
   localComments?: number;
 }
 
+export type SoftwareVersion = {
+  version: string,
+  count: number,
+  percentage: number
+}
+
 export type Stats = {
   totalInstances: number,
   totalAccounts: number
