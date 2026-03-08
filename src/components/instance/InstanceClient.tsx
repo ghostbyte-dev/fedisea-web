@@ -11,13 +11,15 @@ export default function InstanceClient({ slug }: { slug: string }) {
         {instance && (
           <div>
             <h1 className="mb-5">{instance.domain}</h1>
-            <div className="w-full mb-4 overflow-hidden rounded-lg bg-gray-100 flex-shrink-0">
-              {/** biome-ignore lint/performance/noImgElement: nur test */}
-              <img
-                src={instance.thumbnail || "https://placehold.co/600x400"}
-                alt={`${instance.domain} icon`}
-                className="w-full object-"
-              />
+            <div className="w-full mb-4 overflow-hidden rounded-lg bg-gray-100 shrink-0">
+              {instance.thumbnail && (
+                // biome-ignore lint/performance/noImgElement: <explanation>
+                <img
+                  src={instance.thumbnail}
+                  alt={`${instance.domain} icon`}
+                  className="w-full object-"
+                />
+              )}
             </div>
             <p>{instance.description}</p>
 

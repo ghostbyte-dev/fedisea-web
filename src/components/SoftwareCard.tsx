@@ -13,7 +13,7 @@ const SoftwareCard = ({ software }: SoftwareCardProps) => {
       className="group bg-white rounded-xl shadow-sm border border-cyan-100 flex flex-col transition-all hover:shadow-md hover:-translate-y-1"
     >
       <div className="p-6">
-        <div className="flex mt-2 space-x-2">
+        <div className="flex space-x-2">
           <SoftwareLogo
             url={software.iconUrl}
             name={software.identifier}
