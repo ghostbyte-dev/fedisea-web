@@ -32,7 +32,7 @@ export const endpoints = [
           {
             name: "sort",
             type: "string",
-            desc: "Sort by: users, statuses, connections, name",
+            desc: "Sort by: users, activeUsersMonth, activeUsersHalfyear, posts, softwareVersion, name",
           },
           {
             name: "order",

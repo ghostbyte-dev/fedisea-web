@@ -20,8 +20,8 @@ const getInstances = async (
   url.searchParams.append("size", size.toString());
   url.searchParams.append("search", search);
   url.searchParams.append("software", software);
-  url.searchParams.append("sortBy", sortBy);
-  url.searchParams.append("direction", direction);
+  url.searchParams.append("sort", sortBy);
+  url.searchParams.append("order", direction);
 
   return fetchPagedAndMap(url.toString(), mapInstance);
 };

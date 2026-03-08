@@ -1,14 +1,26 @@
 "use client";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ServerCard from "@/components/ServerCard";
 import { useInstances } from "@/hooks/instance/useInstances";
 
 export default function Home() {
-  const [inputValue, setInputValue] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const [software, setSoftware] = useState("");
+  const [inputValue, setInputValue] = useState(
+    searchParams.get("search") || "",
+  );
+  const [debouncedSearch, setDebouncedSearch] = useState(inputValue);
+  const [software, setSoftware] = useState(searchParams.get("software") || "");
+  const [sortOption, setSortOption] = useState(
+    searchParams.get("sort") || "users",
+  );
+  const [sortOrder, setSortOrder] = useState(
+    searchParams.get("order") || "desc",
+  );
 
   const softwares = [
     "",
@@ -19,6 +31,29 @@ export default function Home() {
     "pleroma",
     "loops",
   ];
+
+  const sortOptions = [
+    { label: "Users", value: "users" },
+    { label: "Monthly Users", value: "activeUsersMonth" },
+    { label: "6-Month Users", value: "activeUsersHalfyear" },
+    { label: "Posts", value: "posts" },
+    { label: "Software Version", value: "softwareVersion" },
+    { label: "Name", value: "name" },
+  ];
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (debouncedSearch) params.set("search", debouncedSearch);
+    if (software) params.set("software", software);
+    if (sortOption !== "users") params.set("sort", sortOption);
+    if (sortOrder !== "desc") params.set("order", sortOrder);
+
+    const queryString = params.toString();
+    const url = queryString ? `${pathname}?${queryString}` : pathname;
+
+    router.replace(url, { scroll: false });
+  }, [debouncedSearch, software, sortOption, sortOrder, pathname, router]);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -32,6 +67,8 @@ export default function Home() {
     30,
     debouncedSearch,
     software,
+    sortOption,
+    sortOrder,
   );
 
   return (
@@ -68,6 +105,28 @@ export default function Home() {
                 {s}
               </option>
             ))}
+        </select>
+
+        <select
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+          className="px-4 py-3 rounded-xl border border-cyan-100 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-300"
+        >
+          {sortOptions.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              Sort by: {opt.label}
+            </option>
+          ))}
+        </select>
+
+        {/* Sort Order Dropdown */}
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="px-4 py-3 rounded-xl border border-cyan-100 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-300"
+        >
+          <option value="desc">Descending ↓</option>
+          <option value="asc">Ascending ↑</option>
         </select>
       </div>
 
