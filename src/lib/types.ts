@@ -39,6 +39,7 @@ export type Stats = {
 
 export type SoftwareDistributionItem = {
   software: string,
+  name?: string,
   count: number,
   percentage: number
 }

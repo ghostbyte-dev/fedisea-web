@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSoftwareDistribution } from "@/hooks/stats/useSoftwareDistribution";
 import { useStats } from "@/hooks/stats/useStats";
 import { getColor } from "@/lib/colors";
@@ -34,7 +35,12 @@ const SoftwareDistributionSection = () => {
               <div className="w-full flex justify-between mb-2">
                 <div className="flex items-center">
                   <SoftwareLogo name={item.software} size={16} />
-                  <span className="font-bold ml-2">{item.software}</span>
+                  <Link
+                    href={`/software/${item.software}`}
+                    className="font-bold ml-2 hover:underline"
+                  >
+                    {item.name ?? item.software}
+                  </Link>
                   <span className="ml-2 text-sm text-gray-500">
                     {item.count}
                   </span>
@@ -44,7 +50,7 @@ const SoftwareDistributionSection = () => {
                 </span>
               </div>
 
-              <div className="w-full rounded-full bg-[#e4eef1] h-3 relative overflow-hidden">
+              <div className="w-full rounded-full bg-muted h-3 relative overflow-hidden">
                 <div
                   className="absolute top-0 bottom-0 left-0 rounded-full transition-all duration-700"
                   style={{
@@ -70,7 +76,7 @@ const SoftwareDistributionSection = () => {
                 </span>
               </div>
 
-              <div className="w-full rounded-full bg-[#e4eef1] h-3 relative overflow-hidden">
+              <div className="w-full rounded-full bg-muted h-3 relative overflow-hidden">
                 <div
                   className="absolute top-0 bottom-0 left-0 rounded-full transition-all duration-700"
                   style={{
@@ -84,7 +90,7 @@ const SoftwareDistributionSection = () => {
         </div>
 
         <div className="mt-12 w-full">
-          <div className="w-full rounded-full bg-[#e4eef1] h-4 flex overflow-hidden">
+          <div className="w-full rounded-full bg-muted h-4 flex overflow-hidden">
             {data?.map((item, index) => (
               <div
                 key={`bar-${item.software}`}

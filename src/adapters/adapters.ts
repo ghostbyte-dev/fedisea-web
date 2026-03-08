@@ -23,5 +23,5 @@ export const mapStats = (data: any): Stats => {
 }
 
 export const mapSoftwareDistributionItem = (data: any): SoftwareDistributionItem => {
-  return ({ software: data.software, count: data.count, percentage: data.percentage })
+  return ({ software: data.software, name: data.name, count: data.count, percentage: data.percentage })
 }
