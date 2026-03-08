@@ -7,43 +7,42 @@ const SoftwareVersionSection = ({ software }: { software: string }) => {
   const { data, error, isLoading } = useSoftwareVersions(software, 10);
 
   return (
-    <section className="bg-[#e9f7f9] py-20 flex flex-col justify-center">
-      <div className="my-container flex flex-col items-center">
-        <h2 className="mb-3">Version distribution</h2>
+    <div className="w-full">
+      <h2 className="mb-3">Versions</h2>
 
-        {isLoading && <p>Loading</p>}
-        {error && <p className="text-red-500">{error.message}</p>}
+      {isLoading && <p>Loading</p>}
+      {error && <p className="text-red-500">{error.message}</p>}
 
-        <div className="mt-10 w-full space-y-6">
-          {data?.pages[0].data.map((item, index) => (
-            <div key={item.version}>
-              <div className="w-full flex justify-between mb-2">
-                <div className="flex items-center">
-                  <span className="font-bold ml-2 hover:underline">
-                    {item.version}
-                  </span>
-                  <span className="ml-2 text-sm text-gray-500">
-                    {item.count} Servers
-                  </span>
-                </div>
-                <span className="font-bold" style={{ color: getColor(index) }}>
-                  {item.percentage}%
+      <div className="mt-6 w-full space-y-4">
+        {data?.pages[0].data.map((item, index) => (
+          <div key={item.version}>
+            <div className="w-full flex justify-between mb-1">
+              <div className="flex items-center">
+                <span className="font-bold ml-1 hover:underline">
+                  {item.version}
+                </span>
+                <span className="ml-2 text-sm text-gray-500">
+                  {item.count} Servers
                 </span>
               </div>
-
-              <div className="w-full rounded-full bg-muted h-3 relative overflow-hidden">
-                <div
-                  className="absolute top-0 bottom-0 left-0 rounded-full transition-all duration-700"
-                  style={{
-                    width: `${item.percentage}%`,
-                    backgroundColor: getColor(index),
-                  }}
-                />
-              </div>
+              <span className="font-bold" style={{ color: getColor(index) }}>
+                {item.percentage}%
+              </span>
             </div>
-          ))}
 
-          {/* {otherData && (
+            <div className="w-full rounded-full bg-muted h-3 relative overflow-hidden">
+              <div
+                className="absolute top-0 bottom-0 left-0 rounded-full transition-all duration-700"
+                style={{
+                  width: `${item.percentage}%`,
+                  backgroundColor: getColor(index),
+                }}
+              />
+            </div>
+          </div>
+        ))}
+
+        {/* {otherData && (
             <div key="other">
               <div className="w-full flex justify-between mb-1">
                 <div>
@@ -68,9 +67,9 @@ const SoftwareVersionSection = ({ software }: { software: string }) => {
               </div>
             </div>
           )} */}
-        </div>
+      </div>
 
-        {/* <div className="mt-12 w-full">
+      {/* <div className="mt-12 w-full">
           <div className="w-full rounded-full bg-muted h-4 flex overflow-hidden">
             {data?.map((item, index) => (
               <div
@@ -96,8 +95,7 @@ const SoftwareVersionSection = ({ software }: { software: string }) => {
             )}
           </div>
         </div> */}
-      </div>
-    </section>
+    </div>
   );
 };
 
