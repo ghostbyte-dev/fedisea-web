@@ -30,13 +30,18 @@ export type Instance = {
   description?: string;
   source_url?: string;
   thumbnail?: string;
+  softwareLogoUrl?: string
 };
 
 export type Software = {
   identifier: string;
   name: string;
+  description?: string;
+  iconUrl?: string;
   website?: string;
+  joinUrl?: string;
   sourceCode?: string;
+  license?: string;
   instances?: number;
   activeUsersMonthly?: number;
   activeUsersHalfyear?: number;
@@ -59,6 +64,7 @@ export type Stats = {
 export type SoftwareDistributionItem = {
   software: string,
   name?: string,
+  softwareLogoUrl?: string,
   count: number,
   percentage: number
 }

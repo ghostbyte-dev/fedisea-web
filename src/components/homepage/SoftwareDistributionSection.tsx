@@ -34,7 +34,11 @@ const SoftwareDistributionSection = () => {
             <div key={item.software}>
               <div className="w-full flex justify-between mb-2">
                 <div className="flex items-center">
-                  <SoftwareLogo name={item.software} size={16} />
+                  <SoftwareLogo
+                    url={item.softwareLogoUrl}
+                    name={item.software}
+                    size={16}
+                  />
                   <Link
                     href={`/software/${item.software}`}
                     className="font-bold ml-2 hover:underline"

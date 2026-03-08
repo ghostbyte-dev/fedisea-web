@@ -23,7 +23,11 @@ const ServerCard = ({ instance }: ServerCardProps) => {
 
       <div className="p-6">
         <div className="flex items-center space-x-2">
-          <SoftwareLogo name={instance.software} size={18} />
+          <SoftwareLogo
+            url={instance.softwareLogoUrl}
+            name={instance.software}
+            size={18}
+          />
           <span className="font-bold text-cyan-900 truncate">
             {instance.domain}
           </span>

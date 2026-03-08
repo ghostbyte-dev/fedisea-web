@@ -1,18 +1,18 @@
 import Image from "next/image";
 
 interface SoftwareLogoProps {
-  name: string | null | undefined;
+  url: string | null | undefined;
+  name?: string | undefined;
   size?: number;
   className?: string;
 }
 
 const SoftwareLogo = ({
+  url,
   name,
   size = 32,
   className = "",
 }: SoftwareLogoProps) => {
-  const software = name?.toLowerCase().trim() || "unknown";
-
   const getLogoPath = (name: string): string => {
     switch (name) {
       case "mastodon":
@@ -58,19 +58,17 @@ const SoftwareLogo = ({
     }
   };
 
-  const logoSrc = getLogoPath(software);
-
   return (
     <div
-      className={`relative flex-shrink-0 ${className}`}
+      className={`relative shrink-0 ${className}`}
       style={{ width: size, height: size }}
     >
       <Image
-        src={logoSrc}
+        src={url ?? "/software-logos/fediverse.svg"}
         alt={`${name || "Unknown"} software logo`}
-        fill // Use fill for better scaling in a defined div
+        fill
         className="object-contain"
-        priority={size > 40} // Prioritize loading if it's a large logo
+        priority={size > 40}
       />
     </div>
   );

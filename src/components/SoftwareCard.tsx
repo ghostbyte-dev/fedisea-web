@@ -13,9 +13,16 @@ const SoftwareCard = ({ software }: SoftwareCardProps) => {
       className="group bg-white rounded-xl shadow-sm border border-cyan-100 flex flex-col transition-all hover:shadow-md hover:-translate-y-1"
     >
       <div className="p-6">
-        <div className="flex items-center space-x-2">
-          <SoftwareLogo name={software.identifier} size={24} />
-          <span className="font-black text-xl">{software.name}</span>
+        <div className="flex mt-2 space-x-2">
+          <SoftwareLogo
+            url={software.iconUrl}
+            name={software.identifier}
+            size={24}
+          />
+          <div>
+            <span className="font-black text-xl">{software.name}</span>
+            <p>{software.description}</p>
+          </div>
         </div>
 
         <div className="grid grid-cols-4 gap-2 border-t border-cyan-50 pt-4">

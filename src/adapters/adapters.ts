@@ -14,7 +14,8 @@ export const mapInstance = (data: any): Instance => {
     title: data.title,
     description: data.description,
     source_url: data.source_url,
-    thumbnail: data.thumbnail
+    thumbnail: data.thumbnail,
+    softwareLogoUrl: data.softwareLogoUrl
   })
 };
 
@@ -22,8 +23,12 @@ export const mapSoftware = (data: any): Software => {
   return {
     identifier: data.identifier,
     name: data.name,
+    description: data.description,
+    iconUrl: data.iconUrl,
     website: data.website,
+    joinUrl: data.joinUrl,
     sourceCode: data.sourceCode,
+    license: data.license,
     instances: data.instances,
     activeUsersMonthly: data.activeUsersMonthly,
     activeUsersHalfyear: data.activeUsersHalfyear,
@@ -42,5 +47,5 @@ export const mapStats = (data: any): Stats => {
 }
 
 export const mapSoftwareDistributionItem = (data: any): SoftwareDistributionItem => {
-  return ({ software: data.software, name: data.name, count: data.count, percentage: data.percentage })
+  return ({ software: data.software, name: data.name, softwareLogoUrl: data.softwareLogoUrl, count: data.count, percentage: data.percentage })
 }

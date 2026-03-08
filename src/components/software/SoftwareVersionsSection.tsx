@@ -4,15 +4,14 @@ import { useSoftwareVersions } from "@/hooks/software/useSoftwareVersions";
 import { getColor } from "@/lib/colors";
 
 const SoftwareVersionSection = ({ software }: { software: string }) => {
-  const { data, error, isLoading } = useSoftwareVersions(software, 30);
+  const { data, error, isLoading } = useSoftwareVersions(software, 10);
 
   return (
     <section className="bg-[#e9f7f9] py-20 flex flex-col justify-center">
       <div className="my-container flex flex-col items-center">
-        <h2 className="mb-3">Top Servers 🐙</h2>
-        <p>Servers with the most users across the Fediverse</p>
+        <h2 className="mb-3">Version distribution</h2>
 
-        {isLoading && <p>Searching the stars...</p>}
+        {isLoading && <p>Loading</p>}
         {error && <p className="text-red-500">{error.message}</p>}
 
         <div className="mt-10 w-full space-y-6">
@@ -24,7 +23,7 @@ const SoftwareVersionSection = ({ software }: { software: string }) => {
                     {item.version}
                   </span>
                   <span className="ml-2 text-sm text-gray-500">
-                    {item.count}
+                    {item.count} Servers
                   </span>
                 </div>
                 <span className="font-bold" style={{ color: getColor(index) }}>
