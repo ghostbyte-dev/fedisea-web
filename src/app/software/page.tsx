@@ -3,9 +3,11 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ServerCard from "@/components/ServerCard";
+import SoftwareCard from "@/components/SoftwareCard";
 import { useInstances } from "@/hooks/instance/useInstances";
+import { useSoftwares } from "@/hooks/software/useSoftwares";
 
-export default function Servers() {
+export default function Software() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -21,16 +23,6 @@ export default function Servers() {
   const [sortOrder, setSortOrder] = useState(
     searchParams.get("order") || "desc",
   );
-
-  const softwares = [
-    "",
-    "mastodon",
-    "lemmy",
-    "misskey",
-    "pixelfed",
-    "pleroma",
-    "loops",
-  ];
 
   const sortOptions = [
     { label: "Users", value: "users" },
@@ -63,7 +55,7 @@ export default function Servers() {
     return () => clearTimeout(handler);
   }, [inputValue]);
 
-  const { data, error, isLoading } = useInstances(
+  const { data, error, isLoading } = useSoftwares(
     30,
     debouncedSearch,
     software,
@@ -74,7 +66,7 @@ export default function Servers() {
   return (
     <div className="my-container">
       <section className="max-w-2xl mt-20 mb-10">
-        <h1 className="text-5xl">Servers 🐠</h1>
+        <h1 className="text-5xl">Software 🐠</h1>
         <p>
           Explore the Fediverse programmatically. All endpoints return JSON and
           require no authentication for read access.
@@ -90,22 +82,6 @@ export default function Servers() {
           onChange={(e) => setInputValue(e.target.value)}
           className="flex-1 px-4 py-3 rounded-xl border border-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-300 shadow-sm"
         />
-
-        {/* Software Filter Dropdown */}
-        <select
-          value={software}
-          onChange={(e) => setSoftware(e.target.value)}
-          className="px-4 py-3 rounded-xl border border-cyan-100 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-300 capitalize"
-        >
-          <option value="">All Software</option>
-          {softwares
-            .filter((s) => s !== "")
-            .map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
-        </select>
 
         <select
           value={sortOption}
@@ -134,11 +110,11 @@ export default function Servers() {
         {isLoading && <p>Loading</p>}
         {error && <p className="text-red-500">{error.message}</p>}
 
-        <div className="mt-10 w-full gap-6 grid grid-cols-1 md:grid-cols-3">
+        <div className="mt-10 w-full gap-6 grid grid-cols-1">
           {data?.pages
             .flatMap((page) => page.data)
-            .map((instance) => (
-              <ServerCard key={instance.domain} instance={instance} />
+            .map((software) => (
+              <SoftwareCard key={software.identifier} software={software} />
             ))}
         </div>
       </section>

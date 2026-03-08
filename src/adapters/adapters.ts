@@ -1,4 +1,4 @@
-import type { Instance, SoftwareDistributionItem, Stats } from "@/lib/types";
+import type { Instance, Software, SoftwareDistributionItem, Stats } from "@/lib/types";
 
 export const mapInstance = (data: any): Instance => {
   return ({
@@ -16,6 +16,21 @@ export const mapInstance = (data: any): Instance => {
     source_url: data.source_url,
     thumbnail: data.thumbnail
   })
+};
+
+export const mapSoftware = (data: any): Software => {
+  return {
+    identifier: data.identifier,
+    name: data.name,
+    website: data.website,
+    sourceCode: data.sourceCode,
+    instances: data.instances,
+    activeUsersMonthly: data.activeUsersMonthly,
+    activeUsersHalfyear: data.activeUsersHalfyear,
+    totalUsers: data.totalUsers,
+    localPosts: data.localPosts,
+    localComments: data.localComments,
+  };
 };
 
 export const mapStats = (data: any): Stats => {

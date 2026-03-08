@@ -1,13 +1,32 @@
 "use client";
 
-import { useInstance } from "@/hooks/instance/useInstance";
+import { useInstances } from "@/hooks/instance/useInstances";
+import ServerCard from "../ServerCard";
 
 export default function SoftwareClient({ slug }: { slug: string }) {
   //const { data: instance } = useInstance(slug);
 
+  const { data, error, isLoading } = useInstances(30, undefined, slug);
+
   return (
     <main>
-      <div className="my-container pt-10 md:pt-20">{slug}</div>
+      <section className="bg-[#e9f7f9] py-20 flex flex-col justify-center">
+        <div className="my-container flex flex-col items-center">
+          <h2 className="mb-3">Top Servers 🐙</h2>
+          <p>Servers with the most users across the Fediverse</p>
+
+          {isLoading && <p>Searching the stars...</p>}
+          {error && <p className="text-red-500">{error.message}</p>}
+
+          <div className="mt-10 w-full gap-6 grid grid-cols-1 md:grid-cols-3">
+            {data?.pages
+              .flatMap((page) => page.data)
+              .map((instance) => (
+                <ServerCard key={instance.domain} instance={instance} />
+              ))}
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

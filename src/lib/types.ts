@@ -32,6 +32,19 @@ export type Instance = {
   thumbnail?: string;
 };
 
+export type Software = {
+  identifier: string;
+  name: string;
+  website?: string;
+  sourceCode?: string;
+  instances?: number;
+  activeUsersMonthly?: number;
+  activeUsersHalfyear?: number;
+  totalUsers?: number;
+  localPosts?: number;
+  localComments?: number;
+}
+
 export type Stats = {
   totalInstances: number,
   totalAccounts: number
