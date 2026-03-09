@@ -1,8 +1,9 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import type { InstanceSortField, SortDirection } from "@/lib/types";
 import { InstanceService } from "@/services/instance.service";
 
 interface UseInstancesOptions {
+  page?: number;
   size?: number;
   search?: string;
   software?: string;
@@ -11,6 +12,7 @@ interface UseInstancesOptions {
 }
 
 export const useInstances = ({
+  page = 0,
   size = 10,
   search = "",
   software = "",
@@ -18,12 +20,12 @@ export const useInstances = ({
   direction = "desc",
 }: UseInstancesOptions = {}
 ) =>
-  useInfiniteQuery({
-    queryKey: ["instances", size, search, software, sortBy, direction],
+  useQuery({
+    queryKey: ["instances", { size, search, software, page, sortBy, direction }],
 
-    queryFn: ({ pageParam = 0 }) =>
+    queryFn: () =>
       InstanceService.getInstances(
-        pageParam,
+        page,
         size,
         search,
         software,
@@ -31,9 +33,4 @@ export const useInstances = ({
         direction,
       ),
 
-    initialPageParam: 0,
-
-    getNextPageParam: (lastPage) => {
-      return lastPage.hasNext ? lastPage.currentPage + 1 : undefined;
-    },
   });

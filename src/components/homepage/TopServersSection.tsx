@@ -16,11 +16,9 @@ const TopServersSection = () => {
         {error && <p className="text-red-500">{error.message}</p>}
 
         <div className="mt-10 w-full gap-6 grid grid-cols-1 md:grid-cols-3">
-          {data?.pages
-            .flatMap((page) => page.data)
-            .map((instance) => (
-              <ServerCard key={instance.domain} instance={instance} />
-            ))}
+          {data?.data.map((instance) => (
+            <ServerCard key={instance.domain} instance={instance} />
+          ))}
         </div>
       </div>
     </section>

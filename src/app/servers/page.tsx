@@ -15,6 +15,7 @@ export default function Servers() {
     searchParams.get("search") || "",
   );
   const [debouncedSearch, setDebouncedSearch] = useState(inputValue);
+  const [page, setPage] = useState(Number(searchParams.get("page")) || 0);
   const [software, setSoftware] = useState(searchParams.get("software") || "");
   const [sortOption, setSortOption] = useState<InstanceSortField>(
     (searchParams.get("sort") as InstanceSortField) || "users",
@@ -50,12 +51,27 @@ export default function Servers() {
     if (software) params.set("software", software);
     if (sortOption !== "users") params.set("sort", sortOption);
     if (sortOrder !== "desc") params.set("order", sortOrder);
+    if (page > 0) params.set("page", page.toString());
 
     const queryString = params.toString();
     const url = queryString ? `${pathname}?${queryString}` : pathname;
 
     router.replace(url, { scroll: false });
-  }, [debouncedSearch, software, sortOption, sortOrder, pathname, router]);
+  }, [
+    debouncedSearch,
+    software,
+    sortOption,
+    sortOrder,
+    page,
+    pathname,
+    router,
+  ]);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <>
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setPage(0);
+  }, [debouncedSearch, software, sortOption, sortOrder]);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -66,6 +82,7 @@ export default function Servers() {
   }, [inputValue]);
 
   const { data, error, isLoading } = useInstances({
+    page,
     size: 30,
     search: debouncedSearch,
     software: software,
@@ -136,20 +153,69 @@ export default function Servers() {
         {isLoading && <p>Loading</p>}
         {error && <p className="text-red-500">{error.message}</p>}
 
-        {data?.pages[0] && (
-          <p>
-            {data?.pages[0]?.totalItems} Result
-            {data?.pages[0]?.totalItems > 1 && "s"}
+        {data && (
+          <p className="font-bold text-lg">
+            {data?.totalItems} Result
+            {data?.totalItems > 1 && "s"}:
           </p>
         )}
 
         <div className="mt-10 w-full gap-6 grid grid-cols-1 md:grid-cols-3">
-          {data?.pages
-            .flatMap((page) => page.data)
-            .map((instance) => (
-              <ServerCard key={instance.domain} instance={instance} />
-            ))}
+          {data?.data.map((instance) => (
+            <ServerCard key={instance.domain} instance={instance} />
+          ))}
         </div>
+
+        {/* Pagination Controls */}
+        {data && data.totalPages > 1 && (
+          <div className="mt-12 flex flex-wrap justify-center items-center gap-2 pb-20">
+            {/* First Page Button */}
+            {page > 2 && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setPage(0)}
+                  className="px-4 py-2 rounded-xl border border-cyan-100 bg-white hover:bg-cyan-50 transition-colors"
+                >
+                  1
+                </button>
+                <span className="text-gray-400">...</span>
+              </>
+            )}
+
+            {/* Dynamic Page Numbers */}
+            {Array.from({ length: data.totalPages }, (_, i) => i)
+              .filter((i) => i >= page - 2 && i <= page + 2)
+              .map((p) => (
+                <button
+                  type="button"
+                  key={p}
+                  onClick={() => setPage(p)}
+                  className={`px-4 py-2 rounded-xl border transition-all ${
+                    page === p
+                      ? "bg-cyan-500 text-white border-cyan-500 shadow-md"
+                      : "bg-white border-cyan-100 hover:bg-cyan-50 text-gray-700"
+                  }`}
+                >
+                  {p + 1}
+                </button>
+              ))}
+
+            {/* Last Page Button */}
+            {page < data.totalPages - 3 && (
+              <>
+                <span className="text-gray-400">...</span>
+                <button
+                  type="button"
+                  onClick={() => setPage(data.totalPages - 1)}
+                  className="px-4 py-2 rounded-xl border border-cyan-100 bg-white hover:bg-cyan-50 transition-colors"
+                >
+                  {data.totalPages}
+                </button>
+              </>
+            )}
+          </div>
+        )}
       </section>
     </div>
   );
