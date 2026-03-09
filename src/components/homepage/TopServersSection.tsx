@@ -4,7 +4,7 @@ import { useInstances } from "@/hooks/instance/useInstances";
 import ServerCard from "../ServerCard";
 
 const TopServersSection = () => {
-  const { data, error, isLoading } = useInstances(30);
+  const { data, error, isLoading } = useInstances({ size: 9 });
 
   return (
     <section className="bg-[#e9f7f9] py-20 flex flex-col justify-center">

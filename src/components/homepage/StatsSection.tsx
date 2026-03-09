@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useStats } from "@/hooks/stats/useStats";
 
@@ -28,15 +27,19 @@ const StatCard = ({
 
   return (
     <div
-      className={`relative p-6 border-2 border-border rounded-2xl bg-card transition-all duration-700 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-        }`}
+      className={`relative p-6 border-2 border-border rounded-2xl bg-card transition-all duration-700 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      }`}
     >
       <span className="text-2xl mb-3 block">{emoji}</span>
       <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">
         {label}
       </p>
       <p className="text-3xl sm:text-4xl font-black text-foreground font-mono">
-        {new Intl.NumberFormat(undefined, { notation: "compact", maximumSignificantDigits: 3 }).format(value)}
+        {new Intl.NumberFormat(undefined, {
+          notation: "compact",
+          maximumSignificantDigits: 3,
+        }).format(value)}
         {suffix && (
           <span className="text-primary text-lg ml-1 font-bold">{suffix}</span>
         )}
@@ -79,11 +82,9 @@ const StatsSection = () => {
               label="Total active accounts half year"
               value={data.totalActiveUsersHalfYear}
               emoji="🧑‍🤝‍🧑"
-            /><StatCard
-              label="Total Posts"
-              value={data.totalPosts}
-              emoji="🧑‍🤝‍🧑"
-            /><StatCard
+            />
+            <StatCard label="Total Posts" value={data.totalPosts} emoji="🧑‍🤝‍🧑" />
+            <StatCard
               label="Total Comments"
               value={data.totalComments}
               emoji="🧑‍🤝‍🧑"

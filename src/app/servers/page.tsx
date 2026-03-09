@@ -136,6 +136,13 @@ export default function Servers() {
         {isLoading && <p>Loading</p>}
         {error && <p className="text-red-500">{error.message}</p>}
 
+        {data?.pages[0] && (
+          <p>
+            {data?.pages[0]?.totalItems} Result
+            {data?.pages[0]?.totalItems > 1 && "s"}
+          </p>
+        )}
+
         <div className="mt-10 w-full gap-6 grid grid-cols-1 md:grid-cols-3">
           {data?.pages
             .flatMap((page) => page.data)
