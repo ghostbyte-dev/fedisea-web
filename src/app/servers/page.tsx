@@ -37,9 +37,10 @@ export default function Servers() {
     { label: "Users", value: "users" },
     { label: "Monthly Users", value: "activeUsersMonth" },
     { label: "6-Month Users", value: "activeUsersHalfyear" },
-    { label: "Posts", value: "posts" },
+    { label: "Posts", value: "localPosts" },
+    { label: "Comments", value: "localComments" },
     { label: "Software Version", value: "softwareVersion" },
-    { label: "Name", value: "name" },
+    { label: "Domain", value: "domain" },
   ];
 
   useEffect(() => {

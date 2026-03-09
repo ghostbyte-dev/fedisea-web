@@ -117,7 +117,7 @@ export default function InstanceClient({ slug }: { slug: string }) {
                       </div>
                       <div className="bg-muted/50 rounded-xl p-4 text-center">
                         <p className="text-2xl font-black text-foreground">
-                          {instance.localComments}
+                          {instance.localComments ?? "/"}
                         </p>
                         <p className="text-sm text-muted-foreground font-bold mt-1">
                           Local Comments

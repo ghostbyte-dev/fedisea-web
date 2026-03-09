@@ -7,22 +7,26 @@ import { getColor } from "@/lib/colors";
 import SoftwareLogo from "../SoftwareLogo";
 
 const SoftwareDistributionSection = () => {
-  const { data: softwares } = useSoftwares({ size: 10, sortBy: "instances" });
+  const { data: softwares } = useSoftwares({
+    size: 10,
+    sortBy: "activeUsersMonth",
+  });
   const { data: globalStats } = useStats();
 
-  const total = globalStats?.totalInstances || 0;
+  const total = globalStats?.totalActiveUsersMonth || 0;
 
   const processedItems =
     softwares?.pages[0]?.data?.map((item) => ({
       ...item,
-      displayPercentage: total > 0 ? ((item.instances || 0) / total) * 100 : 0,
+      displayPercentage:
+        total > 0 ? ((item.activeUsersMonthly || 0) / total) * 100 : 0,
     })) || [];
 
   const otherData = (() => {
     if (!processedItems.length || total <= 0) return null;
 
     const topCount = processedItems.reduce(
-      (acc, item) => acc + (item.instances || 0),
+      (acc, item) => acc + (item.activeUsersMonthly || 0),
       0,
     );
     const otherCount = total - topCount;
@@ -55,7 +59,7 @@ const SoftwareDistributionSection = () => {
                     {item.name ?? item.identifier}
                   </Link>
                   <span className="ml-2 text-sm text-gray-500">
-                    {item.instances}
+                    {item.activeUsersMonthly}
                   </span>
                 </div>
                 <span className="font-bold" style={{ color: getColor(index) }}>

@@ -15,7 +15,6 @@ export default function Software() {
     searchParams.get("search") || "",
   );
   const [debouncedSearch, setDebouncedSearch] = useState(inputValue);
-  const [software, setSoftware] = useState(searchParams.get("software") || "");
   const [sortOption, setSortOption] = useState<SoftwareSortField>(
     (searchParams.get("sort") as SoftwareSortField) || "users",
   );
@@ -24,19 +23,19 @@ export default function Software() {
   );
 
   const sortOptions = [
-    { label: "Users", value: "users" },
+    { label: "Users", value: "totalUsers" },
+    { label: "Servers", value: "instances" },
     { label: "Monthly Users", value: "activeUsersMonth" },
     { label: "6-Month Users", value: "activeUsersHalfyear" },
-    { label: "Posts", value: "posts" },
-    { label: "Software Version", value: "softwareVersion" },
-    { label: "Name", value: "name" },
+    { label: "Posts", value: "localPosts" },
+    { label: "Comments", value: "localComments" },
+    { label: "Name", value: "identifier" },
   ];
 
   useEffect(() => {
     const params = new URLSearchParams();
 
     if (debouncedSearch) params.set("search", debouncedSearch);
-    if (software) params.set("software", software);
     if (sortOption !== "totalUsers") params.set("sort", sortOption);
     if (sortOrder !== "desc") params.set("order", sortOrder);
 
@@ -44,7 +43,7 @@ export default function Software() {
     const url = queryString ? `${pathname}?${queryString}` : pathname;
 
     router.replace(url, { scroll: false });
-  }, [debouncedSearch, software, sortOption, sortOrder, pathname, router]);
+  }, [debouncedSearch, sortOption, sortOrder, pathname, router]);
 
   useEffect(() => {
     const handler = setTimeout(() => {

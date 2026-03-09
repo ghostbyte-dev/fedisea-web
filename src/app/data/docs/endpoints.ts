@@ -44,22 +44,27 @@ export const endpoints = [
   "data": [
     {
       "domain": "mastodon.social",
+      "title": "Mastodon",
+      "description": "The original server operated by the Mastodon gGmbH non-profit",
+      "sourceUrl": "https://github.com/mastodon/mastodon",
+      "thumbnail": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
       "software": "mastodon",
-      "version": "4.3.2",
-      "users": 1823402,
-      "statuses": 82741923,
-      "connections": 48291,
-      "open_registrations": true,
-      "description": "The original server operated by Mastodon gGmbH",
-      "languages": ["en"],
-      "last_crawled": "2025-02-25T10:30:00Z"
+      "version": "4.6.0-nightly.2026-03-05",
+      "openRegistration": true,
+      "totalUsers": 3170635,
+      "activeUsersMonth": 301031,
+      "activeUsersHalfyear": 712642,
+      "localPosts": 167545501,
+      "localComments": null,
+      "softwareLogoUrl": "https://assets.fedisea.surf/logos/mastodon.svg"
     }
   ],
-  "meta": {
-    "total": 32847,
-    "page": 1,
-    "per_page": 20
-  }
+  "currentPage": 0,
+  "totalPages": 33589,
+  "totalItems": 33589,
+  "pageSize": 1,
+  "hasNext": true,
+  "hasPrevious": false
 }`,
       },
       {
@@ -74,19 +79,20 @@ export const endpoints = [
           },
         ],
         response: `{
-  "domain": "mastodon.social",
-  "software": "mastodon",
-  "version": "4.3.2",
-  "users": 1823402,
-  "statuses": 82741923,
-  "connections": 48291,
-  "open_registrations": true,
-  "description": "The original server operated by Mastodon gGmbH",
-  "admin": "Gargron",
-  "thumbnail": "https://mastodon.social/thumbnail.png",
-  "languages": ["en"],
-  "rules": [...],
-  "last_crawled": "2025-02-25T10:30:00Z"
+  "domain": "pixelfed.social",
+  "title": "pixelfed",
+  "description": "The original Pixelfed instance, operated by the main developer @dansup",
+  "sourceUrl": "https://github.com/pixelfed/pixelfed",
+  "thumbnail": "https://pixelfed.social/storage/headers/Hb2Qs2gfWofB4kEmSRArGqfr0h3DeBgrjLcwZ23r.jpg",
+  "software": "pixelfed",
+  "version": "0.12.7",
+  "openRegistration": true,
+  "totalUsers": 540768,
+  "activeUsersMonth": 100380,
+  "activeUsersHalfyear": 310219,
+  "localPosts": 16762444,
+  "localComments": 0,
+  "softwareLogoUrl": "https://assets.fedisea.surf/logos/pixelfed.svg"
 }`,
       },
     ],
@@ -102,16 +108,80 @@ export const endpoints = [
         path: "/v1/software",
         description:
           "List all detected Fediverse software platforms and their instance counts.",
-        params: [],
+        params: [{ name: "page", type: "integer", desc: "Page number (default: 1)" },
+        {
+          name: "size",
+          type: "integer",
+          desc: "Results per page (default: 20, max: 100)",
+        },
+        {
+          name: "search",
+          type: "string",
+          desc: "Search for software name",
+        },
+        {
+          name: "sort",
+          type: "string",
+          desc: "Sort by: users, activeUsersMonth, activeUsersHalfyear, posts, softwareVersion, name",
+        },
+        {
+          name: "order",
+          type: "string",
+          desc: "asc or desc (default: desc)",
+        },],
         response: `{
   "data": [
-    { "name": "mastodon", "instances": 16842, "percentage": 51.3 },
-    { "name": "lemmy", "instances": 3291, "percentage": 10.0 },
-    { "name": "misskey", "instances": 2847, "percentage": 8.7 },
-    { "name": "pleroma", "instances": 2103, "percentage": 6.4 },
-    { "name": "peertube", "instances": 1456, "percentage": 4.4 },
-    { "name": "pixelfed", "instances": 891, "percentage": 2.7 }
-  ]
+    {
+      "identifier": "mastodon",
+      "name": "Mastodon",
+      "website": "https://joinmastodon.org",
+      "sourceCode": "https://github.com/mastodon/mastodon",
+      "description": "Mastodon is an open source decentralized social network - by the people for the people",
+      "licence": "AGPL",
+      "joinUrl": "https://joinmastodon.org/servers",
+      "instances": 9452,
+      "activeUsersHalfyear": 1734091,
+      "activeUsersMonthly": 878652,
+      "totalUsers": 10648368,
+      "localPosts": 1066563967,
+      "localComments": null,
+      "iconUrl": "https://assets.fedisea.surf/logos/mastodon.svg"
+    }
+  ],
+  "currentPage": 0,
+  "totalPages": 62,
+  "totalItems": 62,
+  "pageSize": 1,
+  "hasNext": true,
+  "hasPrevious": false
+}`,
+      },
+      {
+        method: "GET",
+        path: "/v1/software/:slug",
+        description: "Get detailed information about a specific software.",
+        params: [
+          {
+            name: "slug",
+            type: "string",
+            desc: "The slug of the software (e.g. mastodon)",
+          },
+        ],
+        response: `{
+  "identifier": "mastodon",
+  "name": "Mastodon",
+  "website": "https://joinmastodon.org",
+  "sourceCode": "https://github.com/mastodon/mastodon",
+  "description": "Mastodon is an open source decentralized social network - by the people for the people",
+  "licence": "AGPL",
+  "joinUrl": "https://joinmastodon.org/servers",
+  "instances": 9452,
+  "activeUsersHalfyear": 1734091,
+  "activeUsersMonthly": 878652,
+  "totalUsers": 10648368,
+  "localPosts": 1066563967,
+  "localComments": null,
+  "iconUrl": "https://assets.fedisea.surf/logos/mastodon.svg"
 }`,
       },
       {
@@ -133,13 +203,23 @@ export const endpoints = [
         ],
         response: `{
   "data": [
-    { "name": "mastodon", "instances": 16842, "percentage": 51.3 },
-    { "name": "lemmy", "instances": 3291, "percentage": 10.0 },
-    { "name": "misskey", "instances": 2847, "percentage": 8.7 },
-    { "name": "pleroma", "instances": 2103, "percentage": 6.4 },
-    { "name": "peertube", "instances": 1456, "percentage": 4.4 },
-    { "name": "pixelfed", "instances": 891, "percentage": 2.7 }
-  ]
+    {
+      "version": "4.5.7",
+      "count": 4061,
+      "percentage": 42.96
+    },
+    {
+      "version": "4.5.6",
+      "count": 796,
+      "percentage": 8.42
+    }
+  ],
+  "currentPage": 0,
+  "totalPages": 217,
+  "totalItems": 433,
+  "pageSize": 2,
+  "hasNext": true,
+  "hasPrevious": false
 }`,
       },
     ],
@@ -156,12 +236,12 @@ export const endpoints = [
         description: "Get aggregate statistics about the entire Fediverse.",
         params: [],
         response: `{
-  "total_instances": 32847,
-  "total_users": 12482910,
-  "total_statuses": 1847291042,
-  "active_instances": 28401,
-  "software_count": 94,
-  "last_updated": "2025-02-25T10:30:00Z"
+  "totalInstances": 34586,
+  "totalUsers": 20203729,
+  "totalActiveUsersMonth": 1233977,
+  "totalActiveUsersHalfYear": 2830618,
+  "totalPosts": 1584443855,
+  "totalComments": 34350245
 }`,
       },
     ],
