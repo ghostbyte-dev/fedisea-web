@@ -6,7 +6,7 @@ import { useStats } from "@/hooks/stats/useStats";
 
 interface StatCardProps {
   label: string;
-  value: string;
+  value: number;
   suffix?: string;
   emoji: string;
   delay?: number;
@@ -28,16 +28,15 @@ const StatCard = ({
 
   return (
     <div
-      className={`relative p-6 border-2 border-border rounded-2xl bg-card transition-all duration-700 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-      }`}
+      className={`relative p-6 border-2 border-border rounded-2xl bg-card transition-all duration-700 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        }`}
     >
       <span className="text-2xl mb-3 block">{emoji}</span>
       <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">
         {label}
       </p>
       <p className="text-3xl sm:text-4xl font-black text-foreground font-mono">
-        {value}
+        {new Intl.NumberFormat().format(value)}
         {suffix && (
           <span className="text-primary text-lg ml-1 font-bold">{suffix}</span>
         )}
@@ -47,7 +46,6 @@ const StatCard = ({
 };
 
 const StatsSection = () => {
-  // We request 6 instances
   const { data, error, isLoading } = useStats();
 
   return (
@@ -63,13 +61,31 @@ const StatsSection = () => {
           <div className="mt-10 w-full gap-6 grid grid-cols-1 md:grid-cols-3">
             <StatCard
               label="Known Instances"
-              value={data.totalInstances.toString()}
+              value={data.totalInstances}
               emoji="🏝️"
             />
 
             <StatCard
               label="Total Accounts"
-              value={data.totalAccounts.toString()}
+              value={data.totalUsers}
+              emoji="🧑‍🤝‍🧑"
+            />
+            <StatCard
+              label="Total active accounts month"
+              value={data.totalActiveUsersMonth}
+              emoji="🧑‍🤝‍🧑"
+            />
+            <StatCard
+              label="Total active accounts half year"
+              value={data.totalActiveUsersHalfYear}
+              emoji="🧑‍🤝‍🧑"
+            /><StatCard
+              label="Total Posts"
+              value={data.totalPosts}
+              emoji="🧑‍🤝‍🧑"
+            /><StatCard
+              label="Total Comments"
+              value={data.totalComments}
               emoji="🧑‍🤝‍🧑"
             />
           </div>

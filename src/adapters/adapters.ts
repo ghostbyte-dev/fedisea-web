@@ -43,7 +43,14 @@ export const mapSoftwareVersion = (data: any): SoftwareVersion => {
 }
 
 export const mapStats = (data: any): Stats => {
-  return ({ totalInstances: data.totalInstances, totalAccounts: data.totalUsers })
+  return {
+    totalInstances: data.totalInstances,
+    totalUsers: data.totalUsers,
+    totalActiveUsersMonth: data.totalActiveUsersMonth,
+    totalActiveUsersHalfYear: data.totalActiveUsersMonth,
+    totalPosts: data.totalPosts,
+    totalComments: data.totalComments
+  }
 }
 
 export const mapSoftwareDistributionItem = (data: any): SoftwareDistributionItem => {
