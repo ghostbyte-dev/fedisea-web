@@ -59,7 +59,10 @@ const SoftwareDistributionSection = () => {
                     {item.name ?? item.identifier}
                   </Link>
                   <span className="ml-2 text-sm text-gray-500">
-                    {item.activeUsersMonthly}
+                    {new Intl.NumberFormat(undefined, {
+                      notation: "compact",
+                      maximumSignificantDigits: 3,
+                    }).format(item.activeUsersMonthly ?? 0)}
                   </span>
                 </div>
                 <span className="font-bold" style={{ color: getColor(index) }}>
@@ -85,7 +88,10 @@ const SoftwareDistributionSection = () => {
                 <div>
                   <span className="font-bold">{otherData.name}</span>
                   <span className="ml-2 text-sm text-gray-500">
-                    {otherData.count}
+                    {new Intl.NumberFormat(undefined, {
+                      notation: "compact",
+                      maximumSignificantDigits: 3,
+                    }).format(otherData.count)}
                   </span>
                 </div>
                 <span className="font-bold" style={{ color: "#7ea2aa" }}>

@@ -67,12 +67,6 @@ export default function Servers() {
     router,
   ]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <>
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    setPage(0);
-  }, [debouncedSearch, software, sortOption, sortOrder]);
-
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(inputValue);
@@ -106,14 +100,20 @@ export default function Servers() {
           type="text"
           placeholder="Search..."
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+            setPage(0);
+          }}
           className="flex-1 px-4 py-3 rounded-xl border border-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-300 shadow-sm"
         />
 
         {/* Software Filter Dropdown */}
         <select
           value={software}
-          onChange={(e) => setSoftware(e.target.value)}
+          onChange={(e) => {
+            setSoftware(e.target.value);
+            setPage(0);
+          }}
           className="px-4 py-3 rounded-xl border border-cyan-100 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-300 capitalize"
         >
           <option value="">All Software</option>
@@ -128,7 +128,10 @@ export default function Servers() {
 
         <select
           value={sortOption}
-          onChange={(e) => setSortOption(e.target.value as InstanceSortField)}
+          onChange={(e) => {
+            setSortOption(e.target.value as InstanceSortField);
+            setPage(0);
+          }}
           className="px-4 py-3 rounded-xl border border-cyan-100 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-300"
         >
           {sortOptions.map((opt) => (
@@ -141,7 +144,10 @@ export default function Servers() {
         {/* Sort Order Dropdown */}
         <select
           value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value as SortDirection)}
+          onChange={(e) => {
+            setSortOrder(e.target.value as SortDirection);
+            setPage(0);
+          }}
           className="px-4 py-3 rounded-xl border border-cyan-100 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-300"
         >
           <option value="desc">Descending ↓</option>
@@ -155,7 +161,7 @@ export default function Servers() {
 
         {data && (
           <p className="font-bold text-lg">
-            {data?.totalItems} Result
+            {data?.totalItems.toLocaleString()} Result
             {data?.totalItems > 1 && "s"}:
           </p>
         )}

@@ -109,7 +109,7 @@ export default function InstanceClient({ slug }: { slug: string }) {
                     <div className="grid grid-cols-2 gap-4">
                       <div className="bg-muted/50 rounded-xl p-4 text-center">
                         <p className="text-2xl font-black text-foreground">
-                          {instance.localPosts}
+                          {instance.localPosts ?? "/"}
                         </p>
                         <p className="text-sm text-muted-foreground font-bold mt-1">
                           Local Posts
