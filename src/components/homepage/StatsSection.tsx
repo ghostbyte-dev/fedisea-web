@@ -36,7 +36,7 @@ const StatCard = ({
         {label}
       </p>
       <p className="text-3xl sm:text-4xl font-black text-foreground font-mono">
-        {new Intl.NumberFormat().format(value)}
+        {new Intl.NumberFormat(undefined, { notation: "compact", maximumSignificantDigits: 3 }).format(value)}
         {suffix && (
           <span className="text-primary text-lg ml-1 font-bold">{suffix}</span>
         )}

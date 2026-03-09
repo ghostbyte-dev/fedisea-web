@@ -47,7 +47,7 @@ export const mapStats = (data: any): Stats => {
     totalInstances: data.totalInstances,
     totalUsers: data.totalUsers,
     totalActiveUsersMonth: data.totalActiveUsersMonth,
-    totalActiveUsersHalfYear: data.totalActiveUsersMonth,
+    totalActiveUsersHalfYear: data.totalActiveUsersHalfYear,
     totalPosts: data.totalPosts,
     totalComments: data.totalComments
   }
