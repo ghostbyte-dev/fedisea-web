@@ -64,11 +64,3 @@ export type Stats = {
   totalPosts: number,
   totalComments: number
 }
-
-export type SoftwareDistributionItem = {
-  software: string,
-  name?: string,
-  softwareLogoUrl?: string,
-  count: number,
-  percentage: number
-}

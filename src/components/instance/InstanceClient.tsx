@@ -1,5 +1,7 @@
 "use client";
 
+import { ArrowLeftIcon, ExternalLinkIcon } from "lucide-react";
+import Link from "next/link";
 import { useInstance } from "@/hooks/instance/useInstance";
 
 export default function InstanceClient({ slug }: { slug: string }) {
@@ -10,7 +12,15 @@ export default function InstanceClient({ slug }: { slug: string }) {
       <div className="my-container pt-10 md:pt-20">
         {instance && (
           <div>
-            <h1 className="mb-5">{instance.domain}</h1>
+            <Link
+              href="/servers"
+              className="flex items-center space-x-2 font-bold hover:text-primary transition mb-5"
+            >
+              <ArrowLeftIcon size={18} />
+              <span>All Servers</span>
+            </Link>
+            <h1 className="mb-3">{instance.domain}</h1>
+            <p className="font-bold mb-5">{instance.description}</p>
             <div className="w-full mb-4 overflow-hidden rounded-lg bg-gray-100 shrink-0">
               {instance.thumbnail && (
                 // biome-ignore lint/performance/noImgElement: <explanation>
@@ -21,7 +31,16 @@ export default function InstanceClient({ slug }: { slug: string }) {
                 />
               )}
             </div>
-            <p>{instance.description}</p>
+
+            <Link
+              href={`https://${instance.domain}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-primary text-white flex items-center space-x-2 px-3 py-2 rounded-xl font-bold w-fit"
+            >
+              <ExternalLinkIcon size={18} />
+              <span>Visit</span>
+            </Link>
 
             <section className="pb-10 mt-20">
               <h2 className="mb-5">🏄 Activity Breakdown</h2>

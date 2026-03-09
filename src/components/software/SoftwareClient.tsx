@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  ArrowLeftIcon,
-  Code2Icon,
-  CodeIcon,
-  GlobeIcon,
-  UsersIcon,
-} from "lucide-react";
+import { ArrowLeftIcon, Code2Icon, GlobeIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { useInstances } from "@/hooks/instance/useInstances";
 import { useSoftware } from "@/hooks/software/useSoftware";
@@ -77,7 +71,70 @@ export default function SoftwareClient({ slug }: { slug: string }) {
           )}
         </section>
 
-        <SoftwareVersionSection software={slug} />
+        <section className="my-container grid grid-cols-2 gap-10 my-20">
+          <div>
+            <h2 className="mb-6">Stats</h2>
+            <div className="grid grid-cols-2 gap-3 h-fit">
+              <div className="flex flex-col h-fit items-center gap-3 card">
+                <div className="p-2 bg-muted rounded-lg">
+                  <UsersIcon className={`w-4 h-4 `} />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground">
+                    Total users
+                  </p>
+                  <p className="text-sm font-bold text-foreground">
+                    {software?.totalUsers}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col h-fit items-center gap-3 card">
+                <div className="p-2 bg-muted rounded-lg">
+                  <UsersIcon className={`w-4 h-4 `} />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground">
+                    Total users
+                  </p>
+                  <p className="text-sm font-bold text-foreground">
+                    {software?.totalUsers}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col h-fit items-center gap-3 card">
+                <div className="p-2 bg-muted rounded-lg">
+                  <UsersIcon className={`w-4 h-4 `} />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground">
+                    Total users
+                  </p>
+                  <p className="text-sm font-bold text-foreground">
+                    {software?.totalUsers}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col h-fit items-center gap-3 card">
+                <div className="p-2 bg-muted rounded-lg">
+                  <UsersIcon className={`w-4 h-4 `} />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground">
+                    Total users
+                  </p>
+                  <p className="text-sm font-bold text-foreground">
+                    {software?.totalUsers}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <SoftwareVersionSection software={slug} />
+        </section>
+
         <div className="my-container flex flex-col items-center">
           <h2 className="mb-3">Top {software?.name} Servers</h2>
           <p>Servers with the most users across the Fediverse</p>

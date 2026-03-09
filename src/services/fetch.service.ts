@@ -1,4 +1,4 @@
-import type { PageMetadata, PaginatedResponse } from "@/lib/types";
+import type { PaginatedResponse } from "@/lib/types";
 
 export const fetchSingleAndMap = async <U>(
   url: string,
