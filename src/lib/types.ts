@@ -60,3 +60,23 @@ export type Stats = {
   totalInstances: number,
   totalAccounts: number
 }
+
+export type SoftwareSortField =
+  | "instances"
+  | "activeUsersMonth"
+  | "activeUsersHalfyear"
+  | "totalUsers"
+  | "localPosts"
+  | "localComments"
+  | "identifier";
+
+export type InstanceSortField =
+  | "localPosts"
+  | "localComments"
+  | "activeUsersMonth"
+  | "activeUsersHalfyear"
+  | "users"
+  | "softwareVersion"
+  | "domain";
+
+export type SortDirection = "asc" | "desc";

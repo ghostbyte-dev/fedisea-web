@@ -1,5 +1,5 @@
 import { mapSoftware, mapSoftwareVersion } from "@/adapters/adapters";
-import type { PaginatedResponse, Software, SoftwareVersion } from "@/lib/types";
+import type { PaginatedResponse, Software, SoftwareSortField, SoftwareVersion, SortDirection } from "@/lib/types";
 import { fetchPagedAndMap, fetchSingleAndMap } from "./fetch.service";
 
 
@@ -7,9 +7,8 @@ const getSoftwares = async (
   page: number = 0,
   size: number = 10,
   search: string = "",
-  software: string = "",
-  sortBy: string = "activeUsersMonth",
-  direction: string = "desc"
+  sortBy: SoftwareSortField = "activeUsersMonth",
+  direction: SortDirection = "desc"
 ): Promise<PaginatedResponse<Software>> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   if (!apiUrl) throw new Error("Could not get api url");
@@ -19,7 +18,6 @@ const getSoftwares = async (
   url.searchParams.append("page", page.toString());
   url.searchParams.append("size", size.toString());
   url.searchParams.append("search", search);
-  url.searchParams.append("software", software);
   url.searchParams.append("sort", sortBy);
   url.searchParams.append("order", direction);
 

@@ -7,12 +7,7 @@ import { getColor } from "@/lib/colors";
 import SoftwareLogo from "../SoftwareLogo";
 
 const SoftwareDistributionSection = () => {
-  const { data: softwares } = useSoftwares(
-    10,
-    undefined,
-    undefined,
-    "instances",
-  );
+  const { data: softwares } = useSoftwares({ size: 10, sortBy: "instances" });
   const { data: globalStats } = useStats();
 
   const total = globalStats?.totalInstances || 0;

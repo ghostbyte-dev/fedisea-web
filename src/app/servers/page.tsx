@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ServerCard from "@/components/ServerCard";
 import { useInstances } from "@/hooks/instance/useInstances";
+import type { InstanceSortField, SortDirection } from "@/lib/types";
 
 export default function Servers() {
   const router = useRouter();
@@ -15,11 +16,11 @@ export default function Servers() {
   );
   const [debouncedSearch, setDebouncedSearch] = useState(inputValue);
   const [software, setSoftware] = useState(searchParams.get("software") || "");
-  const [sortOption, setSortOption] = useState(
-    searchParams.get("sort") || "users",
+  const [sortOption, setSortOption] = useState<InstanceSortField>(
+    (searchParams.get("sort") as InstanceSortField) || "users",
   );
-  const [sortOrder, setSortOrder] = useState(
-    searchParams.get("order") || "desc",
+  const [sortOrder, setSortOrder] = useState<SortDirection>(
+    (searchParams.get("order") as SortDirection) || "desc",
   );
 
   const softwares = [
@@ -63,13 +64,13 @@ export default function Servers() {
     return () => clearTimeout(handler);
   }, [inputValue]);
 
-  const { data, error, isLoading } = useInstances(
-    30,
-    debouncedSearch,
-    software,
-    sortOption,
-    sortOrder,
-  );
+  const { data, error, isLoading } = useInstances({
+    size: 30,
+    search: debouncedSearch,
+    software: software,
+    sortBy: sortOption,
+    direction: sortOrder,
+  });
 
   return (
     <div className="my-container">
@@ -109,7 +110,7 @@ export default function Servers() {
 
         <select
           value={sortOption}
-          onChange={(e) => setSortOption(e.target.value)}
+          onChange={(e) => setSortOption(e.target.value as InstanceSortField)}
           className="px-4 py-3 rounded-xl border border-cyan-100 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-300"
         >
           {sortOptions.map((opt) => (
@@ -122,7 +123,7 @@ export default function Servers() {
         {/* Sort Order Dropdown */}
         <select
           value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
+          onChange={(e) => setSortOrder(e.target.value as SortDirection)}
           className="px-4 py-3 rounded-xl border border-cyan-100 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-300"
         >
           <option value="desc">Descending ↓</option>

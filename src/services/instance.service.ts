@@ -1,5 +1,5 @@
 import { mapInstance } from "@/adapters/adapters";
-import type { Instance, PaginatedResponse } from "@/lib/types";
+import type { Instance, InstanceSortField, PaginatedResponse, SortDirection } from "@/lib/types";
 import { fetchPagedAndMap, fetchSingleAndMap } from "./fetch.service";
 
 
@@ -8,8 +8,8 @@ const getInstances = async (
   size: number = 10,
   search: string = "",
   software: string = "",
-  sortBy: string = "activeUsersMonth",
-  direction: string = "desc"
+  sortBy: InstanceSortField = "users",
+  direction: SortDirection = "desc"
 ): Promise<PaginatedResponse<Instance>> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   if (!apiUrl) throw new Error("Could not get api url");

@@ -2,10 +2,9 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import ServerCard from "@/components/ServerCard";
 import SoftwareCard from "@/components/SoftwareCard";
-import { useInstances } from "@/hooks/instance/useInstances";
 import { useSoftwares } from "@/hooks/software/useSoftwares";
+import type { SoftwareSortField, SortDirection } from "@/lib/types";
 
 export default function Software() {
   const router = useRouter();
@@ -17,11 +16,11 @@ export default function Software() {
   );
   const [debouncedSearch, setDebouncedSearch] = useState(inputValue);
   const [software, setSoftware] = useState(searchParams.get("software") || "");
-  const [sortOption, setSortOption] = useState(
-    searchParams.get("sort") || "users",
+  const [sortOption, setSortOption] = useState<SoftwareSortField>(
+    (searchParams.get("sort") as SoftwareSortField) || "users",
   );
-  const [sortOrder, setSortOrder] = useState(
-    searchParams.get("order") || "desc",
+  const [sortOrder, setSortOrder] = useState<SortDirection>(
+    (searchParams.get("order") as SortDirection) || "desc",
   );
 
   const sortOptions = [
@@ -38,7 +37,7 @@ export default function Software() {
 
     if (debouncedSearch) params.set("search", debouncedSearch);
     if (software) params.set("software", software);
-    if (sortOption !== "users") params.set("sort", sortOption);
+    if (sortOption !== "totalUsers") params.set("sort", sortOption);
     if (sortOrder !== "desc") params.set("order", sortOrder);
 
     const queryString = params.toString();
@@ -55,13 +54,12 @@ export default function Software() {
     return () => clearTimeout(handler);
   }, [inputValue]);
 
-  const { data, error, isLoading } = useSoftwares(
-    30,
-    debouncedSearch,
-    software,
-    sortOption,
-    sortOrder,
-  );
+  const { data, error, isLoading } = useSoftwares({
+    size: 30,
+    search: debouncedSearch,
+    sortBy: sortOption,
+    direction: sortOrder,
+  });
 
   return (
     <div className="my-container">
@@ -85,7 +83,7 @@ export default function Software() {
 
         <select
           value={sortOption}
-          onChange={(e) => setSortOption(e.target.value)}
+          onChange={(e) => setSortOption(e.target.value as SoftwareSortField)}
           className="px-4 py-3 rounded-xl border border-cyan-100 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-300"
         >
           {sortOptions.map((opt) => (
@@ -98,7 +96,7 @@ export default function Software() {
         {/* Sort Order Dropdown */}
         <select
           value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
+          onChange={(e) => setSortOrder(e.target.value as SortDirection)}
           className="px-4 py-3 rounded-xl border border-cyan-100 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-300"
         >
           <option value="desc">Descending ↓</option>

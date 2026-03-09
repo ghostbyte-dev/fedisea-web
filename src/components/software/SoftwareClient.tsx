@@ -10,7 +10,7 @@ import SoftwareVersionSection from "./SoftwareVersionsSection";
 
 export default function SoftwareClient({ slug }: { slug: string }) {
   const { data: software } = useSoftware(slug);
-  const { data, error, isLoading } = useInstances(30, undefined, slug);
+  const { data, error, isLoading } = useInstances({ size: 30, software: slug });
 
   return (
     <main>
