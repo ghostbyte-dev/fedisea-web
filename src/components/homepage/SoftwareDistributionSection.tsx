@@ -1,25 +1,43 @@
 "use client";
 
 import Link from "next/link";
-import { useSoftwareDistribution } from "@/hooks/stats/useSoftwareDistribution";
+import { useSoftwares } from "@/hooks/software/useSoftwares";
 import { useStats } from "@/hooks/stats/useStats";
 import { getColor } from "@/lib/colors";
 import SoftwareLogo from "../SoftwareLogo";
 
 const SoftwareDistributionSection = () => {
-  const { data } = useSoftwareDistribution(10);
-  const { data: totalStats } = useStats();
+  const { data: softwares } = useSoftwares(
+    10,
+    undefined,
+    undefined,
+    "instances",
+  );
+  const { data: globalStats } = useStats();
+
+  const total = globalStats?.totalInstances || 0;
+
+  const processedItems =
+    softwares?.pages[0]?.data?.map((item) => ({
+      ...item,
+      displayPercentage: total > 0 ? ((item.instances || 0) / total) * 100 : 0,
+    })) || [];
 
   const otherData = (() => {
-    if (!data || !totalStats || totalStats.totalInstances === 0) return null;
-    const topCount = data.reduce((acc, item) => acc + item.count, 0);
-    const otherCount = totalStats.totalInstances - topCount;
+    if (!processedItems.length || total <= 0) return null;
+
+    const topCount = processedItems.reduce(
+      (acc, item) => acc + (item.instances || 0),
+      0,
+    );
+    const otherCount = total - topCount;
+
     if (otherCount <= 0) return null;
+
     return {
-      software: "Other",
+      name: "Other Software",
       count: otherCount,
-      percentage:
-        Math.round((otherCount / totalStats.totalInstances) * 10000) / 100,
+      percentage: (otherCount / total) * 100,
     };
   })();
 
@@ -30,27 +48,23 @@ const SoftwareDistributionSection = () => {
         <p>Software distribution across all known instances</p>
 
         <div className="mt-10 w-full space-y-6">
-          {data?.map((item, index) => (
-            <div key={item.software}>
+          {processedItems?.map((item, index) => (
+            <div key={item.identifier}>
               <div className="w-full flex justify-between mb-2">
                 <div className="flex items-center">
-                  <SoftwareLogo
-                    url={item.softwareLogoUrl}
-                    name={item.software}
-                    size={16}
-                  />
+                  <SoftwareLogo url={item.iconUrl} name={item.name} size={16} />
                   <Link
-                    href={`/software/${item.software}`}
+                    href={`/software/${item.identifier}`}
                     className="font-bold ml-2 hover:underline"
                   >
-                    {item.name ?? item.software}
+                    {item.name ?? item.identifier}
                   </Link>
                   <span className="ml-2 text-sm text-gray-500">
-                    {item.count}
+                    {item.instances}
                   </span>
                 </div>
                 <span className="font-bold" style={{ color: getColor(index) }}>
-                  {item.percentage}%
+                  {item.displayPercentage.toFixed(1)}%
                 </span>
               </div>
 
@@ -58,7 +72,7 @@ const SoftwareDistributionSection = () => {
                 <div
                   className="absolute top-0 bottom-0 left-0 rounded-full transition-all duration-700"
                   style={{
-                    width: `${item.percentage}%`,
+                    width: `${item.displayPercentage}%`,
                     backgroundColor: getColor(index),
                   }}
                 />
@@ -70,13 +84,13 @@ const SoftwareDistributionSection = () => {
             <div key="other">
               <div className="w-full flex justify-between mb-1">
                 <div>
-                  <span className="font-bold">{otherData.software}</span>
+                  <span className="font-bold">{otherData.name}</span>
                   <span className="ml-2 text-sm text-gray-500">
                     {otherData.count}
                   </span>
                 </div>
                 <span className="font-bold" style={{ color: "#7ea2aa" }}>
-                  {otherData.percentage}%
+                  {otherData.percentage.toFixed(1)}%
                 </span>
               </div>
 
@@ -95,15 +109,15 @@ const SoftwareDistributionSection = () => {
 
         <div className="mt-12 w-full">
           <div className="w-full rounded-full bg-muted h-4 flex overflow-hidden">
-            {data?.map((item, index) => (
+            {processedItems?.map((item, index) => (
               <div
-                key={`bar-${item.software}`}
+                key={`bar-${item.identifier}`}
                 className="h-full transition-all duration-1000 ease-in-out"
                 style={{
-                  width: `${item.percentage}%`,
+                  width: `${item.displayPercentage}%`,
                   backgroundColor: getColor(index),
                 }}
-                title={`${item.software}: ${item.percentage}%`}
+                title={`${item.name}: ${item.displayPercentage.toFixed(1)}%`}
               />
             ))}
 
