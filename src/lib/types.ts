@@ -58,7 +58,11 @@ export type SoftwareVersion = {
 
 export type Stats = {
   totalInstances: number,
-  totalAccounts: number
+  totalUsers: number,
+  totalActiveUsersMonth: number,
+  totalActiveUsersHalfYear: number,
+  totalPosts: number,
+  totalComments: number
 }
 
 export type SoftwareSortField =
