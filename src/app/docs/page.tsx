@@ -53,7 +53,7 @@ export default function Docs() {
       <div className="my-container mt-20 mb-20 flex flex-col items-start">
         <div className="max-w-2xl">
           <h1 className="text-5xl">API Reference</h1>
-          <p>
+          <p className="mt-4">
             Explore the Fediverse programmatically. All endpoints return JSON
             and require no authentication for read access.
           </p>

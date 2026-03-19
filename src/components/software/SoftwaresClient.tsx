@@ -65,10 +65,7 @@ export default function SoftwaresClient() {
     <div className="my-container">
       <section className="max-w-2xl mt-20 mb-10">
         <h1 className="text-5xl">Software</h1>
-        <p>
-          Explore the Fediverse programmatically. All endpoints return JSON and
-          require no authentication for read access.
-        </p>
+        <p className="mt-4">Explore Software in the Fediverse</p>
       </section>
 
       <div className="flex flex-col md:flex-row gap-4 mb-8 w-full max-w-2xl">

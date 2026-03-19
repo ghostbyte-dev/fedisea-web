@@ -35,7 +35,7 @@ const dataEndpoints = [
       "Instance title & description",
       "Admin contact info",
       "Thumbnail / banner image",
-      "Source url"
+      "Source url",
     ],
   },
   {
@@ -43,18 +43,14 @@ const dataEndpoints = [
     url: "/api/v3/site",
     appliesTo: "Lemmy",
     color: "bg-secondary/10 text-secondary border-secondary/30",
-    fields: [
-      "Instance title & description",
-    ],
+    fields: ["Instance title & description"],
   },
   {
     source: "Peertupe API",
     url: "/api/v1/config/about",
     appliesTo: "Peertube",
     color: "bg-secondary/10 text-secondary border-secondary/30",
-    fields: [
-      "Instance title & description",
-    ],
+    fields: ["Instance title & description"],
   },
   {
     source: "Misskey API",
@@ -64,7 +60,7 @@ const dataEndpoints = [
     fields: [
       "Instance title & description",
       "Thumbnail / banner image",
-      "Source url"
+      "Source url",
     ],
   },
 ];
@@ -119,7 +115,7 @@ export default function Crawler() {
               the <span className="text-primary">Fediverse</span>
             </p>
           </h1>
-          <p>
+          <p className="mt-4">
             FediSea's crawler is an open-source bot that respectfully discovers
             and indexes Fediverse instances. It gathers publicly available
             metadata to build a comprehensive map of the decentralized social

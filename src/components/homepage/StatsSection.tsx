@@ -53,7 +53,7 @@ const StatsSection = () => {
     <section className="bg-light py-20 flex flex-col justify-center">
       <div className="my-container flex flex-col items-center">
         <h2 className="mb-3">The fediverse at a glance</h2>
-        <p>Lorem ipsum</p>
+        {/* <p>Lorem ipsum</p> */}
 
         {isLoading && <p>Loading</p>}
         {error && <p className="text-red-500">{error.message}</p>}
@@ -63,29 +63,25 @@ const StatsSection = () => {
             <StatCard
               label="Known Instances"
               value={data.totalInstances}
-              emoji="🏝️"
+              emoji=""
             />
 
-            <StatCard
-              label="Total Accounts"
-              value={data.totalUsers}
-              emoji="🧑‍🤝‍🧑"
-            />
+            <StatCard label="Total Accounts" value={data.totalUsers} emoji="" />
             <StatCard
               label="Total active accounts month"
               value={data.totalActiveUsersMonth}
-              emoji="🧑‍🤝‍🧑"
+              emoji=""
             />
             <StatCard
               label="Total active accounts half year"
               value={data.totalActiveUsersHalfYear}
-              emoji="🧑‍🤝‍🧑"
+              emoji=""
             />
-            <StatCard label="Total Posts" value={data.totalPosts} emoji="🧑‍🤝‍🧑" />
+            <StatCard label="Total Posts" value={data.totalPosts} emoji="" />
             <StatCard
               label="Total Comments"
               value={data.totalComments}
-              emoji="🧑‍🤝‍🧑"
+              emoji=""
             />
           </div>
         )}
