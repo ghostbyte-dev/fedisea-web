@@ -22,7 +22,7 @@ const dataEndpoints = [
     fields: [
       "Software name & version",
       "Protocol support (ActivityPub, etc.)",
-      "Total users, active users (monthly/half-year)",
+      "Total users, active users (month/half-year)",
       "Local posts count",
       "Open registrations status",
     ],

@@ -35,7 +35,7 @@ export type Instance = {
 
 export type Software = {
   identifier: string;
-  name: string;
+  name?: string;
   description?: string;
   iconUrl?: string;
   website?: string;
@@ -43,7 +43,7 @@ export type Software = {
   sourceCode?: string;
   license?: string;
   instances?: number;
-  activeUsersMonthly?: number;
+  activeUsersMonth?: number;
   activeUsersHalfyear?: number;
   totalUsers?: number;
   localPosts?: number;

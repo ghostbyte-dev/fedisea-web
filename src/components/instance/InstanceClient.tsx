@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useInstance } from "@/hooks/instance/useInstance";
 import { useSoftware } from "@/hooks/software/useSoftware";
 import { getColor } from "@/lib/colors";
+import { formatCompactNumber, formatPercentNumber } from "@/lib/utils";
 import SoftwareLogo from "../SoftwareLogo";
 import { StatBar } from "../StatBar";
 
@@ -21,7 +22,28 @@ export default function InstanceClient({ slug }: { slug: string }) {
     instance?.software,
   );
 
-  const activeUsersPercent = software?.activeUsersHalfyear
+  const activeUsersPercentMonthRelativeToTotal = instance?.totalUsers
+    ? Math.min(
+        ((instance?.activeUsersMonth ?? 0) / instance?.totalUsers) * 100,
+        100,
+      )
+    : 0;
+
+  const activeUsersPercentHalfyearRelativeToTotal = instance?.totalUsers
+    ? Math.min(
+        ((instance?.activeUsersHalfyear ?? 0) / instance.totalUsers) * 100,
+        100,
+      )
+    : 0;
+
+  const activeUsersPercentMonth = software?.activeUsersMonth
+    ? Math.min(
+        ((instance?.activeUsersMonth ?? 0) / software.activeUsersMonth) * 100,
+        100,
+      )
+    : 0;
+
+  const activeUsersPercentHalfyear = software?.activeUsersHalfyear
     ? Math.min(
         ((instance?.activeUsersHalfyear ?? 0) / software.activeUsersHalfyear) *
           100,
@@ -76,62 +98,30 @@ export default function InstanceClient({ slug }: { slug: string }) {
 
               <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
                 <div className="space-y-5">
-                  {/* Monthly active bar */}
-                  <div>
-                    <div className="flex justify-between items-baseline mb-2">
-                      <span className="text-sm font-bold text-foreground">
-                        Monthly Active Users
-                      </span>
-                      <span className="text-sm font-black text-primary">
-                        {instance.activeUsersMonth}
-                      </span>
-                    </div>
-                    <div className="h-3 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-primary rounded-full transition-all"
-                        style={{
-                          width: `${Math.min((instance.activeUsersMonth / instance.totalUsers) * 100, 100)}%`,
-                        }}
-                      />
-                    </div>
-                  </div>
+                  <StatBar
+                    label="Monthly active users"
+                    value={formatCompactNumber(instance.activeUsersMonth)}
+                    percentage={activeUsersPercentMonthRelativeToTotal}
+                    color={getColor(0)}
+                    className="mb-5"
+                  />
 
-                  {/* Half-year active bar */}
-                  <div>
-                    <div className="flex justify-between items-baseline mb-2">
-                      <span className="text-sm font-bold text-foreground">
-                        Half-Year Active Users
-                      </span>
-                      <span className="text-sm font-black text-secondary">
-                        {instance.activeUsersHalfyear}
-                      </span>
-                    </div>
-                    <div className="h-3 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-secondary rounded-full transition-all"
-                        style={{
-                          width: `${Math.min((instance.activeUsersHalfyear / instance.totalUsers) * 100, 100)}%`,
-                        }}
-                      />
-                    </div>
-                  </div>
+                  <StatBar
+                    label="Half-Year Active Users"
+                    value={formatCompactNumber(instance.activeUsersHalfyear)}
+                    percentage={activeUsersPercentHalfyearRelativeToTotal}
+                    color={getColor(1)}
+                    className="mb-5"
+                  />
 
-                  {/* Total users bar */}
-                  <div>
-                    <div className="flex justify-between items-baseline mb-2">
-                      <span className="text-sm font-bold text-foreground">
-                        Total Users
-                      </span>
-                      <span className="text-sm font-black text-tertiary">
-                        {instance.totalUsers}
-                      </span>
-                    </div>
-                    <div className="h-3 bg-muted rounded-full overflow-hidden">
-                      <div className="h-full w-full bg-tertiary rounded-full transition-all" />
-                    </div>
-                  </div>
+                  <StatBar
+                    label="Total Users"
+                    value={formatCompactNumber(instance.totalUsers)}
+                    percentage={100}
+                    color={getColor(2)}
+                    className="mb-5"
+                  />
 
-                  {/* Posts vs comments */}
                   <div className="pt-4 border-t border-border">
                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3">
                       Content Breakdown
@@ -139,7 +129,9 @@ export default function InstanceClient({ slug }: { slug: string }) {
                     <div className="grid grid-cols-2 gap-4">
                       <div className="bg-muted/50 rounded-xl p-4 text-center">
                         <p className="text-2xl font-black text-foreground">
-                          {instance.localPosts ?? "/"}
+                          {instance.localPosts
+                            ? formatCompactNumber(instance.localPosts)
+                            : "/"}
                         </p>
                         <p className="text-sm text-muted-foreground font-bold mt-1">
                           Local Posts
@@ -147,7 +139,9 @@ export default function InstanceClient({ slug }: { slug: string }) {
                       </div>
                       <div className="bg-muted/50 rounded-xl p-4 text-center">
                         <p className="text-2xl font-black text-foreground">
-                          {instance.localComments ?? "/"}
+                          {instance.localComments
+                            ? formatCompactNumber(instance.localComments)
+                            : "/"}
                         </p>
                         <p className="text-sm text-muted-foreground font-bold mt-1">
                           Local Comments
@@ -168,43 +162,65 @@ export default function InstanceClient({ slug }: { slug: string }) {
               <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
                 {software && (
                   <div>
-                    <div className="flex space-x-3">
+                    <div className="flex space-x-3 mb-12">
                       <SoftwareLogo url={software.iconUrl} size={42} />
                       <div>
-                        <h3>{software.name}</h3>
+                        <h3>{software.name ?? software.identifier}</h3>
                         <p>{software.description}</p>
                       </div>
                     </div>
 
+                    <h3>Active users last 30 days</h3>
+
                     <StatBar
-                      label={`Active users on ${instance.domain}`}
-                      value={`${instance.activeUsersHalfyear} (${activeUsersPercent.toFixed(2)}%)`}
-                      percentage={activeUsersPercent}
+                      label={`On ${instance.domain}`}
+                      value={`${formatCompactNumber(instance.activeUsersMonth)} (${formatPercentNumber(activeUsersPercentMonth)})`}
+                      percentage={activeUsersPercentMonth}
                       color={getColor(0)}
-                      className="mt-5"
+                      className="mt-2"
                     />
 
                     <StatBar
-                      label={`Active users on ${software.name} in general`}
-                      value={`${software.activeUsersHalfyear}`}
+                      label={`On ${software.name ?? software.identifier} in general`}
+                      value={formatCompactNumber(software.activeUsersMonth)}
                       percentage={100}
                       color={getColor(1)}
-                      className="mt-3"
+                      className="mt-3 mb-12"
                     />
 
+                    <h3>Active users last 180 days</h3>
+
                     <StatBar
-                      label={`Total users on ${instance.domain}`}
-                      value={`${instance.totalUsers} (${totalUsersPercent.toFixed(2)}%)`}
-                      percentage={totalUsersPercent}
+                      label={`On ${instance.domain}`}
+                      value={`${formatCompactNumber(instance.activeUsersHalfyear)} (${formatPercentNumber(activeUsersPercentHalfyear)})`}
+                      percentage={activeUsersPercentHalfyear}
                       color={getColor(2)}
-                      className="mt-10"
+                      className="mt-2"
                     />
 
                     <StatBar
-                      label={`Total users on ${software.name} in general`}
-                      value={`${software.totalUsers}`}
+                      label={`On ${software.name ?? software.identifier} in general`}
+                      value={formatCompactNumber(software.activeUsersHalfyear)}
                       percentage={100}
+                      color={getColor(3)}
+                      className="mt-3 mb-12"
+                    />
+
+                    <h3>Total users</h3>
+
+                    <StatBar
+                      label={`On ${instance.domain}`}
+                      value={`${formatCompactNumber(instance.totalUsers)} (${formatPercentNumber(totalUsersPercent)})`}
+                      percentage={totalUsersPercent}
                       color={getColor(4)}
+                      className="mt-2"
+                    />
+
+                    <StatBar
+                      label={`On ${software.name ?? software.identifier} in general`}
+                      value={formatCompactNumber(software.totalUsers)}
+                      percentage={100}
+                      color={getColor(5)}
                       className="mt-3"
                     />
 
@@ -212,7 +228,9 @@ export default function InstanceClient({ slug }: { slug: string }) {
                       href={`/software/${software.identifier}`}
                       className="bg-primary text-white flex items-center space-x-2 px-3 py-2 w-fit rounded-xl font-bold mt-8"
                     >
-                      <span>More about {software.name}</span>
+                      <span>
+                        More about {software.name ?? software.identifier}
+                      </span>
                       <ArrowRightIcon size={18} />
                     </Link>
                   </div>

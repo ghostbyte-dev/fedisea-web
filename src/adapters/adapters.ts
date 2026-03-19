@@ -30,7 +30,7 @@ export const mapSoftware = (data: any): Software => {
     sourceCode: data.sourceCode,
     license: data.license,
     instances: data.instances,
-    activeUsersMonthly: data.activeUsersMonthly,
+    activeUsersMonth: data.activeUsersMonth,
     activeUsersHalfyear: data.activeUsersHalfyear,
     totalUsers: data.totalUsers,
     localPosts: data.localPosts,

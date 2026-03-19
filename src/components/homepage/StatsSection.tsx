@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useStats } from "@/hooks/stats/useStats";
+import { formatCompactNumber } from "@/lib/utils";
 
 interface StatCardProps {
   label: string;
@@ -36,10 +37,7 @@ const StatCard = ({
         {label}
       </p>
       <p className="text-3xl sm:text-4xl font-black text-foreground font-mono">
-        {new Intl.NumberFormat(undefined, {
-          notation: "compact",
-          maximumSignificantDigits: 3,
-        }).format(value)}
+        {formatCompactNumber(value)}
         {suffix && (
           <span className="text-primary text-lg ml-1 font-bold">{suffix}</span>
         )}

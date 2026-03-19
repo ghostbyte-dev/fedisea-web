@@ -31,7 +31,7 @@ export function StatBar({
         </span>
       </div>
 
-      <div className="w-full rounded-full bg-muted h-2.5 relative overflow-hidden">
+      <div className="w-full rounded-full bg-muted h-3 relative overflow-hidden">
         <div
           className="absolute top-0 bottom-0 left-0 rounded-full transition-all duration-1000 ease-out"
           style={{

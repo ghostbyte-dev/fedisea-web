@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SoftwareLogo from "@/components/SoftwareLogo";
 import type { Software } from "@/lib/types";
+import { formatCompactNumber } from "@/lib/utils";
 
 interface SoftwareCardProps {
   software: Software;
@@ -20,7 +21,9 @@ const SoftwareCard = ({ software }: SoftwareCardProps) => {
             size={24}
           />
           <div>
-            <span className="font-black text-xl">{software.name}</span>
+            <span className="font-black text-xl">
+              {software.name ?? software.identifier}
+            </span>
             <p>{software.description}</p>
           </div>
         </div>
@@ -28,7 +31,7 @@ const SoftwareCard = ({ software }: SoftwareCardProps) => {
         <div className="grid grid-cols-4 gap-2 border-t border-cyan-50 pt-4">
           <div className="flex flex-col items-center">
             <span className="text-xl font-black">
-              {software.instances?.toLocaleString() ?? 0}
+              {formatCompactNumber(software.instances)}
             </span>
             <span className="text-xs text-gray-400 uppercase font-bold">
               Servers
@@ -37,7 +40,7 @@ const SoftwareCard = ({ software }: SoftwareCardProps) => {
 
           <div className="flex flex-col items-center">
             <span className="text-xl font-black">
-              {software.totalUsers?.toLocaleString() ?? 0}
+              {formatCompactNumber(software.totalUsers)}
             </span>
             <span className="text-xs text-gray-400 uppercase font-bold">
               Users
@@ -46,7 +49,7 @@ const SoftwareCard = ({ software }: SoftwareCardProps) => {
 
           <div className="flex flex-col items-center">
             <span className="text-xl font-black">
-              {software.activeUsersMonthly?.toLocaleString() ?? 0}
+              {formatCompactNumber(software.activeUsersMonth)}
             </span>
             <span className="text-xs text-gray-400 uppercase font-bold">
               Active users
@@ -55,7 +58,7 @@ const SoftwareCard = ({ software }: SoftwareCardProps) => {
 
           <div className="flex flex-col items-center">
             <span className="text-xl font-black">
-              {software.localPosts?.toLocaleString() ?? 0}
+              {formatCompactNumber(software.localPosts)}
             </span>
             <span className="text-xs text-gray-400 uppercase font-bold">
               Posts
