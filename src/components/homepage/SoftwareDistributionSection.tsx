@@ -45,7 +45,7 @@ const SoftwareDistributionSection = () => {
     <section className="bg-[#e9f7f9] py-20 flex flex-col justify-center">
       <div className="my-container max-w-3xl flex flex-col items-center">
         <h2 className="mb-3">What powers the Fediverse 🐙</h2>
-        <p>Software distribution across all known instances</p>
+        <p>Software distribution by number of servers</p>
 
         <div className="mt-10 w-full space-y-6">
           {processedItems?.map((item, index) => (
