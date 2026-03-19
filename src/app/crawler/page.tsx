@@ -21,25 +21,50 @@ const dataEndpoints = [
     color: "bg-primary/10 text-primary border-primary/30",
     fields: [
       "Software name & version",
-      "Protocol support (ActivityPub, etc.)",
       "Total users, active users (month/half-year)",
-      "Local posts count",
+      "Local posts, comments count",
       "Open registrations status",
     ],
   },
   {
     source: "Mastodon API",
-    url: "/api/v1/instance",
-    appliesTo: "Mastodon, Pixelfed",
+    url: "/api/v2/instance",
+    appliesTo: "Mastodon, Pixelfed, Pleroma",
     color: "bg-secondary/10 text-secondary border-secondary/30",
     fields: [
       "Instance title & description",
       "Admin contact info",
       "Thumbnail / banner image",
-      "Languages",
-      "Server rules",
-      "Registration policy",
-      "Peer list (connected instances)",
+      "Source url"
+    ],
+  },
+  {
+    source: "Lemmy API",
+    url: "/api/v3/site",
+    appliesTo: "Lemmy",
+    color: "bg-secondary/10 text-secondary border-secondary/30",
+    fields: [
+      "Instance title & description",
+    ],
+  },
+  {
+    source: "Peertupe API",
+    url: "/api/v1/config/about",
+    appliesTo: "Peertube",
+    color: "bg-secondary/10 text-secondary border-secondary/30",
+    fields: [
+      "Instance title & description",
+    ],
+  },
+  {
+    source: "Misskey API",
+    url: "/api/meta",
+    appliesTo: "Misskey",
+    color: "bg-secondary/10 text-secondary border-secondary/30",
+    fields: [
+      "Instance title & description",
+      "Thumbnail / banner image",
+      "Source url"
     ],
   },
 ];
@@ -49,37 +74,37 @@ const crawlerSteps = [
     icon: Compass,
     title: "Discovery",
     description:
-      "The crawler starts from a seed list and expands by following peer lists from known instances. New domains are queued for crawling.",
+      "The crawler starts from a major instance and expands by following peer lists from known instances. New domains are queued for crawling.",
   },
   {
     icon: ShieldCheck,
     title: "Robots.txt Check",
     description:
-      "Before making any request, the crawler fetches and parses robots.txt. If crawling is disallowed, the instance is skipped entirely.",
+      "Before making any request, the crawler fetches and parses robots.txt. If crawling is disallowed, we only save the domain and the robots.txt status.",
   },
   {
     icon: FileSearch,
     title: "NodeInfo Fetch",
     description:
-      "The /.well-known/nodeinfo endpoint is probed first to identify the software and gather universal stats available on all Fediverse platforms.",
+      "The crawler first fetched the /.well-known/nodeinfo endpoint to get the individual nodeinfo endpoint. Then we fetch the returned nodeinfo enpoint.",
   },
   {
     icon: Database,
     title: "Software-Specific Data",
     description:
-      "Based on the detected software, the crawler hits the appropriate API endpoint (Mastodon, Lemmy, Misskey, etc.) for richer metadata.",
+      "Based on the detected software, the crawler hits the appropriate API endpoint (Mastodon, Lemmy, Misskey, etc.) for more specific data, like the thumbnail for example.",
   },
   {
     icon: Network,
     title: "Peer Discovery",
     description:
-      "Connected instances are extracted from peer lists and federation data, feeding new domains back into the discovery queue.",
+      "Connected instances are extracted from peer lists, feeding new domains back into the discovery queue.",
   },
   {
     icon: Clock,
     title: "Scheduled Re-crawl",
     description:
-      "Instances are re-crawled on a rolling schedule. Popular instances are checked more frequently, inactive ones less often.",
+      "Instances are re-crawled on a rolling schedule. Active Instances are recrawled more often then dead ones.",
   },
 ];
 
