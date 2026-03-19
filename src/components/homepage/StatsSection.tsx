@@ -54,7 +54,7 @@ const StatsSection = () => {
   return (
     <section className="bg-light py-20 flex flex-col justify-center">
       <div className="my-container flex flex-col items-center">
-        <h2 className="mb-3">Fediverse Stats 🐙</h2>
+        <h2 className="mb-3">The fediverse at a glance</h2>
         <p>Lorem ipsum</p>
 
         {isLoading && <p>Loading</p>}

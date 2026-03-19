@@ -2,6 +2,7 @@
 
 import { useSoftwareVersions } from "@/hooks/software/useSoftwareVersions";
 import { getColor } from "@/lib/colors";
+import { StatBar } from "../StatBar";
 
 const SoftwareVersionSection = ({ software }: { software: string }) => {
   const { data, error, isLoading } = useSoftwareVersions(software, 10);
@@ -15,31 +16,14 @@ const SoftwareVersionSection = ({ software }: { software: string }) => {
 
       <div className="mt-6 w-full space-y-4">
         {data?.pages[0].data.map((item, index) => (
-          <div key={item.version}>
-            <div className="w-full flex justify-between mb-1">
-              <div className="flex items-center">
-                <span className="font-bold ml-1 hover:underline">
-                  {item.version}
-                </span>
-                <span className="ml-2 text-sm text-gray-500">
-                  {item.count} Servers
-                </span>
-              </div>
-              <span className="font-bold" style={{ color: getColor(index) }}>
-                {item.percentage}%
-              </span>
-            </div>
-
-            <div className="w-full rounded-full bg-muted h-3 relative overflow-hidden">
-              <div
-                className="absolute top-0 bottom-0 left-0 rounded-full transition-all duration-700"
-                style={{
-                  width: `${item.percentage}%`,
-                  backgroundColor: getColor(index),
-                }}
-              />
-            </div>
-          </div>
+          <StatBar
+            key={item.version}
+            label={item.version}
+            subLabel={`${item.count} Servers`}
+            value={`${item.percentage}%`}
+            percentage={item.percentage}
+            color={getColor(index)}
+          />
         ))}
 
         {/* {otherData && (

@@ -1,11 +1,37 @@
 "use client";
 
-import { ArrowLeftIcon, ExternalLinkIcon } from "lucide-react";
+import {
+  ActivityIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  Code2Icon,
+  CodeIcon,
+  ExternalLinkIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { useInstance } from "@/hooks/instance/useInstance";
+import { useSoftware } from "@/hooks/software/useSoftware";
+import { getColor } from "@/lib/colors";
+import SoftwareLogo from "../SoftwareLogo";
+import { StatBar } from "../StatBar";
 
 export default function InstanceClient({ slug }: { slug: string }) {
   const { data: instance } = useInstance(slug);
+  const { data: software, isLoading: softwareLoading } = useSoftware(
+    instance?.software,
+  );
+
+  const activeUsersPercent = software?.activeUsersHalfyear
+    ? Math.min(
+        ((instance?.activeUsersHalfyear ?? 0) / software.activeUsersHalfyear) *
+          100,
+        100,
+      )
+    : 0;
+
+  const totalUsersPercent = software?.totalUsers
+    ? Math.min(((instance?.totalUsers ?? 0) / software.totalUsers) * 100, 100)
+    : 0;
 
   return (
     <main>
@@ -42,8 +68,12 @@ export default function InstanceClient({ slug }: { slug: string }) {
               <span>Visit</span>
             </Link>
 
-            <section className="pb-10 mt-20">
-              <h2 className="mb-5">🏄 Activity Breakdown</h2>
+            <section className="pb-20 mt-20">
+              <div className="flex space-x-2 items-center mb-5">
+                <ActivityIcon className="text-secondary" size={32} />
+                <h2>Activity Breakdown</h2>
+              </div>
+
               <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
                 <div className="space-y-5">
                   {/* Monthly active bar */}
@@ -126,6 +156,67 @@ export default function InstanceClient({ slug }: { slug: string }) {
                     </div>
                   </div>
                 </div>
+              </div>
+            </section>
+
+            <section className="mb-20">
+              <div className="flex space-x-2 items-center mb-5">
+                <Code2Icon className="text-secondary" size={32} />
+                <h2>Software</h2>
+              </div>
+
+              <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
+                {software && (
+                  <div>
+                    <div className="flex space-x-3">
+                      <SoftwareLogo url={software.iconUrl} size={42} />
+                      <div>
+                        <h3>{software.name}</h3>
+                        <p>{software.description}</p>
+                      </div>
+                    </div>
+
+                    <StatBar
+                      label={`Active users on ${instance.domain}`}
+                      value={`${instance.activeUsersHalfyear} (${activeUsersPercent.toFixed(2)}%)`}
+                      percentage={activeUsersPercent}
+                      color={getColor(0)}
+                      className="mt-5"
+                    />
+
+                    <StatBar
+                      label={`Active users on ${software.name} in general`}
+                      value={`${software.activeUsersHalfyear}`}
+                      percentage={100}
+                      color={getColor(1)}
+                      className="mt-3"
+                    />
+
+                    <StatBar
+                      label={`Total users on ${instance.domain}`}
+                      value={`${instance.totalUsers} (${totalUsersPercent.toFixed(2)}%)`}
+                      percentage={totalUsersPercent}
+                      color={getColor(2)}
+                      className="mt-10"
+                    />
+
+                    <StatBar
+                      label={`Total users on ${software.name} in general`}
+                      value={`${software.totalUsers}`}
+                      percentage={100}
+                      color={getColor(4)}
+                      className="mt-3"
+                    />
+
+                    <Link
+                      href={`/software/${software.identifier}`}
+                      className="bg-primary text-white flex items-center space-x-2 px-3 py-2 w-fit rounded-xl font-bold mt-8"
+                    >
+                      <span>More about {software.name}</span>
+                      <ArrowRightIcon size={18} />
+                    </Link>
+                  </div>
+                )}
               </div>
             </section>
           </div>
