@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  BracesIcon,
   Check,
   ChevronRight,
   Copy,
@@ -10,7 +11,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useState } from "react";
-import { endpoints } from "../data/docs/endpoints";
+import { endpoints, typeDefinitions } from "../data/docs/endpoints";
 
 const CodeBlock = ({ code }: { code: string }) => {
   const [copied, setCopied] = useState(false);
@@ -128,6 +129,26 @@ export default function Docs() {
                   </span>
                 </button>
               ))}
+
+              <div className="my-3 border-t border-border" />
+              <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3 px-3">
+                Types
+              </p>
+              <button
+                type="button"
+                onClick={() => setActiveCategory("Types")}
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold transition-all ${
+                  activeCategory === "Types"
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                }`}
+              >
+                <BracesIcon className="w-4 h-4" />
+                Type Reference
+                <span className="ml-auto text-xs font-mono opacity-60">
+                  {typeDefinitions.length}
+                </span>
+              </button>
             </div>
           </nav>
 
@@ -250,6 +271,78 @@ export default function Docs() {
                   </div>
                 </div>
               ))}
+
+            {/* Types section */}
+            {activeCategory === "Types" && (
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2.5 rounded-xl bg-secondary/10">
+                    <BracesIcon className="w-5 h-5 text-secondary" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-black text-foreground">
+                      Type Reference
+                    </h2>
+                    <p className="text-sm text-muted-foreground font-medium">
+                      {typeDefinitions.length} type
+                      {typeDefinitions.length > 1 ? "s" : ""}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  {typeDefinitions.map((typeDef) => (
+                    <div
+                      key={typeDef.name}
+                      className="bg-card border-2 border-border rounded-2xl overflow-hidden"
+                    >
+                      <div className="p-4 sm:p-5 border-b-2 border-border">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="px-2.5 py-1 rounded-lg text-xs font-bold font-mono border bg-secondary/15 text-secondary border-secondary/30">
+                            type
+                          </span>
+                          <code className="text-sm font-mono font-bold text-foreground">
+                            {typeDef.name}
+                          </code>
+                        </div>
+                        <p className="text-sm text-muted-foreground font-medium">
+                          {typeDef.description}
+                        </p>
+                      </div>
+                      <div className="p-4 sm:p-5">
+                        <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3">
+                          Fields
+                        </h4>
+                        <div className="space-y-2">
+                          {typeDef.fields.map((field) => (
+                            <div
+                              key={field.name}
+                              className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 py-2 px-3 bg-muted/40 rounded-xl"
+                            >
+                              <code className="text-sm font-mono font-bold text-foreground">
+                                {field.name}
+                              </code>
+                              <span className="text-xs font-mono text-primary font-semibold bg-primary/10 px-2 py-0.5 rounded-md w-fit">
+                                {field.type}
+                              </span>
+                              {field.optional && (
+                                <span className="text-xs font-mono text-secondary font-semibold bg-secondary/10 px-2 py-0.5 rounded-md w-fit">
+                                  optional
+                                </span>
+                              )}
+
+                              <span className="text-sm text-muted-foreground">
+                                {field.desc}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

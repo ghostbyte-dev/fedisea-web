@@ -1,5 +1,86 @@
 import { BarChart3, Code, ServerIcon } from "lucide-react";
 
+interface TypeField {
+  name: string;
+  type: string;
+  desc: string;
+  optional?: boolean;
+}
+
+interface TypeDef {
+  name: string;
+  description: string;
+  fields: TypeField[];
+}
+
+export const typeDefinitions: TypeDef[] = [
+  {
+    name: "Instance",
+    description: "Represents a single Fediverse server instance, including its software, user counts, and metadata.",
+    fields: [
+      { name: "domain", type: "string", desc: "Domain name of the instance" },
+      { name: "description", type: "string", desc: "Instance description set by the administrator", optional: true },
+      { name: "title", type: "string", desc: "Title of the instance", optional: true },
+      { name: "software", type: "string", desc: "Software running on the instance (e.g. mastodon, lemmy)" },
+      { name: "version", type: "string", desc: "Software version" },
+      { name: "openRegistrations", type: "boolean", desc: "Whether the instance is accepting new sign-ups" },
+      { name: "thumbnail", type: "string", desc: "URL to the instance thumbnail image", optional: true },
+      { name: "sourceUrl", type: "string", desc: "Url to the source code repository", optional: true },
+      { name: "totalUsers", type: "integer", desc: "Total registered users across all instances" },
+      { name: "activeUsersHalfyear", type: "integer", desc: "Users active in the last 180 days" },
+      { name: "activeUsersMonth", type: "integer", desc: "Users active in the last 30 days" },
+      { name: "localPosts", type: "integer", desc: "Total posts across all instances" },
+      { name: "localComments", type: "integer", desc: "Total comments across all instances", optional: true },
+      { name: "softwareLogoUrl", type: "string", desc: "URL to logo of the software", optional: true },
+    ],
+  },
+  {
+    name: "Software",
+    description: "A Fediverse software platform with aggregate statistics across all known instances running it.",
+    fields: [
+      { name: "identifier", type: "string", desc: "Identifier/slug of the software (e.g. mastodon, lemmy)" },
+      { name: "name", type: "string", desc: "Canonical name of the software (e.g. Mastodon, Lemmy)" },
+      { name: "website", type: "string", desc: "URL to the software project's homepage", optional: true },
+      { name: "sourceCode", type: "string", desc: "URL to source code repository", optional: true },
+      { name: "description", type: "string", desc: "Description of the software", optional: true },
+      { name: "license", type: "string", desc: "Open-source license identifier (e.g. AGPL-3.0)", optional: true },
+      { name: "joinUrl", type: "string", desc: "URL to website where users can join the platform", optional: true },
+      { name: "instances", type: "integer", desc: "Total number of instances running this software" },
+      { name: "activeUsersHalfyear", type: "integer", desc: "Users active in the last 180 days" },
+      { name: "activeUsersMonth", type: "integer", desc: "Users active in the last 30 days" },
+      { name: "totalUsers", type: "integer", desc: "Total registered users across all instances" },
+      { name: "localPosts", type: "integer", desc: "Total posts across all instances" },
+      { name: "localComments", type: "integer", desc: "Total comments across all instances", optional: true },
+      { name: "iconUrl", type: "string", desc: "URL to logo of the software", optional: true },
+    ],
+  },
+  {
+    name: "Stats",
+    description: "Aggregate statistics about the entire Fediverse as tracked by FediSea's crawler.",
+    fields: [
+      { name: "totalInstances", type: "integer", desc: "Total number of known Fediverse instances" },
+      { name: "totalUsers", type: "integer", desc: "Sum of all registered users across all instances" },
+      { name: "totalActiveUsersMonth", type: "integer", desc: "Sum of active users in the last 30 days" },
+      { name: "totalActiveUsersHalfYear", type: "integer", desc: "Sum of active users in the last 180 days" },
+      { name: "totalPosts", type: "integer", desc: "Sum of all posts" },
+      { name: "totalComments", type: "integer", desc: "Sum of all comments" },
+    ],
+  },
+  {
+    name: "Page metadata",
+    description: "Metadata that is included in all paged responses.",
+    fields: [
+      { name: "currentPage", type: "integer", desc: "Number of the current page" },
+      { name: "totalPages", type: "integer", desc: "Total number of available pages" },
+      { name: "totalItems", type: "integer", desc: "Total elements across all existing pages" },
+      { name: "pageSize", type: "integer", desc: "Number of elements per page" },
+      { name: "hasNext", type: "boolean", desc: "Has a next page" },
+      { name: "hasPrevious", type: "boolean", desc: "Has a previous page" },
+    ],
+  },
+];
+
+
 export const endpoints = [
   {
     category: "Instances",
