@@ -8,12 +8,7 @@ export default function Providers({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
-    <PlausibleProvider
-      domain="socialfolio.me"
-      selfHosted
-      trackOutboundLinks
-      hash
-    >
+    <PlausibleProvider domain="fedisea.surf" selfHosted trackOutboundLinks hash>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </PlausibleProvider>
   );
