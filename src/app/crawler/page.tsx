@@ -128,16 +128,14 @@ export default function Crawler() {
               </code>{" "}
               file. If an instance disallows our user agent or the paths we
               need, we skip it completely. Instance administrators can opt out
-              at any time by updating their robots.txt. We also enforce polite
-              rate limiting — no more than <strong>1 request per second</strong>{" "}
-              per domain.
+              at any time by updating their robots.txt.
             </p>
           </div>
         </div>
 
         <section className="mb-20">
           <h2 className="text-3xl font-black text-foreground mb-3">
-            How the crawler works 🐙
+            How the crawler works
           </h2>
           <p className="text-muted-foreground font-medium mb-10 max-w-2xl">
             The crawling pipeline runs in six stages, continuously discovering

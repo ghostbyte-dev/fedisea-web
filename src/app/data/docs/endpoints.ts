@@ -39,7 +39,7 @@ export const typeDefinitions: TypeDef[] = [
     description: "A Fediverse software platform with aggregate statistics across all known instances running it.",
     fields: [
       { name: "identifier", type: "string", desc: "Identifier/slug of the software (e.g. mastodon, lemmy)" },
-      { name: "name", type: "string", desc: "Canonical name of the software (e.g. Mastodon, Lemmy)" },
+      { name: "name", type: "string", desc: "Canonical name of the software (e.g. Mastodon, Lemmy)", optional: true },
       { name: "website", type: "string", desc: "URL to the software project's homepage", optional: true },
       { name: "sourceCode", type: "string", desc: "URL to source code repository", optional: true },
       { name: "description", type: "string", desc: "Description of the software", optional: true },

@@ -101,67 +101,7 @@ export default function SoftwareClient({ slug }: { slug: string }) {
           )}
         </section>
 
-        <section className="grid grid-cols-2 gap-10 my-20">
-          <div>
-            <h2 className="mb-6">Stats</h2>
-            <div className="grid grid-cols-2 gap-3 h-fit">
-              <div className="flex flex-col h-fit items-center gap-3 card">
-                <div className="p-2 bg-muted rounded-lg">
-                  <UsersIcon className={`w-4 h-4 `} />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-muted-foreground">
-                    Total users
-                  </p>
-                  <p className="text-sm font-bold text-foreground">
-                    {software?.totalUsers}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col h-fit items-center gap-3 card">
-                <div className="p-2 bg-muted rounded-lg">
-                  <UsersIcon className={`w-4 h-4 `} />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-muted-foreground">
-                    Total users
-                  </p>
-                  <p className="text-sm font-bold text-foreground">
-                    {software?.totalUsers}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col h-fit items-center gap-3 card">
-                <div className="p-2 bg-muted rounded-lg">
-                  <UsersIcon className={`w-4 h-4 `} />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-muted-foreground">
-                    Total users
-                  </p>
-                  <p className="text-sm font-bold text-foreground">
-                    {software?.totalUsers}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col h-fit items-center gap-3 card">
-                <div className="p-2 bg-muted rounded-lg">
-                  <UsersIcon className={`w-4 h-4 `} />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-muted-foreground">
-                    Total users
-                  </p>
-                  <p className="text-sm font-bold text-foreground">
-                    {software?.totalUsers}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <section className="my-20">
           <SoftwareVersionSection software={slug} />
         </section>
 

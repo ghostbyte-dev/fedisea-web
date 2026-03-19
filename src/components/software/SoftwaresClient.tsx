@@ -64,7 +64,7 @@ export default function SoftwaresClient() {
   return (
     <div className="my-container">
       <section className="max-w-2xl mt-20 mb-10">
-        <h1 className="text-5xl">Software 🐠</h1>
+        <h1 className="text-5xl">Software</h1>
         <p>
           Explore the Fediverse programmatically. All endpoints return JSON and
           require no authentication for read access.

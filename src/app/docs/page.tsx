@@ -52,7 +52,7 @@ export default function Docs() {
     <div className="">
       <div className="my-container mt-20 mb-20 flex flex-col items-start">
         <div className="max-w-2xl">
-          <h1 className="text-5xl">API Reference 🐠</h1>
+          <h1 className="text-5xl">API Reference</h1>
           <p>
             Explore the Fediverse programmatically. All endpoints return JSON
             and require no authentication for read access.
@@ -69,12 +69,12 @@ export default function Docs() {
 
         <div className="grid sm:grid-cols-3 gap-4 mb-12 mt-6 w-full">
           {[
-            {
+            /* {
               icon: Zap,
               label: "Rate Limit",
               value: "100 req/min",
               color: "text-secondary",
-            },
+            }, */
             {
               icon: Shield,
               label: "Auth",
