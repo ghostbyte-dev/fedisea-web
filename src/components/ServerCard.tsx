@@ -34,12 +34,12 @@ const ServerCard = ({ instance }: ServerCardProps) => {
           </div>
 
           <div>
-            <span className="font-bold text-cyan-900 truncate">
+            <span className="font-bold text-cyan-900 wrap-anywhere">
               {instance.domain}
             </span>
 
             {instance.description && (
-              <p className="text-xs line-clamp-3 text-wrap">
+              <p className="text-xs line-clamp-3 wrap-anywhere">
                 {instance.description}
               </p>
             )}
