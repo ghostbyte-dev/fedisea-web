@@ -4,6 +4,7 @@ import {
   ActivityIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
+  ArrowUpRightIcon,
   Code2Icon,
   CodeIcon,
   ExternalLinkIcon,
@@ -81,15 +82,12 @@ export default function InstanceClient({ slug }: { slug: string }) {
               )}
             </div>
 
-            <Link
+            <Button
               href={`https://${instance.domain}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary text-white flex items-center space-x-2 px-3 py-2 rounded-xl font-bold w-fit"
-            >
-              <ExternalLinkIcon size={18} />
-              <span>Visit</span>
-            </Link>
+              label="Visit"
+              iconRight={ArrowUpRightIcon}
+              variant="light"
+            />
 
             <section className="pb-20 mt-20">
               <div className="flex space-x-2 items-center mb-5">

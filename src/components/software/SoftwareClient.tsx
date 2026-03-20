@@ -39,6 +39,10 @@ export default function SoftwareClient({ slug }: { slug: string }) {
       )
     : 0;
 
+  const totalInstancesPercent = stats?.totalInstances
+    ? Math.min(((software?.instances ?? 0) / stats.totalInstances) * 100, 100)
+    : 0;
+
   const totalUsersPercent = stats?.totalUsers
     ? Math.min(((software?.totalUsers ?? 0) / stats.totalUsers) * 100, 100)
     : 0;
@@ -111,37 +115,20 @@ export default function SoftwareClient({ slug }: { slug: string }) {
           </div>
           {stats && software && (
             <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
-              <h3>Active users last 30 days</h3>
+              <h3>Total servers</h3>
               <StatBar
-                label={`On ${software.name ?? software.identifier}`}
-                value={`${formatCompactNumber(software.activeUsersMonth)} (${formatPercentNumber(activeUsersPercentMonth)})`}
-                percentage={activeUsersPercentMonth}
+                label={`${software.name ?? software.identifier} servers`}
+                value={`${formatCompactNumber(software.instances)} (${formatPercentNumber(totalInstancesPercent)})`}
+                percentage={totalInstancesPercent}
                 color={getColor(0)}
                 className="mt-2"
               />
 
               <StatBar
-                label={`Across the Fediverse`}
-                value={`${formatCompactNumber(stats.totalActiveUsersMonth)}`}
+                label={`Fediverse servers`}
+                value={formatCompactNumber(stats.totalInstances)}
                 percentage={100}
                 color={getColor(1)}
-                className="mt-3 mb-12"
-              />
-
-              <h3>Active users last 180 days</h3>
-              <StatBar
-                label={`On ${software.name ?? software.identifier}`}
-                value={`${formatCompactNumber(software.activeUsersHalfyear)} (${formatPercentNumber(activeUsersPercentHalfyear)})`}
-                percentage={activeUsersPercentHalfyear}
-                color={getColor(2)}
-                className="mt-2"
-              />
-
-              <StatBar
-                label={`Across the Fediverse`}
-                value={formatCompactNumber(stats.totalActiveUsersHalfYear)}
-                percentage={100}
-                color={getColor(3)}
                 className="mt-3 mb-12"
               />
 
@@ -151,7 +138,7 @@ export default function SoftwareClient({ slug }: { slug: string }) {
                 label={`On ${software.name ?? software.identifier}`}
                 value={`${formatCompactNumber(software.totalUsers)} (${formatPercentNumber(totalUsersPercent)})`}
                 percentage={totalUsersPercent}
-                color={getColor(4)}
+                color={getColor(2)}
                 className="mt-2"
               />
 
@@ -159,7 +146,41 @@ export default function SoftwareClient({ slug }: { slug: string }) {
                 label={`Across the Fediverse`}
                 value={formatCompactNumber(stats.totalUsers)}
                 percentage={100}
+                color={getColor(3)}
+                className="mt-3 mb-12"
+              />
+
+              <h3>Active users last 30 days</h3>
+              <StatBar
+                label={`On ${software.name ?? software.identifier}`}
+                value={`${formatCompactNumber(software.activeUsersMonth)} (${formatPercentNumber(activeUsersPercentMonth)})`}
+                percentage={activeUsersPercentMonth}
+                color={getColor(4)}
+                className="mt-2"
+              />
+
+              <StatBar
+                label={`Across the Fediverse`}
+                value={`${formatCompactNumber(stats.totalActiveUsersMonth)}`}
+                percentage={100}
                 color={getColor(5)}
+                className="mt-3 mb-12"
+              />
+
+              <h3>Active users last 180 days</h3>
+              <StatBar
+                label={`On ${software.name ?? software.identifier}`}
+                value={`${formatCompactNumber(software.activeUsersHalfyear)} (${formatPercentNumber(activeUsersPercentHalfyear)})`}
+                percentage={activeUsersPercentHalfyear}
+                color={getColor(6)}
+                className="mt-2"
+              />
+
+              <StatBar
+                label={`Across the Fediverse`}
+                value={formatCompactNumber(stats.totalActiveUsersHalfYear)}
+                percentage={100}
+                color={getColor(7)}
                 className="mt-3 mb-12"
               />
 
@@ -169,7 +190,7 @@ export default function SoftwareClient({ slug }: { slug: string }) {
                 label={`On ${software.name ?? software.identifier}`}
                 value={`${formatCompactNumber(software.localPosts)} (${formatPercentNumber(totalPostsPercent)})`}
                 percentage={totalPostsPercent}
-                color={getColor(6)}
+                color={getColor(8)}
                 className="mt-2"
               />
 
@@ -177,7 +198,7 @@ export default function SoftwareClient({ slug }: { slug: string }) {
                 label={`Across the Fediverse`}
                 value={formatCompactNumber(stats.totalPosts)}
                 percentage={100}
-                color={getColor(7)}
+                color={getColor(9)}
                 className="mt-3"
               />
             </div>
