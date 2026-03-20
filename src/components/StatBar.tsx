@@ -4,6 +4,8 @@ interface StatBarProps {
   subLabel?: string;
   percentage: number;
   color?: string;
+  icon?: React.ReactNode;
+  href?: string;
   className?: string;
 }
 
@@ -13,13 +15,29 @@ export function StatBar({
   subLabel,
   percentage,
   color = "var(--primary)",
+  icon,
+  href,
   className = "",
 }: StatBarProps) {
+  const LabelComponent = href ? "a" : "span";
+
   return (
     <div className={`group ${className}`}>
       <div className="w-full flex justify-between items-baseline mb-1.5">
         <div className="flex items-center gap-2">
-          <span className="font-bold transition-colors">{label}</span>
+          {icon && <span className="flex items-center">{icon}</span>}
+          <LabelComponent
+            {...(href
+              ? {
+                  href,
+                }
+              : {})}
+            className={`font-bold transition-colors ${
+              href ? "hover:underline cursor-pointer" : ""
+            }`}
+          >
+            {label}
+          </LabelComponent>
           {subLabel && (
             <span className="text-xs font-medium text-muted-foreground">
               {subLabel}

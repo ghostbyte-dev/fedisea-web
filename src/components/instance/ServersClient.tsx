@@ -162,7 +162,7 @@ export default function ServersClient() {
           </p>
         )}
 
-        <div className="w-full gap-6 grid grid-cols-1 md:grid-cols-3">
+        <div className="w-full gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {data?.data.map((instance) => (
             <ServerCard key={instance.domain} instance={instance} />
           ))}

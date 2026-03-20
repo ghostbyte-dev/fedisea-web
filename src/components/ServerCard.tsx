@@ -1,6 +1,8 @@
+import { CircleCheckIcon, CircleXIcon } from "lucide-react";
 import Link from "next/link";
 import SoftwareLogo from "@/components/SoftwareLogo";
 import type { Instance } from "@/lib/types";
+import { formatCompactNumber } from "@/lib/utils";
 
 interface ServerCardProps {
   instance: Instance;
@@ -21,52 +23,71 @@ const ServerCard = ({ instance }: ServerCardProps) => {
         />
       </div>
 
-      <div className="p-6">
-        <div className="flex items-center space-x-2">
-          <SoftwareLogo
-            url={instance.softwareLogoUrl}
-            name={instance.software}
-            size={18}
-          />
-          <span className="font-bold text-cyan-900 truncate">
-            {instance.domain}
-          </span>
+      <div className="p-6 flex flex-col flex-1 justify-between">
+        <div className="flex space-x-2">
+          <div className="mt-1.5">
+            <SoftwareLogo
+              url={instance.softwareLogoUrl}
+              name={instance.software}
+              size={18}
+            />
+          </div>
+
+          <div>
+            <span className="font-bold text-cyan-900 truncate">
+              {instance.domain}
+            </span>
+
+            {instance.description && (
+              <p className="text-xs line-clamp-3">{instance.description}</p>
+            )}
+          </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 border-t border-cyan-50 pt-4">
-          <div className="flex flex-col">
+        <div className="grid grid-cols-3 gap-2 pt-4 pb-3">
+          <div className="flex flex-col items-center">
             <span className="text-[10px] text-gray-400 uppercase font-bold tracking-tight">
               Total Users
             </span>
             <span className="text-xs font-mono text-cyan-700">
-              {instance.totalUsers?.toLocaleString() ?? 0}
+              {formatCompactNumber(instance.totalUsers)}
             </span>
           </div>
 
-          <div className="flex flex-col border-x border-cyan-50 px-2">
+          <div className="flex flex-col items-center px-2">
             <span className="text-[10px] text-gray-400 uppercase font-bold tracking-tight">
               Active (Mo)
             </span>
             <span className="text-xs font-mono text-cyan-700">
-              {instance.activeUsersMonth?.toLocaleString() ?? 0}
+              {formatCompactNumber(instance.activeUsersMonth)}
             </span>
           </div>
 
-          <div className="flex flex-col items-end">
+          <div className="flex flex-col items-center">
             <span className="text-[10px] text-gray-400 uppercase font-bold tracking-tight">
               Posts
             </span>
             <span className="text-xs font-mono text-cyan-700">
-              {instance.localPosts?.toLocaleString() ?? 0}
+              {formatCompactNumber(instance.localPosts)}
             </span>
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-between">
-          <div className="text-xs font-mono bg-cyan-50 text-cyan-700 px-2 py-1 rounded">
-            {instance.totalUsers?.toLocaleString() ?? 0} users
-          </div>
-          {/* Optional: Add a small badge for software name */}
+        <div className="pt-4 flex items-center justify-between">
+          {instance.openRegistration && (
+            <div className="text-primary font-bold text-sm flex space-x-1.5 items-center">
+              <CircleCheckIcon size={18} />
+              <span>Registration open</span>
+            </div>
+          )}
+
+          {!instance.openRegistration && (
+            <div className="text-secondary font-bold text-sm flex space-x-1.5 items-center">
+              <CircleXIcon size={18} />
+              <span>Registration closed</span>
+            </div>
+          )}
+
           <span className="text-[10px] text-gray-400 uppercase tracking-widest">
             {instance.software}
           </span>

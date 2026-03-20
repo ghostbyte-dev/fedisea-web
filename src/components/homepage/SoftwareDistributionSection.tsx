@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useSoftwares } from "@/hooks/software/useSoftwares";
 import { useStats } from "@/hooks/stats/useStats";
 import { getColor } from "@/lib/colors";
-import { formatCompactNumber } from "@/lib/utils";
+import { formatCompactNumber, formatPercentNumber } from "@/lib/utils";
 import SoftwareLogo from "../SoftwareLogo";
+import { StatBar } from "../StatBar";
 
 const SoftwareDistributionSection = () => {
   const { data: softwares } = useSoftwares({
@@ -49,39 +49,23 @@ const SoftwareDistributionSection = () => {
 
         <div className="mt-10 w-full space-y-6">
           {processedItems?.map((item, index) => (
-            <div key={item.identifier}>
-              <div className="w-full flex justify-between mb-2">
-                <div className="flex items-center">
-                  <SoftwareLogo
-                    url={item.iconUrl}
-                    name={item.name ?? item.identifier}
-                    size={16}
-                  />
-                  <Link
-                    href={`/software/${item.identifier}`}
-                    className="font-bold ml-2 hover:underline"
-                  >
-                    {item.name ?? item.identifier}
-                  </Link>
-                  <span className="ml-2 text-sm text-gray-500">
-                    {formatCompactNumber(item.activeUsersMonth)}
-                  </span>
-                </div>
-                <span className="font-bold" style={{ color: getColor(index) }}>
-                  {item.displayPercentage.toFixed(1)}%
-                </span>
-              </div>
-
-              <div className="w-full rounded-full bg-muted h-3 relative overflow-hidden">
-                <div
-                  className="absolute top-0 bottom-0 left-0 rounded-full transition-all duration-700"
-                  style={{
-                    width: `${item.displayPercentage}%`,
-                    backgroundColor: getColor(index),
-                  }}
+            <StatBar
+              key={item.identifier}
+              label={item.name ?? item.identifier}
+              subLabel={formatCompactNumber(item.activeUsersMonth)}
+              value={formatPercentNumber(item.displayPercentage)}
+              percentage={item.displayPercentage}
+              color={getColor(index)}
+              icon={
+                <SoftwareLogo
+                  url={item.iconUrl}
+                  name={item.name ?? item.identifier}
+                  size={16}
                 />
-              </div>
-            </div>
+              }
+              href={`/software/${item.identifier}`}
+              className="mb-5"
+            />
           ))}
 
           {otherData && (
