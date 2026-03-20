@@ -13,6 +13,7 @@ import { useInstance } from "@/hooks/instance/useInstance";
 import { useSoftware } from "@/hooks/software/useSoftware";
 import { getColor } from "@/lib/colors";
 import { formatCompactNumber, formatPercentNumber } from "@/lib/utils";
+import { Button } from "../inputs/Button";
 import SoftwareLogo from "../SoftwareLogo";
 import { StatBar } from "../StatBar";
 
@@ -224,15 +225,13 @@ export default function InstanceClient({ slug }: { slug: string }) {
                       className="mt-3"
                     />
 
-                    <Link
+                    <Button
+                      label={`More about ${software.name ?? software.identifier}`}
                       href={`/software/${software.identifier}`}
-                      className="bg-primary text-white flex items-center space-x-2 px-3 py-2 w-fit rounded-xl font-bold mt-8"
-                    >
-                      <span>
-                        More about {software.name ?? software.identifier}
-                      </span>
-                      <ArrowRightIcon size={18} />
-                    </Link>
+                      variant="light"
+                      iconRight={ArrowRightIcon}
+                      className="mt-8"
+                    />
                   </div>
                 )}
               </div>

@@ -7,6 +7,7 @@ import { useSoftware } from "@/hooks/software/useSoftware";
 import { useStats } from "@/hooks/stats/useStats";
 import { getColor } from "@/lib/colors";
 import { formatCompactNumber, formatPercentNumber } from "@/lib/utils";
+import { Button } from "../inputs/Button";
 import ServerCard from "../ServerCard";
 import SoftwareLogo from "../SoftwareLogo";
 import { StatBar } from "../StatBar";
@@ -65,39 +66,33 @@ export default function SoftwareClient({ slug }: { slug: string }) {
                 <p>{software.description}</p>
                 <div className="flex space-x-3 mt-3">
                   {software.website && (
-                    <Link
+                    <Button
                       href={software.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-primary text-white flex items-center space-x-2 px-3 py-2 rounded-xl font-bold"
-                    >
-                      <GlobeIcon size={18} />
-                      <span>Website</span>
-                    </Link>
+                      label="Website"
+                      iconLeft={GlobeIcon}
+                      variant="light"
+                      colorIndex={0}
+                    />
                   )}
 
                   {software.sourceCode && (
-                    <Link
+                    <Button
                       href={software.sourceCode}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-muted flex items-center space-x-2 px-3 py-2 rounded-xl font-bold"
-                    >
-                      <Code2Icon size={18} />
-                      <span>Source Code</span>
-                    </Link>
+                      label="Source Code"
+                      iconLeft={Code2Icon}
+                      variant="light"
+                      colorIndex={1}
+                    />
                   )}
 
                   {software.joinUrl && (
-                    <Link
+                    <Button
                       href={software.joinUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-[#db5783] text-white flex items-center space-x-2 px-3 py-2 rounded-xl font-bold"
-                    >
-                      <UsersIcon size={18} />
-                      <span>Join</span>
-                    </Link>
+                      label="Join"
+                      iconLeft={UsersIcon}
+                      variant="light"
+                      colorIndex={2}
+                    />
                   )}
                 </div>
               </div>

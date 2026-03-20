@@ -6,6 +6,23 @@ import { useEffect, useState } from "react";
 import ServerCard from "@/components/ServerCard";
 import { useInstances } from "@/hooks/instance/useInstances";
 import type { InstanceSortField, SortDirection } from "@/lib/types";
+import SingleCombobox from "../inputs/SingleCombobox";
+import SingleSelect from "../inputs/SingleSelect";
+
+const sortOptions = [
+  { label: "Users", value: "users" },
+  { label: "Monthly Users", value: "activeUsersMonth" },
+  { label: "6-Month Users", value: "activeUsersHalfyear" },
+  { label: "Posts", value: "localPosts" },
+  { label: "Comments", value: "localComments" },
+  { label: "Software Version", value: "softwareVersion" },
+  { label: "Domain", value: "domain" },
+];
+
+const sortOrderOptions = [
+  { label: "Descending", value: "desc" },
+  { label: "Ascending", value: "asc" },
+];
 
 export default function ServersClient() {
   const router = useRouter();
@@ -34,6 +51,14 @@ export default function ServersClient() {
     "pixelfed",
     "pleroma",
     "loops",
+  ];
+
+  const softwareOptions = [
+    { label: "All Software", value: "" },
+    ...softwares.filter(Boolean).map((s) => ({
+      label: s.charAt(0).toUpperCase() + s.slice(1),
+      value: s,
+    })),
   ];
 
   const sortOptions = [
@@ -105,48 +130,36 @@ export default function ServersClient() {
           className="flex-1 px-4 py-3 rounded-xl border border-border bg-card focus:outline-none focus:ring-2 focus:ring-primary/20 shadow-sm"
         />
 
-        <select
-          value={software}
-          onChange={(e) => {
-            setSoftware(e.target.value);
+        <SingleCombobox
+          value={software || undefined}
+          onValueChange={(value) => {
+            setSoftware(value || "");
             setPage(0);
           }}
-          className="px-4 py-3 rounded-xl border border-border bg-card shadow-sm capitalize"
-        >
-          <option value="">All Software</option>
-          {softwares.filter(Boolean).map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
+          options={softwareOptions}
+          placeholder="All Software"
+          clearable
+        />
 
-        <select
+        <SingleSelect
           value={sortOption}
-          onChange={(e) => {
-            setSortOption(e.target.value as InstanceSortField);
+          onValueChange={(value) => {
+            setSortOption(value as InstanceSortField);
             setPage(0);
           }}
-          className="px-4 py-3 rounded-xl border border-border bg-card shadow-sm"
-        >
-          {sortOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              Sort by: {opt.label}
-            </option>
-          ))}
-        </select>
+          options={sortOptions}
+          placeholder="Sort by"
+        />
 
-        <select
+        <SingleSelect
           value={sortOrder}
-          onChange={(e) => {
-            setSortOrder(e.target.value as SortDirection);
+          onValueChange={(value) => {
+            setSortOrder(value as SortDirection);
             setPage(0);
           }}
-          className="px-4 py-3 rounded-xl border border-border bg-card shadow-sm"
-        >
-          <option value="desc">Descending ↓</option>
-          <option value="asc">Ascending ↑</option>
-        </select>
+          options={sortOrderOptions}
+          placeholder="Sort order"
+        />
       </div>
 
       <section className="my-10">

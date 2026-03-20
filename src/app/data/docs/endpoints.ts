@@ -23,7 +23,7 @@ export const typeDefinitions: TypeDef[] = [
       { name: "title", type: "string", desc: "Title of the instance", optional: true },
       { name: "software", type: "string", desc: "Software running on the instance (e.g. mastodon, lemmy)" },
       { name: "version", type: "string", desc: "Software version" },
-      { name: "openRegistrations", type: "boolean", desc: "Whether the instance is accepting new sign-ups" },
+      { name: "openRegistration", type: "boolean", desc: "Whether the instance is accepting new sign-ups" },
       { name: "thumbnail", type: "string", desc: "URL to the instance thumbnail image", optional: true },
       { name: "sourceUrl", type: "string", desc: "Url to the source code repository", optional: true },
       { name: "totalUsers", type: "integer", desc: "Total registered users across all instances" },

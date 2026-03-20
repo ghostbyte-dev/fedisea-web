@@ -23,7 +23,7 @@ const dataEndpoints = [
       "Software name & version",
       "Total users, active users (month/half-year)",
       "Local posts, comments count",
-      "Open registrations status",
+      "Open registration status",
     ],
   },
   {

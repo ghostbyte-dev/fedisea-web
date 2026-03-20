@@ -39,12 +39,14 @@ const ServerCard = ({ instance }: ServerCardProps) => {
             </span>
 
             {instance.description && (
-              <p className="text-xs line-clamp-3">{instance.description}</p>
+              <p className="text-xs line-clamp-3 text-wrap">
+                {instance.description}
+              </p>
             )}
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 pt-4 pb-3">
+        <div className="flex justify-between pt-4 pb-3">
           <div className="flex flex-col items-center">
             <span className="text-[10px] text-gray-400 uppercase font-bold tracking-tight">
               Total Users
