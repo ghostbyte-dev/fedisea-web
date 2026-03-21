@@ -17,19 +17,25 @@
 
   html,
   body {
-    @apply text-neutral-600 font-medium bg-light
+    @apply text-neutral-600 font-medium bg-light;
   }
 
-  h1, h2, h3 {
-    @apply text-neutral-800 font-black
+  h1,
+  h2,
+  h3 {
+    @apply text-neutral-800 font-black;
+  }
+
+  p {
+    @apply leading-6;
   }
 
   h1 {
-    @apply text-5xl
+    @apply text-5xl;
   }
 
   h2 {
-    @apply text-3xl
+    @apply text-3xl;
   }
 
   button {
@@ -37,18 +43,18 @@
   }
 
   .my-container {
-    @apply px-5 md:px-6 w-full max-w-5xl mx-auto
+    @apply px-5 md:px-6 w-full max-w-5xl mx-auto;
   }
 }
 
 @layer utilities {
   .fef {
-    @apply underline
+    @apply underline;
   }
 }
 
 @layer components {
   .card {
-    @apply p-4 bg-card border-2 border-border rounded-xl
+    @apply p-4 bg-card border-2 border-border rounded-xl;
   }
 }

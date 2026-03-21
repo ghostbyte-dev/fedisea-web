@@ -23,7 +23,7 @@ const SoftwareLogo = ({
         alt={`${name || "Unknown"} software logo`}
         fill
         className="object-contain"
-        priority={size > 40}
+        priority={size > 60}
       />
     </div>
   );

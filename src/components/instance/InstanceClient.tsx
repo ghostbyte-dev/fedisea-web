@@ -13,6 +13,7 @@ import { useSoftware } from "@/hooks/software/useSoftware";
 import { getColor } from "@/lib/colors";
 import { formatCompactNumber, formatPercentNumber } from "@/lib/utils";
 import { Button } from "../inputs/Button";
+import { Skeleton } from "../Skeleton";
 import SoftwareLogo from "../SoftwareLogo";
 import { StatBar } from "../StatBar";
 
@@ -66,14 +67,20 @@ export default function InstanceClient({ slug }: { slug: string }) {
             <ArrowLeftIcon size={18} />
             <span>All Servers</span>
           </Link>
-          <h1 className="mb-3">
-            {instance?.domain || <span className="invisible">placeholder</span>}
-          </h1>
-          <p className="font-bold mb-5">
-            {instance?.description || (
-              <span className="invisible">placeholder</span>
+          <h1 className="text-4xl font-black leading-6 mb-3">
+            {isInstanceLoading ? (
+              <Skeleton className="h-6 w-64" />
+            ) : (
+              instance?.domain
             )}
-          </p>
+          </h1>
+
+          {isInstanceLoading ? (
+            <Skeleton className="h-4 w-3/4 mb-5" />
+          ) : (
+            <p className="font-bold mb-5 leading-4">{instance?.description}</p>
+          )}
+
           <div className="w-full mb-4 overflow-hidden rounded-lg bg-gray-100 shrink-0">
             {instance?.thumbnail && (
               // biome-ignore lint/performance/noImgElement: <explanation>
@@ -171,14 +178,28 @@ export default function InstanceClient({ slug }: { slug: string }) {
             <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
               <div>
                 <div className="flex space-x-3 mb-12">
-                  {software && (
-                    <SoftwareLogo url={software.iconUrl} size={42} />
-                  )}
+                  {isSoftwareLoading || isInstanceLoading ? (
+                    <>
+                      <Skeleton className="h-[42px] w-[42px] rounded-md shrink-0" />
+                      <div className="space-y-2">
+                        <Skeleton className="h-6 w-32" />
+                        <Skeleton className="h-5 w-48" />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {software && (
+                        <SoftwareLogo url={software.iconUrl} size={42} />
+                      )}
 
-                  <div>
-                    <h3>{software?.name ?? software?.identifier}</h3>
-                    <p>{software?.description}</p>
-                  </div>
+                      <div>
+                        <h3 className="leading-6">
+                          {software?.name ?? software?.identifier}
+                        </h3>
+                        <p className="leading-5">{software?.description}</p>
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <h3>Active users last 30 days</h3>
