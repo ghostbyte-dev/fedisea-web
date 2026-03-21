@@ -1,8 +1,9 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import type { SoftwareSortField, SortDirection } from "@/lib/types";
 import { SoftwareService } from "@/services/software.service";
 
 interface UseSoftwareOptions {
+  page?: number;
   size?: number;
   search?: string;
   sortBy?: SoftwareSortField;
@@ -10,26 +11,21 @@ interface UseSoftwareOptions {
 }
 
 export const useSoftwares = ({
+  page = 0,
   size = 10,
   search = "",
   sortBy = "activeUsersMonth",
   direction = "desc",
 }: UseSoftwareOptions = {}) =>
-  useInfiniteQuery({
-    queryKey: ["software", size, search, sortBy, direction],
+  useQuery({
+    queryKey: ["software", page, size, search, sortBy, direction],
 
-    queryFn: ({ pageParam = 0 }) =>
+    queryFn: () =>
       SoftwareService.getSoftwares(
-        pageParam,
+        page,
         size,
         search,
         sortBy,
         direction,
       ),
-
-    initialPageParam: 0,
-
-    getNextPageParam: (lastPage) => {
-      return lastPage.hasNext ? lastPage.currentPage + 1 : undefined;
-    },
   });

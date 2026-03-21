@@ -9,6 +9,11 @@ import type { InstanceSortField, SortDirection } from "@/lib/types";
 import SingleCombobox from "../inputs/SingleCombobox";
 import SingleSelect from "../inputs/SingleSelect";
 
+const sortOrderOptions = [
+  { label: "Descending", value: "desc" },
+  { label: "Ascending", value: "asc" },
+];
+
 const sortOptions = [
   { label: "Users", value: "users" },
   { label: "Monthly Users", value: "activeUsersMonth" },
@@ -19,9 +24,14 @@ const sortOptions = [
   { label: "Domain", value: "domain" },
 ];
 
-const sortOrderOptions = [
-  { label: "Descending", value: "desc" },
-  { label: "Ascending", value: "asc" },
+const softwares = [
+  "",
+  "mastodon",
+  "lemmy",
+  "misskey",
+  "pixelfed",
+  "pleroma",
+  "loops",
 ];
 
 export default function ServersClient() {
@@ -43,16 +53,6 @@ export default function ServersClient() {
     (searchParams.get("order") as SortDirection) || "desc",
   );
 
-  const softwares = [
-    "",
-    "mastodon",
-    "lemmy",
-    "misskey",
-    "pixelfed",
-    "pleroma",
-    "loops",
-  ];
-
   const softwareOptions = [
     { label: "All Software", value: "" },
     ...softwares.filter(Boolean).map((s) => ({
@@ -61,17 +61,6 @@ export default function ServersClient() {
     })),
   ];
 
-  const sortOptions = [
-    { label: "Users", value: "users" },
-    { label: "Monthly Users", value: "activeUsersMonth" },
-    { label: "6-Month Users", value: "activeUsersHalfyear" },
-    { label: "Posts", value: "localPosts" },
-    { label: "Comments", value: "localComments" },
-    { label: "Software Version", value: "softwareVersion" },
-    { label: "Domain", value: "domain" },
-  ];
-
-  // Sync state to URL
   useEffect(() => {
     const params = new URLSearchParams();
     if (debouncedSearch) params.set("search", debouncedSearch);
@@ -94,7 +83,6 @@ export default function ServersClient() {
     router,
   ]);
 
-  // Debounce logic
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedSearch(inputValue), 500);
     return () => clearTimeout(handler);
@@ -166,7 +154,7 @@ export default function ServersClient() {
         {isLoading && (
           <p className="text-muted-foreground">Updating results...</p>
         )}
-        {error && <p className="text-destructive font-bold">{error.message}</p>}
+        {error && <p className="font-bold">{error.message}</p>}
 
         {data && (
           <p className="font-bold text-lg mb-6">

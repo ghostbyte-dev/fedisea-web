@@ -17,7 +17,7 @@ const SoftwareDistributionSection = () => {
   const total = globalStats?.totalActiveUsersMonth || 0;
 
   const processedItems =
-    softwares?.pages[0]?.data?.map((item) => ({
+    softwares?.data?.map((item) => ({
       ...item,
       displayPercentage:
         total > 0 ? ((item.activeUsersMonth || 0) / total) * 100 : 0,
