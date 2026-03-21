@@ -109,10 +109,11 @@ export default function SoftwaresClient() {
       </div>
 
       <section className="my-20 flex flex-col justify-center">
-        {isLoading && <p>Loading</p>}
         {error && <p className="text-red-500">{error.message}</p>}
 
-        {data && (
+        {isLoading && <p className="font-bold text-lg mb-6">Loading Results</p>}
+
+        {data && !isLoading && (
           <p className="font-bold text-lg mb-6">
             {data.totalItems.toLocaleString()} Result
             {data.totalItems !== 1 && "s"}:

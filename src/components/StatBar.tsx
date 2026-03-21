@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 interface StatBarProps {
   label: string;
   value: number | string;
@@ -6,6 +8,7 @@ interface StatBarProps {
   color?: string;
   icon?: React.ReactNode;
   href?: string;
+  isLoading?: boolean;
   className?: string;
 }
 
@@ -17,9 +20,12 @@ export function StatBar({
   color = "var(--primary)",
   icon,
   href,
+  isLoading = false,
   className = "",
 }: StatBarProps) {
   const LabelComponent = href ? "a" : "span";
+
+  const realPercentage = isLoading ? 0 : percentage;
 
   return (
     <div className={`group ${className}`}>
@@ -44,7 +50,13 @@ export function StatBar({
             </span>
           )}
         </div>
-        <span className="font-black tabular-nums" style={{ color }}>
+        <span
+          className={clsx("font-black transition-opacity duration-300", {
+            "opacity-0": isLoading,
+            "opacity-100": !isLoading,
+          })}
+          style={{ color }}
+        >
           {value}
         </span>
       </div>
@@ -53,7 +65,7 @@ export function StatBar({
         <div
           className="absolute top-0 bottom-0 left-0 rounded-full transition-all duration-1000 ease-out"
           style={{
-            width: `${Math.min(percentage, 100)}%`,
+            width: `${Math.min(realPercentage, 100)}%`,
             backgroundColor: color,
           }}
         />

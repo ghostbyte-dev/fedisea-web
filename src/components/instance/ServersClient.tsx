@@ -151,22 +151,30 @@ export default function ServersClient() {
       </div>
 
       <section className="my-10">
-        {isLoading && (
-          <p className="text-muted-foreground">Updating results...</p>
-        )}
         {error && <p className="font-bold">{error.message}</p>}
 
-        {data && (
+        {isLoading && <p className="font-bold text-lg mb-6">Loading Servers</p>}
+
+        {data && !isLoading && (
           <p className="font-bold text-lg mb-6">
-            {data.totalItems.toLocaleString()} Result
+            {data.totalItems.toLocaleString()} Server
             {data.totalItems !== 1 && "s"}:
           </p>
         )}
 
         <div className="w-full gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {data?.data.map((instance) => (
-            <ServerCard key={instance.domain} instance={instance} />
-          ))}
+          {isLoading && (
+            <>
+              <ServerCard isLoading />
+              <ServerCard isLoading />
+              <ServerCard isLoading />
+            </>
+          )}
+
+          {!isLoading &&
+            data?.data.map((instance) => (
+              <ServerCard key={instance.domain} instance={instance} />
+            ))}
         </div>
 
         {/* Pagination */}

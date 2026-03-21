@@ -6,7 +6,7 @@ import { formatCompactNumber } from "@/lib/utils";
 
 interface StatCardProps {
   label: string;
-  value: number;
+  value?: number;
   suffix?: string;
   emoji: string;
   delay?: number;
@@ -55,36 +55,33 @@ const StatsSection = () => {
         <h2 className="mb-3">The fediverse at a glance</h2>
         {/* <p>Lorem ipsum</p> */}
 
-        {isLoading && <p>Loading</p>}
         {error && <p className="text-red-500">{error.message}</p>}
 
-        {data && (
-          <div className="mt-10 w-full gap-6 grid grid-cols-1 md:grid-cols-3">
-            <StatCard
-              label="Known Instances"
-              value={data.totalInstances}
-              emoji=""
-            />
+        <div className="mt-10 w-full gap-6 grid grid-cols-1 md:grid-cols-3">
+          <StatCard
+            label="Known Instances"
+            value={data?.totalInstances}
+            emoji=""
+          />
 
-            <StatCard label="Total Accounts" value={data.totalUsers} emoji="" />
-            <StatCard
-              label="Total active accounts month"
-              value={data.totalActiveUsersMonth}
-              emoji=""
-            />
-            <StatCard
-              label="Total active accounts half year"
-              value={data.totalActiveUsersHalfYear}
-              emoji=""
-            />
-            <StatCard label="Total Posts" value={data.totalPosts} emoji="" />
-            <StatCard
-              label="Total Comments"
-              value={data.totalComments}
-              emoji=""
-            />
-          </div>
-        )}
+          <StatCard label="Total Accounts" value={data?.totalUsers} emoji="" />
+          <StatCard
+            label="Total active accounts month"
+            value={data?.totalActiveUsersMonth}
+            emoji=""
+          />
+          <StatCard
+            label="Total active accounts half year"
+            value={data?.totalActiveUsersHalfYear}
+            emoji=""
+          />
+          <StatCard label="Total Posts" value={data?.totalPosts} emoji="" />
+          <StatCard
+            label="Total Comments"
+            value={data?.totalComments}
+            emoji=""
+          />
+        </div>
       </div>
     </section>
   );
