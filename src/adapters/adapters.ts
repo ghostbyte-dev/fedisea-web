@@ -1,10 +1,20 @@
-import type { Instance, Software, SoftwareVersion, Stats } from "@/lib/types";
+import type { Instance, Protocol, Software, SoftwareVersion, Stats } from "@/lib/types";
+
+export const mapProtocol = (data: any): Protocol => {
+  return ({
+    identifier: data.identifier,
+    name: data.name,
+    description: data.description,
+    website: data.website
+  })
+};
 
 export const mapInstance = (data: any): Instance => {
   return ({
     domain: data.domain,
     software: data.software,
     version: data.version,
+    protocols: data.protocols?.map((p: any) => mapProtocol(p)) ?? [],
     openRegistration: data.openRegistration,
     totalUsers: data.totalUsers,
     activeUsersMonth: data.activeUsersMonth,
@@ -15,7 +25,8 @@ export const mapInstance = (data: any): Instance => {
     description: data.description,
     source_url: data.source_url,
     thumbnail: data.thumbnail,
-    softwareLogoUrl: data.softwareLogoUrl
+    softwareLogoUrl: data.softwareLogoUrl,
+    metadata: data.metadata
   })
 };
 

@@ -16,10 +16,18 @@ export interface PaginatedResponse<T> {
   hasPrevious: boolean;
 }
 
+export type Protocol = {
+  identifier: string,
+  name?: string,
+  description?: string,
+  website?: string
+}
+
 export type Instance = {
   domain: string;
   software: string;
   version: string;
+  protocols?: Protocol[];
   openRegistration: boolean;
   totalUsers: number;
   activeUsersMonth: number;
@@ -30,7 +38,8 @@ export type Instance = {
   description?: string;
   source_url?: string;
   thumbnail?: string;
-  softwareLogoUrl?: string
+  softwareLogoUrl?: string,
+  metadata?: Record<string, any>;
 };
 
 export type Software = {

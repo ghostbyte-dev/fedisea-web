@@ -169,6 +169,38 @@ export default function InstanceClient({ slug }: { slug: string }) {
             </div>
           </section>
 
+          {instance?.protocols?.length !== 0 && (
+            <section className="pb-20 mt-20">
+              <div className="flex space-x-2 items-center mb-5">
+                <ActivityIcon className="text-secondary" size={32} />
+                <h2>Technical Details</h2>
+              </div>
+
+              <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
+                <h3 className="mb-3">Supported Protocols:</h3>
+                <div className="space-y-5 pl-5">
+                  {instance?.protocols?.map((protocol) => (
+                    <div
+                      key={protocol.identifier}
+                      className="flex flex-col items-start space-y-2"
+                    >
+                      <span>{protocol.name ?? protocol.identifier}</span>
+
+                      {protocol.website && (
+                        <Button
+                          label={`More about ${protocol.name ?? protocol.identifier}`}
+                          href={protocol.website}
+                          variant="light"
+                          iconRight={ArrowUpRightIcon}
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
           <section className="mb-20">
             <div className="flex space-x-2 items-center mb-5">
               <Code2Icon className="text-secondary" size={32} />
@@ -274,8 +306,42 @@ export default function InstanceClient({ slug }: { slug: string }) {
               </div>
             </div>
           </section>
+
+          {instance?.metadata && (
+            <section className="pb-20 mt-20">
+              <div className="flex space-x-2 items-center mb-5">
+                <Code2Icon className="text-secondary" size={32} />
+                <h2>Additional Metadata</h2>
+              </div>
+
+              <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8 shadow-sm">
+                <MetadataTree data={instance.metadata} />
+              </div>
+            </section>
+          )}
         </div>
       </div>
     </main>
   );
 }
+
+const MetadataTree = ({ data, level = 0 }: { data: any; level?: number }) => {
+  if (typeof data !== "object" || data === null) {
+    return <span className="text-foreground/80">{String(data)}</span>;
+  }
+
+  return (
+    <ul
+      className={`space-y-2 ${level > 0 ? "ml-6 border-l-2 border-border/50 pl-4 mt-2" : ""}`}
+    >
+      {Object.entries(data).map(([key, value]) => (
+        <li key={key} className="text-sm">
+          <span className="font-mono font-bold text-secondary mr-2">
+            {key}:
+          </span>
+          <MetadataTree data={value} level={level + 1} />
+        </li>
+      ))}
+    </ul>
+  );
+};
