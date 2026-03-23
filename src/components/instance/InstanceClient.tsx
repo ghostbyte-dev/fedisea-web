@@ -169,7 +169,10 @@ export default function InstanceClient({ slug }: { slug: string }) {
             </div>
           </section>
 
-          {instance?.protocols?.length !== 0 && (
+          {(instance?.protocols?.length !== 0 ||
+            instance.country ||
+            instance.city ||
+            instance.asnName) && (
             <section className="pb-20 mt-20">
               <div className="flex space-x-2 items-center mb-5">
                 <ActivityIcon className="text-secondary" size={32} />
@@ -177,26 +180,46 @@ export default function InstanceClient({ slug }: { slug: string }) {
               </div>
 
               <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
-                <h3 className="mb-3">Supported Protocols:</h3>
-                <div className="space-y-5 pl-5">
-                  {instance?.protocols?.map((protocol) => (
-                    <div
-                      key={protocol.identifier}
-                      className="flex flex-col items-start space-y-2"
-                    >
-                      <span>{protocol.name ?? protocol.identifier}</span>
+                {instance?.protocols?.length !== 0 && (
+                  <>
+                    <h3 className="mb-3">Supported Protocols:</h3>
+                    <div className="space-y-5 pl-5">
+                      {instance?.protocols?.map((protocol) => (
+                        <div
+                          key={protocol.identifier}
+                          className="flex flex-col items-start space-y-2"
+                        >
+                          <span>{protocol.name ?? protocol.identifier}</span>
 
-                      {protocol.website && (
-                        <Button
-                          label={`More about ${protocol.name ?? protocol.identifier}`}
-                          href={protocol.website}
-                          variant="light"
-                          iconRight={ArrowUpRightIcon}
-                        />
-                      )}
+                          {protocol.website && (
+                            <Button
+                              label={`More about ${protocol.name ?? protocol.identifier}`}
+                              href={protocol.website}
+                              variant="light"
+                              iconRight={ArrowUpRightIcon}
+                            />
+                          )}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </>
+                )}
+
+                {(instance?.country || instance?.city) && (
+                  <>
+                    <h3 className="mb-3">Server Location:</h3>
+                    <p>
+                      {instance.city} {instance.country}
+                    </p>
+                  </>
+                )}
+
+                {instance?.asnName && (
+                  <>
+                    <h3 className="mb-3">Autonomous System Name:</h3>
+                    <p>{instance.asnName}</p>
+                  </>
+                )}
               </div>
             </section>
           )}

@@ -26,6 +26,9 @@ export const mapInstance = (data: any): Instance => {
     source_url: data.source_url,
     thumbnail: data.thumbnail,
     softwareLogoUrl: data.softwareLogoUrl,
+    country: data.country,
+    city: data.city,
+    asnName: data.asnName,
     metadata: data.metadata
   })
 };

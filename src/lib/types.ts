@@ -39,6 +39,9 @@ export type Instance = {
   source_url?: string;
   thumbnail?: string;
   softwareLogoUrl?: string,
+  country?: string,
+  city?: string,
+  asnName?: string,
   metadata?: Record<string, any>;
 };
 
