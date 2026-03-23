@@ -2,11 +2,11 @@
 
 import {
   AnchorIcon,
+  ArrowUpRightIcon,
   Clock,
   Compass,
   Database,
   FileSearch,
-  GithubIcon,
   Network,
   ServerIcon,
   ShieldCheck,
@@ -129,8 +129,8 @@ export default function Crawler() {
           rel="noopener noreferrer"
           className="flex items-center bg-primary-dark px-4 py-3 mt-5 rounded-xl space-x-2 text-white"
         >
-          <GithubIcon size={18} />
           <span className="font-bold">View on GitHub</span>
+          <ArrowUpRightIcon size={18} />
         </Link>
 
         {/* Robots.txt notice */}
