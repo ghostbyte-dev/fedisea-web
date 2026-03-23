@@ -210,16 +210,27 @@ export default function InstanceClient({ slug }: { slug: string }) {
 
                 {(instance?.country || instance?.city) && (
                   <>
-                    <h3 className="mb-3">Server Location:</h3>
+                    <h3 className="mt-5">Server Location:</h3>
                     <p>
-                      {instance.city} {instance.country}
+                      {instance.city}
+                      {instance.city && instance.country ? ", " : ""}{" "}
+                      {instance.country &&
+                        (() => {
+                          try {
+                            return new Intl.DisplayNames(["en"], {
+                              type: "region",
+                            }).of(instance.country);
+                          } catch (e) {
+                            return instance.country;
+                          }
+                        })()}
                     </p>
                   </>
                 )}
 
                 {instance?.asnName && (
                   <>
-                    <h3 className="mb-3">Autonomous System Name:</h3>
+                    <h3 className="mt-5">Autonomous System Name:</h3>
                     <p>{instance.asnName}</p>
                   </>
                 )}
