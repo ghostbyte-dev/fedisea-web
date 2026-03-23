@@ -1,6 +1,13 @@
 "use client";
 
-import { ArrowLeftIcon, Code2Icon, GlobeIcon, UsersIcon } from "lucide-react";
+import {
+  ArrowLeftIcon,
+  ChartBar,
+  ChartLineIcon,
+  Code2Icon,
+  GlobeIcon,
+  UsersIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { useInstances } from "@/hooks/instance/useInstances";
 import { useSoftware } from "@/hooks/software/useSoftware";
@@ -110,7 +117,7 @@ export default function SoftwareClient({ slug }: { slug: string }) {
 
         <section className="mt-10 mb-20">
           <div className="flex space-x-2 items-center mb-5">
-            <Code2Icon className="text-secondary" size={32} />
+            <ChartLineIcon className="text-primary" size={32} />
             <h2>Stats</h2>
           </div>
           {stats && software && (

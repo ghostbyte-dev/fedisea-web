@@ -5,7 +5,10 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon,
   ArrowUpRightIcon,
+  BoxIcon,
+  BracesIcon,
   Code2Icon,
+  CpuIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { useInstance } from "@/hooks/instance/useInstance";
@@ -173,9 +176,9 @@ export default function InstanceClient({ slug }: { slug: string }) {
             instance.country ||
             instance.city ||
             instance.asnName) && (
-            <section className="pb-20 mt-20">
+            <section className="pb-20">
               <div className="flex space-x-2 items-center mb-5">
-                <ActivityIcon className="text-secondary" size={32} />
+                <CpuIcon className="text-secondary" size={32} />
                 <h2>Technical Details</h2>
               </div>
 
@@ -226,7 +229,7 @@ export default function InstanceClient({ slug }: { slug: string }) {
 
           <section className="mb-20">
             <div className="flex space-x-2 items-center mb-5">
-              <Code2Icon className="text-secondary" size={32} />
+              <BoxIcon className="text-primary" size={32} />
               <h2>Software</h2>
             </div>
 
@@ -333,7 +336,7 @@ export default function InstanceClient({ slug }: { slug: string }) {
           {instance?.metadata && (
             <section className="pb-20 mt-20">
               <div className="flex space-x-2 items-center mb-5">
-                <Code2Icon className="text-secondary" size={32} />
+                <BracesIcon className="text-secondary" size={32} />
                 <h2>Additional Metadata</h2>
               </div>
 
