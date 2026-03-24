@@ -42,7 +42,8 @@ export type Instance = {
   country?: string,
   city?: string,
   asnName?: string,
-  metadata?: Record<string, any>;
+  metadata?: Record<string, any>,
+  lastSeen: Date
 };
 
 export type Software = {

@@ -59,6 +59,11 @@ export default function InstanceClient({ slug }: { slug: string }) {
     ? Math.min(((instance?.totalUsers ?? 0) / software.totalUsers) * 100, 100)
     : 0;
 
+  const timeFormatter = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "long",
+    timeStyle: "short",
+  });
+
   return (
     <main>
       <div className="my-container pt-10 md:pt-20">
@@ -172,71 +177,69 @@ export default function InstanceClient({ slug }: { slug: string }) {
             </div>
           </section>
 
-          {(instance?.protocols?.length !== 0 ||
-            instance.country ||
-            instance.city ||
-            instance.asnName) && (
-            <section className="pb-20">
-              <div className="flex space-x-2 items-center mb-5">
-                <CpuIcon className="text-secondary" size={32} />
-                <h2>Technical Details</h2>
-              </div>
+          <section className="pb-20">
+            <div className="flex space-x-2 items-center mb-5">
+              <CpuIcon className="text-secondary" size={32} />
+              <h2>Technical Details</h2>
+            </div>
 
-              <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
-                {instance?.protocols?.length !== 0 && (
-                  <>
-                    <h3 className="mb-3">Supported Protocols:</h3>
-                    <div className="space-y-5 pl-5">
-                      {instance?.protocols?.map((protocol) => (
-                        <div
-                          key={protocol.identifier}
-                          className="flex flex-col items-start space-y-2"
-                        >
-                          <span>{protocol.name ?? protocol.identifier}</span>
+            <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
+              {instance?.protocols?.length !== 0 && (
+                <>
+                  <h3 className="mb-3">Supported Protocols:</h3>
+                  <div className="space-y-5 pl-5">
+                    {instance?.protocols?.map((protocol) => (
+                      <div
+                        key={protocol.identifier}
+                        className="flex flex-col items-start space-y-2"
+                      >
+                        <span>{protocol.name ?? protocol.identifier}</span>
 
-                          {protocol.website && (
-                            <Button
-                              label={`More about ${protocol.name ?? protocol.identifier}`}
-                              href={protocol.website}
-                              variant="light"
-                              iconRight={ArrowUpRightIcon}
-                            />
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                )}
+                        {protocol.website && (
+                          <Button
+                            label={`More about ${protocol.name ?? protocol.identifier}`}
+                            href={protocol.website}
+                            variant="light"
+                            iconRight={ArrowUpRightIcon}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
 
-                {(instance?.country || instance?.city) && (
-                  <>
-                    <h3 className="mt-5">Server Location:</h3>
-                    <p>
-                      {instance.city}
-                      {instance.city && instance.country ? ", " : ""}{" "}
-                      {instance.country &&
-                        (() => {
-                          try {
-                            return new Intl.DisplayNames(["en"], {
-                              type: "region",
-                            }).of(instance.country);
-                          } catch (e) {
-                            return instance.country;
-                          }
-                        })()}
-                    </p>
-                  </>
-                )}
+              {(instance?.country || instance?.city) && (
+                <>
+                  <h3 className="mt-5">Server Location:</h3>
+                  <p>
+                    {instance.city}
+                    {instance.city && instance.country ? ", " : ""}{" "}
+                    {instance.country &&
+                      (() => {
+                        try {
+                          return new Intl.DisplayNames(["en"], {
+                            type: "region",
+                          }).of(instance.country);
+                        } catch (e) {
+                          return instance.country;
+                        }
+                      })()}
+                  </p>
+                </>
+              )}
 
-                {instance?.asnName && (
-                  <>
-                    <h3 className="mt-5">Autonomous System Name:</h3>
-                    <p>{instance.asnName}</p>
-                  </>
-                )}
-              </div>
-            </section>
-          )}
+              {instance?.asnName && (
+                <>
+                  <h3 className="mt-5">Autonomous System Name:</h3>
+                  <p>{instance.asnName}</p>
+                </>
+              )}
+
+              <h3 className="mt-5">Last seen:</h3>
+              {instance && <p>{timeFormatter.format(instance.lastSeen)}</p>}
+            </div>
+          </section>
 
           <section className="mb-20">
             <div className="flex space-x-2 items-center mb-5">

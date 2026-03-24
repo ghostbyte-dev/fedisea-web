@@ -29,7 +29,8 @@ export const mapInstance = (data: any): Instance => {
     country: data.country,
     city: data.city,
     asnName: data.asnName,
-    metadata: data.metadata
+    metadata: data.metadata,
+    lastSeen: new Date(data.lastSeen)
   })
 };
 
