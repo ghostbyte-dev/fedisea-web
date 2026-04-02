@@ -24,14 +24,38 @@ const sortOptions = [
   { label: "Domain", value: "domain" },
 ];
 
-const softwares = [
-  "",
-  "mastodon",
-  "lemmy",
-  "misskey",
-  "pixelfed",
-  "pleroma",
-  "loops",
+const softwareOptions = [
+  { label: "All Software", value: "" },
+  { label: "Mastodon", value: "mastodon" },
+  { label: "Pixelfed", value: "pixelfed" },
+  { label: "NodeBB", value: "NodeBB" },
+  { label: "PeerTube", value: "peertube" },
+  { label: "Lemmy", value: "lemmy" },
+  { label: "WriteFreely", value: "writefreely" },
+  { label: "Loops", value: "loops" },
+  { label: "Wordpress", value: "wordpress" },
+  { label: "Ghost", value: "ghost" },
+  { label: "Friendica", value: "friendica" },
+  { label: "Bookwyrm", value: "bookwyrm" },
+  { label: "Vernissage", value: "Vernissage" },
+  { label: "Misskey", value: "misskey" },
+  { label: "Pleroma", value: "pleroma" },
+  { label: "Sharkey", value: "sharkey" },
+  { label: "Activity-Relay", value: "activityrelay" },
+  { label: "Microblogpub", value: "microblogpub" },
+  { label: "Funkwhale", value: "funkwhale" },
+  { label: "Bonfire", value: "bonfire" },
+  { label: "Hubzilla", value: "hubzilla" },
+  { label: "Gnusocial", value: "gnusocial" },
+  { label: "Plume", value: "plume" },
+  { label: "Gotosocial", value: "gotosocial" },
+  { label: "Hometown", value: "hometown" },
+  { label: "Mitra", value: "mitra" },
+  { label: "Akkoma", value: "akkoma" },
+  { label: "Owncast", value: "owncast" },
+  { label: "Firefish", value: "firefish" },
+  { label: "Iceshrimp", value: "iceshrimp" },
+  { label: "NeoDB", value: "neodb" },
 ];
 
 export default function ServersClient() {
@@ -52,14 +76,6 @@ export default function ServersClient() {
   const [sortOrder, setSortOrder] = useState<SortDirection>(
     (searchParams.get("order") as SortDirection) || "desc",
   );
-
-  const softwareOptions = [
-    { label: "All Software", value: "" },
-    ...softwares.filter(Boolean).map((s) => ({
-      label: s.charAt(0).toUpperCase() + s.slice(1),
-      value: s,
-    })),
-  ];
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -127,6 +143,7 @@ export default function ServersClient() {
           options={softwareOptions}
           placeholder="All Software"
           clearable
+          className="min-w-44"
         />
 
         <SingleSelect

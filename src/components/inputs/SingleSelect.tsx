@@ -34,20 +34,18 @@ const SingleSelect = ({
       )}
 
       <Select.Root value={value} onValueChange={onValueChange}>
-        {/* The Button that triggers the dropdown */}
-        <Select.Trigger className="flex items-center justify-between gap-2 px-4 py-2 text-sm bg-card shadow-sm border border-border rounded-xl outline-none hover:bg-slate-800 transition-all focus:ring-2 focus:ring-primary w-full">
+        <Select.Trigger className="flex items-center justify-between gap-2 px-4 py-2 text-sm bg-card shadow-sm border border-border rounded-xl outline-none hover:bg-primary/10 transition-all focus:ring-2 focus:ring-primary/50 w-full">
           <Select.Value placeholder={placeholder} />
           <Select.Icon>
             <ChevronDown className="w-4 h-4 text-gray-500" />
           </Select.Icon>
         </Select.Trigger>
 
-        {/* Portal ensures the menu isn't cut off by parent containers */}
         <Select.Portal>
           <Select.Content
             position="popper"
             sideOffset={5}
-            className="z-[100] min-w-[var(--radix-select-trigger-width)] overflow-hidden bg-card border border-border rounded-xl shadow-2xl animate-in fade-in zoom-in-95 duration-200 backdrop-blur-md max-h-80" // Added max-h-80
+            className="z-[100] min-w-[var(--radix-select-trigger-width)] overflow-hidden bg-card border border-border rounded-xl shadow-2xl animate-in fade-in zoom-in-95 duration-200 backdrop-blur-md max-h-80"
           >
             <Select.ScrollUpButton className="flex items-center justify-center h-6 bg-[#0f172a] cursor-default text-white border-b border-border">
               <ChevronUp className="w-4 h-4" />

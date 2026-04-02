@@ -58,7 +58,7 @@ const SingleCombobox = ({
             type="button"
             role="combobox"
             aria-expanded={open}
-            className="flex items-center justify-between gap-2 px-3 py-2 min-h-[42px] bg-card text-sm border border-border rounded-xl outline-none hover:bg-slate-800 transition-all focus:ring-2 focus:ring-blue-500/50 w-full text-left"
+            className="flex items-center justify-between gap-2 px-3 py-2 min-h-[42px] bg-card text-sm border border-border rounded-xl outline-none hover:bg-primary/10 transition-all focus:ring-2 focus:ring-primary/50 w-full text-left"
           >
             <div className="flex items-center justify-between w-full truncate">
               {selectedOption ? (
@@ -94,7 +94,7 @@ const SingleCombobox = ({
                 e.preventDefault();
               }
             }}
-            className="z-50 w-(--radix-popover-trigger-width) p-0 overflow-hidden bg-card border border-border rounded-xl shadow-2xl"
+            className="z-50 min-w-(--radix-popover-trigger-width) p-0 overflow-hidden bg-card border border-border rounded-xl shadow-2xl"
           >
             <Command
               className="flex flex-col h-full w-full"
@@ -107,7 +107,7 @@ const SingleCombobox = ({
                 <Command.Input
                   placeholder="Search..."
                   autoFocus
-                  className="flex h-10 w-full bg-transparent py-3 text-sm outline-none border-none ring-0 text-white placeholder:text-gray-500 ml-2"
+                  className="flex h-10 w-full bg-transparent py-3 text-sm outline-none border-none ring-0 placeholder:text-gray-500 ml-2"
                 />
               </div>
 
@@ -127,7 +127,7 @@ const SingleCombobox = ({
                         disabled={opt.disabled}
                         onSelect={() => handleSelect(opt.value)}
                         className="relative flex items-center w-full px-8 py-2 text-sm rounded-lg outline-none cursor-default select-none 
-                                   data-[selected='true']:bg-slate-800 data-[selected='true']:text-white transition-colors"
+                                   data-[selected='true']:bg-primary data-[selected='true']:text-white transition-colors"
                       >
                         <span className="truncate">{opt.label}</span>
                         {isSelected && (
