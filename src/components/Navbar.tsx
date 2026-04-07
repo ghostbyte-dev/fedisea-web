@@ -10,12 +10,6 @@ const Navbar = () => {
 
   return (
     <div>
-      {/* Banner */}
-      <div className="w-full py-4 px-4 bg-primary text-white font-bold flex items-center justify-center text-center">
-        ⚠️ This project is still in development, so don't expect a finished
-        product ⚠️
-      </div>
-
       {/* Navbar */}
       <div className="w-full bg-primary/5 border-b border-primary/20">
         <div className="py-6 flex justify-between items-center my-container">
