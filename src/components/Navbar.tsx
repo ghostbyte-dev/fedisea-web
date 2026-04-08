@@ -15,8 +15,8 @@ const Navbar = () => {
         <div className="py-6 flex justify-between items-center my-container">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-1">
-            <div className="w-12 h-10 relative">
-              <Image src="/surfboard-logo.svg" alt="" fill />
+            <div className="w-10 h-9 relative">
+              <Image src="/logo.svg" alt="" fill />
             </div>
             <span className="text-3xl font-black">
               <span>Fedi</span>
