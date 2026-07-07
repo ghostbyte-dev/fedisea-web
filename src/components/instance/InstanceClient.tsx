@@ -197,7 +197,7 @@ export default function InstanceClient({ slug }: { slug: string }) {
                           : "/"}
                       </p>
                       <p className="text-sm text-muted-foreground font-bold mt-1">
-                        Average posts per account
+                        Average posts per user
                       </p>
                     </div>
                   </div>
@@ -240,8 +240,10 @@ export default function InstanceClient({ slug }: { slug: string }) {
 
               {instance?.version && (
                 <>
-                  <h3 className="mt-5">Software version:</h3>
-                  <p>{instance.version}</p>
+                  <h3 className="mt-5">Software:</h3>
+                  <p>
+                    {software?.name ?? instance?.software} {instance.version}
+                  </p>
                 </>
               )}
 
