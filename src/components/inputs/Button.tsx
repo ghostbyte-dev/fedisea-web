@@ -13,6 +13,7 @@ interface ButtonProps extends ComponentProps<"button"> {
   label: string;
   isLoading?: boolean;
   href?: string;
+  openInNewTab?: boolean;
   variant?: ButtonVariant;
   size?: ButtonSize;
   iconLeft?: LucideIcon;
@@ -32,6 +33,7 @@ export function Button({
   onClick,
   className = "",
   href,
+  openInNewTab = false,
   variant = "dark",
   size = "md",
   iconLeft: IconLeft,
@@ -91,7 +93,13 @@ export function Button({
 
   if (href && !isDisabled) {
     return (
-      <Link href={href} className={sharedClasses} style={style}>
+      <Link
+        href={href}
+        target={openInNewTab ? "_blank" : undefined}
+        rel={openInNewTab ? "noopener noreferrer" : undefined}
+        className={sharedClasses}
+        style={style}
+      >
         {content}
       </Link>
     );

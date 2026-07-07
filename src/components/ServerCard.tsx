@@ -96,9 +96,14 @@ const ServerCard = ({ instance, isLoading = false }: ServerCardProps) => {
                 </div>
               )}
 
-              <span className="text-[10px] text-gray-400 uppercase tracking-widest">
-                {instance.software}
-              </span>
+              <div className="flex flex-col">
+                <span className="text-[10px] text-gray-400 uppercase tracking-widest">
+                  {instance.software}
+                </span>
+                <span className="text-[10px] text-gray-400 tracking-widest">
+                  {instance.version}
+                </span>
+              </div>
             </div>
           </div>
         </Link>

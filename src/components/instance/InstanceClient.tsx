@@ -7,6 +7,8 @@ import {
   ArrowUpRightIcon,
   BoxIcon,
   BracesIcon,
+  CircleCheckIcon,
+  CircleXIcon,
   Code2Icon,
   CpuIcon,
 } from "lucide-react";
@@ -89,6 +91,20 @@ export default function InstanceClient({ slug }: { slug: string }) {
             <p className="font-bold mb-5 leading-4">{instance?.description}</p>
           )}
 
+          {instance?.openRegistration && (
+            <div className="text-primary font-bold text-sm flex space-x-1.5 items-center mb-6">
+              <CircleCheckIcon size={18} />
+              <span>Registration open</span>
+            </div>
+          )}
+
+          {instance && !instance?.openRegistration && (
+            <div className="text-secondary font-bold text-sm flex space-x-1.5 items-center mb-6">
+              <CircleXIcon size={18} />
+              <span>Registration closed</span>
+            </div>
+          )}
+
           <div className="w-full mb-4 overflow-hidden rounded-lg bg-gray-100 shrink-0">
             {instance?.thumbnail && (
               // biome-ignore lint/performance/noImgElement: <explanation>
@@ -104,6 +120,7 @@ export default function InstanceClient({ slug }: { slug: string }) {
             {instance?.domain && (
               <Button
                 href={`https://${instance?.domain}`}
+                openInNewTab={true}
                 label="Visit"
                 iconRight={ArrowUpRightIcon}
                 variant="light"
@@ -171,6 +188,18 @@ export default function InstanceClient({ slug }: { slug: string }) {
                         Local Comments
                       </p>
                     </div>
+                    <div className="bg-muted/50 rounded-xl p-4 text-center">
+                      <p className="text-2xl font-black text-foreground">
+                        {instance?.totalUsers && instance?.localPosts
+                          ? formatCompactNumber(
+                              instance.localPosts / instance.totalUsers,
+                            )
+                          : "/"}
+                      </p>
+                      <p className="text-sm text-muted-foreground font-bold mt-1">
+                        Average posts per account
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -206,6 +235,13 @@ export default function InstanceClient({ slug }: { slug: string }) {
                       </div>
                     ))}
                   </div>
+                </>
+              )}
+
+              {instance?.version && (
+                <>
+                  <h3 className="mt-5">Software version:</h3>
+                  <p>{instance.version}</p>
                 </>
               )}
 
