@@ -47,10 +47,20 @@
   .fef {
     @apply underline;
   }
+
+  .card-hover-left {
+    @apply hover:-rotate-1 transition-all duration-500 hover:scale-103;
+    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .card-hover-right {
+    @apply hover:rotate-1 transition-all duration-500 hover:scale-103;
+    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
 }
 
 @layer components {
   .card {
-    @apply p-4 bg-card border-2 border-border rounded-xl;
+    @apply p-6 md:p-8 bg-card border-2 border-border rounded-3xl;
   }
 }

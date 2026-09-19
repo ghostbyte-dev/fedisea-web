@@ -8,7 +8,7 @@ import TopServersSection from "@/components/homepage/TopServersSection";
 export default function Home() {
   return (
     <div className="">
-      <HeroSection />
+      {/* <HeroSection /> */}
       <StatsSection />
       <SoftwareDistributionSection />
       <TopServersSection />
