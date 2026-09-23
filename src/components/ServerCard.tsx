@@ -81,6 +81,15 @@ const ServerCard = ({ instance, isLoading = false }: ServerCardProps) => {
               </div>
             </div>
 
+            <div className="flex flex-col">
+              <span className="text-[10px] uppercase text-gray-400">
+                {instance.software}
+              </span>
+              <span className="text-[10px] text-gray-400 tracking-widest">
+                {instance.version}
+              </span>
+            </div>
+
             <div className="pt-4 flex items-center justify-between">
               {instance.openRegistration && (
                 <div className="text-primary font-bold text-sm flex space-x-1.5 items-center">
@@ -95,15 +104,6 @@ const ServerCard = ({ instance, isLoading = false }: ServerCardProps) => {
                   <span>Registration closed</span>
                 </div>
               )}
-
-              <div className="flex flex-col">
-                <span className="text-[10px] text-gray-400 uppercase tracking-widest">
-                  {instance.software}
-                </span>
-                <span className="text-[10px] text-gray-400 tracking-widest">
-                  {instance.version}
-                </span>
-              </div>
             </div>
           </div>
         </Link>

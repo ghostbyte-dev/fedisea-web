@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  ArrowLeftIcon,
-  ChartBar,
-  ChartLineIcon,
-  Code2Icon,
-  GlobeIcon,
-  UsersIcon,
-} from "lucide-react";
+import { ArrowLeftIcon, Code2Icon, GlobeIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { useInstances } from "@/hooks/instance/useInstances";
 import { useSoftware } from "@/hooks/software/useSoftware";
@@ -18,6 +11,7 @@ import { Button } from "../inputs/Button";
 import ServerCard from "../ServerCard";
 import SoftwareLogo from "../SoftwareLogo";
 import { StatBar } from "../StatBar";
+import SoftwareServerDistributionSection from "./SoftwareServerDistributionSection";
 import SoftwareVersionSection from "./SoftwareVersionsSection";
 
 export default function SoftwareClient({ slug }: { slug: string }) {
@@ -115,7 +109,7 @@ export default function SoftwareClient({ slug }: { slug: string }) {
           <SoftwareVersionSection software={slug} />
         </section>
 
-        <section className="mt-10 mb-20">
+        <section className="mt-10">
           {stats && software && (
             <div className="card">
               <h2 className="mb-5">Stats</h2>
@@ -209,11 +203,15 @@ export default function SoftwareClient({ slug }: { slug: string }) {
           )}
         </section>
 
-        <section className="flex flex-col">
+        {software && (
+          <SoftwareServerDistributionSection software={software.identifier} />
+        )}
+
+        <section className="mt-20 flex flex-col">
           <h2 className="mb-1">
-            Top {software?.name ?? software?.identifier} Servers
+            Largest {software?.name ?? software?.identifier} Servers
           </h2>
-          <p>Servers with the most users across the Fediverse</p>
+          <p>Servers with the most users.</p>
 
           {isLoading && <p>Searching the stars...</p>}
           {error && <p className="text-red-500">{error.message}</p>}
