@@ -52,12 +52,12 @@ const StatsSection = () => {
   const { data, error, isLoading } = useStats();
 
   return (
-    <section className="bg-[#e9f7f9] py-20 flex flex-col justify-center">
+    <section className="mt-20 flex flex-col justify-center">
       <div className="my-container flex flex-col items-cente">
         <h2 className="mb-5">The fediverse in numbers</h2>
         {error && <p className="text-red-500">{error.message}</p>}
 
-        <div className="w-full gap-6 grid grid-cols-1 md:grid-cols-3">
+        <div className="w-full gap-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
           <StatCard
             label="Known Instances"
             value={data?.totalInstances}

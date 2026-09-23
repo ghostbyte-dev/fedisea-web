@@ -42,7 +42,7 @@ const SoftwareDistributionSection = () => {
   })();
 
   return (
-    <section className="bg-[#e9f7f9] py-20 flex flex-col justify-center">
+    <section className="mt-20 flex flex-col justify-center">
       <div className="my-container flex flex-col">
         <div className="card">
           <h2 className="mb-1 text-2xl">Software distribution</h2>
