@@ -8,7 +8,7 @@ const SoftwareVersionSection = ({ software }: { software: string }) => {
   const { data, error, isLoading } = useSoftwareVersions(software, 10);
 
   return (
-    <div className="w-full">
+    <div className="w-full card">
       <h2 className="mb-3">Versions</h2>
 
       {isLoading && <p>Loading</p>}

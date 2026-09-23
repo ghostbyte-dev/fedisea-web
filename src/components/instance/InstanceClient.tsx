@@ -9,7 +9,6 @@ import {
   BracesIcon,
   CircleCheckIcon,
   CircleXIcon,
-  Code2Icon,
   CpuIcon,
 } from "lucide-react";
 import Link from "next/link";
@@ -77,64 +76,65 @@ export default function InstanceClient({ slug }: { slug: string }) {
             <ArrowLeftIcon size={18} />
             <span>All Servers</span>
           </Link>
-          <h1 className="text-4xl font-black leading-6 mb-3">
+
+          <div className="card">
+            <h1 className="text-4xl font-black leading-6 mb-3">
+              {isInstanceLoading ? (
+                <Skeleton className="h-6 w-64" />
+              ) : (
+                instance?.domain
+              )}
+            </h1>
+
             {isInstanceLoading ? (
-              <Skeleton className="h-6 w-64" />
+              <Skeleton className="h-4 w-3/4 mb-5" />
             ) : (
-              instance?.domain
+              <p className="font-bold mb-5 leading-4">
+                {instance?.description}
+              </p>
             )}
-          </h1>
 
-          {isInstanceLoading ? (
-            <Skeleton className="h-4 w-3/4 mb-5" />
-          ) : (
-            <p className="font-bold mb-5 leading-4">{instance?.description}</p>
-          )}
-
-          {instance?.openRegistration && (
-            <div className="text-primary font-bold text-sm flex space-x-1.5 items-center mb-6">
-              <CircleCheckIcon size={18} />
-              <span>Registration open</span>
-            </div>
-          )}
-
-          {instance && !instance?.openRegistration && (
-            <div className="text-secondary font-bold text-sm flex space-x-1.5 items-center mb-6">
-              <CircleXIcon size={18} />
-              <span>Registration closed</span>
-            </div>
-          )}
-
-          <div className="w-full mb-4 overflow-hidden rounded-lg bg-gray-100 shrink-0">
-            {instance?.thumbnail && (
-              // biome-ignore lint/performance/noImgElement: <explanation>
-              <img
-                src={instance.thumbnail}
-                alt={`${instance.domain} icon`}
-                className="w-full object-"
-              />
+            {instance?.openRegistration && (
+              <div className="text-primary font-bold text-sm flex space-x-1.5 items-center mb-6">
+                <CircleCheckIcon size={18} />
+                <span>Registration open</span>
+              </div>
             )}
+
+            {instance && !instance?.openRegistration && (
+              <div className="text-secondary font-bold text-sm flex space-x-1.5 items-center mb-6">
+                <CircleXIcon size={18} />
+                <span>Registration closed</span>
+              </div>
+            )}
+
+            <div className="h-10">
+              {instance?.domain && (
+                <Button
+                  href={`https://${instance?.domain}`}
+                  openInNewTab={true}
+                  label="Visit"
+                  iconRight={ArrowUpRightIcon}
+                  variant="light"
+                />
+              )}
+            </div>
+
+            <div className="w-full mt-8 overflow-hidden rounded-xl bg-gray-100 shrink-0">
+              {instance?.thumbnail && (
+                // biome-ignore lint/performance/noImgElement: <explanation>
+                <img
+                  src={instance.thumbnail}
+                  alt={`${instance.domain} icon`}
+                  className="w-full object-"
+                />
+              )}
+            </div>
           </div>
 
-          <div className="h-10">
-            {instance?.domain && (
-              <Button
-                href={`https://${instance?.domain}`}
-                openInNewTab={true}
-                label="Visit"
-                iconRight={ArrowUpRightIcon}
-                variant="light"
-              />
-            )}
-          </div>
-
-          <section className="pb-20 mt-20">
-            <div className="flex space-x-2 items-center mb-5">
-              <ActivityIcon className="text-secondary" size={32} />
-              <h2>Activity Breakdown</h2>
-            </div>
-
-            <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
+          <section className="mt-10">
+            <div className="card">
+              <h2 className="mb-5">Activity Breakdown</h2>
               <div className="space-y-5">
                 <StatBar
                   label="Monthly active users"
@@ -206,13 +206,9 @@ export default function InstanceClient({ slug }: { slug: string }) {
             </div>
           </section>
 
-          <section className="pb-20">
-            <div className="flex space-x-2 items-center mb-5">
-              <CpuIcon className="text-secondary" size={32} />
-              <h2>Technical Details</h2>
-            </div>
-
-            <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
+          <section className="mt-10">
+            <div className="card">
+              <h2 className="mb-5">Technical Details</h2>
               {instance?.protocols?.length !== 0 && (
                 <>
                   <h3 className="mb-3">Supported Protocols:</h3>
@@ -279,13 +275,9 @@ export default function InstanceClient({ slug }: { slug: string }) {
             </div>
           </section>
 
-          <section className="mb-20">
-            <div className="flex space-x-2 items-center mb-5">
-              <BoxIcon className="text-primary" size={32} />
-              <h2>Software</h2>
-            </div>
-
-            <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
+          <section className="mt-10">
+            <div className="card">
+              <h2 className="mb-5">Software</h2>
               <div>
                 <div className="flex space-x-3 mb-12">
                   {isSoftwareLoading || isInstanceLoading ? (
@@ -387,12 +379,8 @@ export default function InstanceClient({ slug }: { slug: string }) {
 
           {instance?.metadata && (
             <section className="pb-20 mt-20">
-              <div className="flex space-x-2 items-center mb-5">
-                <BracesIcon className="text-secondary" size={32} />
-                <h2>Additional Metadata</h2>
-              </div>
-
-              <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8 shadow-sm">
+              <div className="card">
+                <h2 className="mb-5">Additional Metadata</h2>
                 <MetadataTree data={instance.metadata} />
               </div>
             </section>

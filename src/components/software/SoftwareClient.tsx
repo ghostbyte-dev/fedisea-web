@@ -70,7 +70,7 @@ export default function SoftwareClient({ slug }: { slug: string }) {
             <span>All Software</span>
           </Link>
           {software && (
-            <div className="flex space-x-3">
+            <div className="flex space-x-3 card">
               <SoftwareLogo url={software.iconUrl} size={64} />
               <div>
                 <h1>{software.name ?? software.identifier}</h1>
@@ -111,17 +111,14 @@ export default function SoftwareClient({ slug }: { slug: string }) {
           )}
         </section>
 
-        <section className="my-20">
+        <section className="mt-10">
           <SoftwareVersionSection software={slug} />
         </section>
 
         <section className="mt-10 mb-20">
-          <div className="flex space-x-2 items-center mb-5">
-            <ChartLineIcon className="text-primary" size={32} />
-            <h2>Stats</h2>
-          </div>
           {stats && software && (
-            <div className="bg-card border-2 border-border rounded-2xl p-6 md:p-8">
+            <div className="card">
+              <h2 className="mb-5">Stats</h2>
               <h3>Total servers</h3>
               <StatBar
                 label={`${software.name ?? software.identifier} servers`}
@@ -212,8 +209,8 @@ export default function SoftwareClient({ slug }: { slug: string }) {
           )}
         </section>
 
-        <section className="flex flex-col items-center">
-          <h2 className="mb-3">
+        <section className="flex flex-col">
+          <h2 className="mb-1">
             Top {software?.name ?? software?.identifier} Servers
           </h2>
           <p>Servers with the most users across the Fediverse</p>
